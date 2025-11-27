@@ -1,0 +1,5 @@
+RuleType,RuleName,Order,Targets,NodeColor,NodeHoverColor,OutlineColor,OutlineHoverColor,OutlineThickness,OutlineHoverThickness,NodeSize,SizeMode,CustomNodeSize,LineColor,LineHoverColor,LineThickness,LineHoverThickness,BackgroundColor,ChartBorderX1,ChartBorderY1,ChartBorderX2,ChartBorderY2
+Default,,,,#000000,#FFD241,#E3E3E3,#FFD241,4,5,,custom,36,#000000,#FFD241,3,5,#E3E3E3,,,,
+Entity,Gwyn,0,Gwyn Morgan,#000000,,#e3e3e3,,4,,130,,,#000000,,3,,,,,,
+Entity,Canada Proud Sattelites,1,Alberta Proud|Canada Strong and Proud/Proud to Be a Canadian|Fierement Nouveau-Brunswick|Manitoba Strong|Newfoundland Proud|Nova Scotia Proud|Nationbuilder|Ontario Strong|Proudly New Brunswick|Quebec Fier|Quebec Strong|Saskatchewan Strong|West Coast Proud|Quebec Proud,#000000,,#e3e3e3,,4,,36,,,#000000,,3,,,,,,
+Entity,Small Ppl,2,Andrew Coyne|Brian Felesky|Ezra Levant/Rebel News|Michael Binnion,#000000,,#e3e3e3,,4,,36,,,#000000,,3,,,,,,
