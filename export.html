@@ -88,9 +88,9 @@
 
     /* INFO PANEL (RIGHT) */
     #info-panel {
-      width: 292px;
-      min-width: 292px;
-      max-width: 292px;
+      width: 500px;
+      min-width: 500px;
+      max-width: 500px;
       background: var(--panel-grey);
       color: var(--text-black);
       padding: 12px;
@@ -182,6 +182,11 @@
     
     #search-btn:hover, #clear-btn:hover {
       background: var(--light-yellow);
+    }
+    
+    /* Hide search buttons in story mode */
+    .story-mode-hide {
+      display: none !important;
     }
 
     #suggestions { 
@@ -584,6 +589,7 @@
   let viewsData = [];
   let viewsById = new Map();
   let entityViewsMap = new Map();
+  let entityHighlightsMap = new Map(); // entity name -> Set of view IDs where it should be highlighted
   let viewEntitiesCache = new Map();
   let isStoryMode = false;
   let currentViewIndex = 0;
@@ -872,6 +878,16 @@
   function loadFormattingData(data) {
     if (!data || data.length === 0) return;
     
+    // Clean headers (remove extra spaces)
+    data.forEach(r => { 
+      Object.keys(r).forEach(k => { 
+        if (k !== k.trim()) { 
+          r[k.trim()] = r[k]; 
+          delete r[k]; 
+        } 
+      }); 
+    });
+    
     conditionalFormats = [];
     
     data.forEach(row => {
@@ -895,21 +911,28 @@
       } else if (row.RuleType === 'Entity' || row.RuleType === 'Category') {
         const targets = row.Targets ? row.Targets.split('|').map(t => t.trim()).filter(t => t) : [];
         
+        const parsedNodeSize = row.NodeSize ? parseFloat(row.NodeSize) : null;
+        const parsedNodeColor = row.NodeColor || null;
+        const parsedOutlineColor = row.OutlineColor || null;
+        const parsedOutlineThickness = row.OutlineThickness ? parseFloat(row.OutlineThickness) : null;
+        const parsedLineColor = row.LineColor || null;
+        const parsedLineThickness = row.LineThickness ? parseFloat(row.LineThickness) : null;
+        
         conditionalFormats.push({
           type: row.RuleType.toLowerCase(),
           name: row.RuleName || 'Unnamed Rule',
           order: parseInt(row.Order) || conditionalFormats.length,
           targets: targets,
-          nodeEnabled: row.NodeEnabled === 'TRUE',
-          nodeColor: row.NodeColor || null,
-          outlineEnabled: row.OutlineEnabled === 'TRUE',
-          outlineColor: row.OutlineColor || null,
-          outlineThickness: row.OutlineThickness ? parseFloat(row.OutlineThickness) : null,
-          sizeEnabled: row.SizeEnabled === 'TRUE',
-          nodeSize: row.NodeSize ? parseFloat(row.NodeSize) : null,
-          lineEnabled: row.LineEnabled === 'TRUE',
-          lineColor: row.LineColor || null,
-          lineThickness: row.LineThickness ? parseFloat(row.LineThickness) : null
+          nodeEnabled: parsedNodeColor ? true : (String(row.NodeEnabled).toLowerCase() === 'true'),
+          nodeColor: parsedNodeColor,
+          outlineEnabled: (parsedOutlineColor || parsedOutlineThickness) ? true : (String(row.OutlineEnabled).toLowerCase() === 'true'),
+          outlineColor: parsedOutlineColor,
+          outlineThickness: parsedOutlineThickness,
+          sizeEnabled: parsedNodeSize ? true : (String(row.SizeEnabled).toLowerCase() === 'true'),
+          nodeSize: parsedNodeSize,
+          lineEnabled: (parsedLineColor || parsedLineThickness) ? true : (String(row.LineEnabled).toLowerCase() === 'true'),
+          lineColor: parsedLineColor,
+          lineThickness: parsedLineThickness
         });
       }
     });
@@ -1084,8 +1107,13 @@
         n.unfixedY = newY;
       }
       
-      // Scale node radius (baseR stays constant, r is the displayed size)
-      n.r = orig.baseR * currentScaleFactor;
+      // Scale node radius - check for conditional format first
+      const format = getNodeFormat(n);
+      if (format?.sizeEnabled && format?.nodeSize) {
+        n.r = (format.nodeSize * currentScaleFactor) / 2;
+      } else {
+        n.r = orig.baseR * currentScaleFactor;
+      }
     });
     
     // Update collision force with new radii
@@ -1134,8 +1162,8 @@
   function createNodeFromData(d, i) {
     const id = d['Entity Name'] ? String(d['Entity Name']).trim() : `__P_${i}`;
     
-    const show = d['Show'] === undefined ? true : (d['Show'] === 'TRUE' || d['Show'] === '1' || d['Show'] === true);
-    const isFixed = d['Fixed'] === 'TRUE' || d['Fixed'] === '1' || d['Fixed'] === true;
+    const show = d['Show'] === undefined ? true : (String(d['Show']).toUpperCase() === 'TRUE' || d['Show'] === '1' || d['Show'] === true);
+    const isFixed = String(d['Fixed']).toUpperCase() === 'TRUE' || d['Fixed'] === '1' || d['Fixed'] === true;
     const savedX = parseFloat(d['X']);
     const savedY = parseFloat(d['Y']);
     
@@ -1232,14 +1260,21 @@
 
   function buildEntityViewsMap(entitiesData) {
     entityViewsMap.clear();
+    entityHighlightsMap.clear();
     
     entitiesData.forEach(row => {
       const entityName = String(row['Entity Name'] || '').trim();
       const viewsStr = String(row['Views'] || '').trim();
+      const highlightStr = String(row['View Highlight'] || '').trim();
       
       if (entityName && viewsStr) {
         const viewIds = viewsStr.split(',').map(id => id.trim()).filter(id => id);
         entityViewsMap.set(entityName, viewIds);
+      }
+      
+      if (entityName && highlightStr) {
+        const highlightViewIds = highlightStr.split(',').map(id => id.trim()).filter(id => id);
+        entityHighlightsMap.set(entityName, new Set(highlightViewIds));
       }
     });
   }
@@ -1313,13 +1348,19 @@
     document.getElementById('node-links').style.display = 'none';
     connectionsBox.style.display = 'none';
     
+    // Hide search controls and clear button in story mode
+    document.getElementById('controls').classList.add('story-mode-hide');
+    clearBtn.classList.add('story-mode-hide');
+    
     // Show story UI elements
     storyNavContainer.classList.add('active');
     viewContent.classList.add('active');
     
     // Display current view
     updateStoryModeUI();
-    render();
+    
+    // Animate pan & zoom to first view's nodes
+    animateToViewNodes();
   }
 
   function exitStoryMode() {
@@ -1329,11 +1370,20 @@
     selectedNode = null;
     hideEntityModal();
     
+    // Reset zoom and pan
+    zoomLevel = 1.0;
+    panX = 0;
+    panY = 0;
+    
     // Show normal UI elements
     updateStoryButtonVisibility();
     nodeInfo.style.display = 'block';
     document.getElementById('node-links').style.display = 'block';
     connectionsBox.style.display = 'block';
+    
+    // Show search controls and clear button when exiting story mode
+    document.getElementById('controls').classList.remove('story-mode-hide');
+    clearBtn.classList.remove('story-mode-hide');
     
     // Hide story UI elements
     storyNavContainer.classList.remove('active');
@@ -1356,7 +1406,93 @@
     hideEntityModal();
     
     updateStoryModeUI();
-    render();
+    
+    // Animate pan & zoom to focus on current view nodes
+    animateToViewNodes();
+  }
+  
+  function animateToViewNodes() {
+    const viewId = sortedViewIds[currentViewIndex];
+    const viewEntities = new Set(viewEntitiesCache.get(viewId) || []);
+    
+    // Filter nodes in current view
+    const viewNodes = nodes.filter(n => viewEntities.has(n.id));
+    
+    if (viewNodes.length === 0) {
+      render();
+      return;
+    }
+    
+    // Calculate bounding box of view nodes including their radii
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    
+    viewNodes.forEach(n => {
+      const radius = n.r || 15; // Use actual node radius
+      minX = Math.min(minX, n.x - radius);
+      maxX = Math.max(maxX, n.x + radius);
+      minY = Math.min(minY, n.y - radius);
+      maxY = Math.max(maxY, n.y + radius);
+    });
+    
+    const width = maxX - minX;
+    const height = maxY - minY;
+    const dataCenterX = (minX + maxX) / 2;
+    const dataCenterY = (minY + maxY) / 2;
+    
+    // Calculate target zoom to fit all nodes with padding
+    const canvasWidth = canvas.width / devicePixelRatio;
+    const canvasHeight = canvas.height / devicePixelRatio;
+    const canvasCenterX = canvasWidth / 2;
+    const canvasCenterY = canvasHeight / 2;
+    const padding = 150; // padding in pixels
+    
+    const targetZoomX = width > 0 ? (canvasWidth - padding * 2) / width : 1.5;
+    const targetZoomY = height > 0 ? (canvasHeight - padding * 2) / height : 1.5;
+    let targetZoom = Math.min(targetZoomX, targetZoomY);
+    
+    // Clamp zoom to configured limits
+    targetZoom = Math.max(CONFIG.zoomMin, Math.min(CONFIG.zoomMax, targetZoom));
+    
+    // Calculate target pan to center the nodes
+    // Based on the transform: screen = (data - canvasCenter) * zoom + pan + canvasCenter
+    // To center data at canvasCenter: pan = -(data - canvasCenter) * zoom
+    const targetPanX = -(dataCenterX - canvasCenterX) * targetZoom;
+    const targetPanY = -(dataCenterY - canvasCenterY) * targetZoom;
+    
+    // Store starting values
+    const startZoom = zoomLevel;
+    const startPanX = panX;
+    const startPanY = panY;
+    
+    // Animation parameters
+    const duration = 600; // milliseconds
+    const startTime = Date.now();
+    
+    function animate() {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Ease-in-out function for smooth animation
+      const eased = progress < 0.5 
+        ? 2 * progress * progress 
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      
+      // Interpolate zoom and pan
+      zoomLevel = startZoom + (targetZoom - startZoom) * eased;
+      panX = startPanX + (targetPanX - startPanX) * eased;
+      panY = startPanY + (targetPanY - startPanY) * eased;
+      
+      render();
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    }
+    
+    animate();
   }
 
   function updateStoryModeUI() {
@@ -1403,12 +1539,12 @@
 
     const rawLink = (d.raw && (d.raw['Link'] || d.raw['Link '])) || '';
     const safe = normalizeUrl(rawLink);
-    const rawMoreInfo = (d.raw && (d.raw['More Info'] || d.raw['More Info'])) || '';
+    const rawMoreInfo = (d.raw && (d.raw['DeSmog Profile'] || d.raw['DeSmog Profile'])) || '';
     const safeMoreInfo = normalizeUrl(rawMoreInfo);
 
     let links = [];
     if (safe) links.push(`<a href="${safe}" target="_blank" rel="noopener">More Info</a>`);
-    if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">More Info</a>`);
+    if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">DeSmog Profile</a>`);
     const linksHTML = links.length > 0 ? links.join(' | ') : '';
 
     entityModalTitle.html(`
@@ -1660,11 +1796,23 @@
     const isHovered = hoveredNode && n === hoveredNode;
     const isSelected = selectedNode && n === selectedNode;
     
-    // Use hover colors/thickness if node is hovered OR selected
+    // Check if this node is connected to the hovered node
+    const isConnectedToHovered = hoveredNode && hoveredNode !== n && 
+                                  adjacency.get(hoveredNode.id)?.has(n.id);
+    
+    // Check if this node should be highlighted in the current view (Story Mode)
+    let isHighlightedInView = false;
+    if (isStoryMode && sortedViewIds.length > 0) {
+      const currentViewId = sortedViewIds[currentViewIndex];
+      const highlightViews = entityHighlightsMap.get(n.id);
+      isHighlightedInView = highlightViews && highlightViews.has(currentViewId);
+    }
+    
+    // Use hover colors/thickness if node is hovered OR selected OR highlighted in current view
     // Only use conditional format if the respective section is enabled
     const nodeColor = isHovered ? formattingSettings.nodeHoverColor : (format?.nodeEnabled && format?.nodeColor ? format.nodeColor : formattingSettings.nodeColor);
-    const outlineColor = (isHovered || isSelected) ? formattingSettings.outlineHoverColor : (format?.outlineEnabled && format?.outlineColor ? format.outlineColor : formattingSettings.outlineColor);
-    const baseOutlineThickness = (isHovered || isSelected) ? formattingSettings.outlineHoverThickness : (format?.outlineEnabled && format?.outlineThickness ? format.outlineThickness : formattingSettings.outlineThickness);
+    const outlineColor = (isHovered || isSelected || isConnectedToHovered || isHighlightedInView) ? formattingSettings.outlineHoverColor : (format?.outlineEnabled && format?.outlineColor ? format.outlineColor : formattingSettings.outlineColor);
+    const baseOutlineThickness = (isHovered || isSelected || isConnectedToHovered || isHighlightedInView) ? formattingSettings.outlineHoverThickness : (format?.outlineEnabled && format?.outlineThickness ? format.outlineThickness : formattingSettings.outlineThickness);
     
     // Scale outline thickness with the current scale factor
     const outlineThickness = baseOutlineThickness * currentScaleFactor;
@@ -2165,15 +2313,25 @@
   const infoPanel = document.getElementById('info-panel');
   
   function togglePanel() {
+    const wasCollapsed = infoPanel.classList.contains('collapsed');
     const isCollapsed = infoPanel.classList.toggle('collapsed');
     panelToggleBtn.textContent = isCollapsed ? '◀' : '▶';
     
-    // Resize canvas after transition and rescale nodes
+    // Calculate the offset change (panel is 500px when expanded)
+    const panelWidth = 500;
+    const offsetChange = isCollapsed ? panelWidth / 2 : -panelWidth / 2;
+    
+    // Resize canvas after transition
     setTimeout(() => {
       resizeCanvas();
-      if (nodes.length > 0 && originalDataBounds) {
-        scaleNodesToFit();
-      }
+      
+      // Adjust all node positions to recenter them
+      nodes.forEach(n => {
+        n.x += offsetChange;
+        if (n.fx !== undefined) n.fx += offsetChange;
+        if (n.unfixedX !== null) n.unfixedX += offsetChange;
+      });
+      
       render();
     }, 320);
   }
@@ -2197,12 +2355,12 @@
 
     const rawLink = (d.raw && (d.raw['Link'] || d.raw['Link '])) || '';
     const safe = normalizeUrl(rawLink);
-    const rawMoreInfo = (d.raw && (d.raw['More Info'] || d.raw['More Info'])) || '';
+    const rawMoreInfo = (d.raw && (d.raw['DeSmog Profile'] || d.raw['DeSmog Profile'])) || '';
     const safeMoreInfo = normalizeUrl(rawMoreInfo);
 
     let links = [];
     if (safe) links.push(`<a href="${safe}" target="_blank" rel="noopener">More Info</a>`);
-    if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">More Info</a>`);
+    if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">DeSmog Profile</a>`);
     const linksHTML = links.length > 0 ? links.join(' | ') : '';
 
     nodeTitleEl.html(`

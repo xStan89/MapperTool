@@ -69,22 +69,34 @@
     
     .button-row {
       display: grid;
-      grid-template-columns: repeat(4, 0fr);
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 6px;
       margin-bottom: 4px;
       margin-top: 4px;
+      margin-left: 12px;
+      margin-right: 12px;
       justify-content: center;
+    }
+    
+    .icon-btn.save-btn {
+      grid-column: 4;
+      grid-row: 1 / 3;
     }
     
     .icon-btn {
       flex: 1;
-      padding: 0px;
+      padding: 4px;
       border-radius: 6px;
       border: none;
       cursor: pointer;
       font-family: var(--font-family);
       font-size: 12px;
       transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     
     .add-btn {
@@ -133,7 +145,8 @@
       }
     }
     
-    #file-input, #file-input-add {
+    #file-input-entities, #file-input-connections, #file-input-formatting,
+    #file-input-add-entities, #file-input-add-connections, #file-input-add-formatting {
       display: none;
     }
     
@@ -212,7 +225,7 @@
       padding-top: 13px;
       padding-bottom: 12px;
       padding-left: 4px;
-      padding-right: 4px;
+      padding-right: 0px;
       width: 258px;
       height: 42px;
       background: var(--shadow-grey);
@@ -674,95 +687,6 @@
       background: var(--text-black);
     }
 
-    /* EXPORT CONTROLS */
-    #export-controls {
-      position: fixed ;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px;
-      background: var(--highlight-white);
-      border: 2px solid var(--text-black);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      z-index: 1000;
-    }
-    
-    .export-control-btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: var(--font-family);
-      font-weight: 700;
-      font-size: 13px;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    
-    .export-control-btn.export {
-      background: var(--main-yellow);
-      color: var(--text-black);
-    }
-    
-    .export-control-btn.export:hover {
-      background: var(--light-yellow);
-    }
-    
-    .export-control-btn.redraw {
-      background: var(--panel-grey);
-      color: var(--text-black);
-    }
-    
-    .export-control-btn.redraw:hover {
-      background: var(--shadow-grey);
-    }
-    
-    .export-control-btn.cancel {
-      background: var(--error-red);
-      color: white;
-    }
-    
-    .export-control-btn.cancel:hover {
-      background: #b91c1c;
-    }
-
-    /* EXPORT OPTIONS MODAL */
-    #export-options-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-    }
-    
-    .export-options-box {
-      background: var(--highlight-white);
-      border: 2px solid var(--text-black);
-      border-radius: 8px;
-      padding: 24px;
-      max-width: 500px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    
-    .export-options-title {
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: var(--text-black);
-      font-weight: 700;
-    }
-    
-    .export-options-content {
-      font-size: 14px;
-      color: var(--text-black);
-      margin-bottom: 20px;
-    }
 
     /* Disabled overlay */
     .disabled-overlay {
@@ -791,21 +715,40 @@
             </a>
           </p>
 
-          <input type="file" id="file-input" accept=".csv" multiple />
-          <input type="file" id="file-input-add" accept=".csv" multiple />
+          <input type="file" id="file-input-entities" accept=".csv" />
+          <input type="file" id="file-input-connections" accept=".csv" />
+          <input type="file" id="file-input-formatting" accept=".csv" />
+          <input type="file" id="file-input-add-entities" accept=".csv" />
+          <input type="file" id="file-input-add-connections" accept=".csv" />
+          <input type="file" id="file-input-add-formatting" accept=".csv" />
 
           <div class="button-row">
-            <button class="icon-btn upload-btn" onclick="document.getElementById('file-input').click()" title="Upload Data">
-              <img src="https://i.ibb.co/RGrjNhL8/upicon1.png" alt="Upload Data" style="width:50px; height:50px;">
+            <button class="icon-btn upload-btn" onclick="document.getElementById('file-input-entities').click()" title="Upload Entities">
+              <img src="https://i.ibb.co/HfxVTtr4/upE.png" alt="Upload Entities" style="width:40px; height:40px;">
+              <!-- <div style="font-size: 10px; margin-top: 2px;">Replace Entities.csv</div> -->
             </button>
-            <button class="icon-btn add-btn" onclick="document.getElementById('file-input-add').click()" title="Add Data">
-              <img src="https://i.ibb.co/CKnp0BFb/addicon1.png" alt="Add Data" style="width:50px; height:50px;">
+            <button class="icon-btn upload-btn" onclick="document.getElementById('file-input-connections').click()" title="Upload Connections">
+              <img src="https://i.ibb.co/LBG9j3L/upC.png" alt="Upload Connections" style="width:40px; height:40px;">
+              <!-- <div style="font-size: 10px; margin-top: 2px;">Replace Connections.csv</div> -->
             </button>
-            <button class="icon-btn download-btn" id="download-btn" onclick="handleDownload()" title="Save">
-              <img src="https://i.ibb.co/TxQ2pJWK/downicon1.png" alt="Save" style="width:50px; height:50px;">
+            <button class="icon-btn upload-btn" onclick="document.getElementById('file-input-formatting').click()" title="Upload Formatting">
+              <img src="https://i.ibb.co/pHD1d7N/upF.png" alt="Upload Formatting" style="width:40px; height:40px;">
+              <!-- <div style="font-size: 10px; margin-top: 2px;">Replace Formatting.csv</div> -->
             </button>
-            <button class="icon-btn download-btn" id="export-chart-btn" onclick="startExportMode()" title="Export">
-              <img src="https://i.ibb.co/5hGjh8K7/exicon1.png" alt="Export" style="width:46px; height:46px; color: var(--text-black);">
+            <button class="icon-btn download-btn save-btn" id="download-btn" onclick="handleDownload()" title="Save">
+              <img src="https://i.ibb.co/9kyv57Pz/downicon1.png" alt="Save" style="width:50px; height:50px;">
+            </button>
+            <button class="icon-btn add-btn" onclick="document.getElementById('file-input-add-entities').click()" title="Add Entities">
+              <img src="https://i.ibb.co/XxYLrMM2/addE.png" alt="Add Entities" style="width:40px; height:40px;">
+              <!-- <div style="font-size: 10px; margin-top: 2px;">Add Entities.csv</div> -->
+            </button>
+            <button class="icon-btn add-btn" onclick="document.getElementById('file-input-add-connections').click()" title="Add Connections">
+              <img src="https://i.ibb.co/Rkrn72kj/addC.png" alt="Add Connections" style="width:40px; height:40px;">
+              <!-- <div style="font-size: 10px; margin-top: 2px;">Add Connections.csv</div> -->
+            </button>
+            <button class="icon-btn add-btn" onclick="document.getElementById('file-input-add-formatting').click()" title="Add Formatting">
+              <img src="https://i.ibb.co/Zzk0nbN2/downF.png" alt="Add Formatting" style="width:40px; height:40px;">
+              <!-- <div style="font-size: 10px; margin-top: 2px;">Add Formatting.csv</div> -->
             </button>
           </div>
 
@@ -1043,25 +986,6 @@
     </div>
   </div>
 
-  <!-- Export Controls -->
-  <div id="export-controls">
-    <button style="width: 180px" class="export-control-btn export" onclick="showExportOptions()">EMBED OPTIONS</button>
-    <button style="width: 180px" class="export-control-btn redraw" onclick="redrawBorder()">RE-DRAW BORDER</button>
-    <button style="width: 180px" class="export-control-btn cancel" onclick="cancelExport()">CANCEL EXPORT</button>
-  </div>
-
-  <!-- Export Options Modal -->
-  <div id="export-options-modal">
-    <div class="export-options-box">
-      <div class="export-options-title">Export Options</div>
-      <div class="export-options-content">
-        <label>Embed options TBD</label>
-      </div>
-      <div class="confirm-buttons">
-        <button class="confirm-btn confirm-no" onclick="closeExportOptions()">Close</button>
-      </div>
-    </div>
-  </div>
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
@@ -1146,12 +1070,6 @@
   let conditionalFormats = []; // Array of format rules: {type, name, order, targets, nodeColor, outlineColor, outlineThickness, nodeSize, lineColor, lineThickness}
   let currentFormatRule = 'default'; // 'default' or index in conditionalFormats array
 
-  // Chart Border State
-  let chartBorderArea = null; // {x1, y1, x2, y2}
-  let isDrawingChartBorder = false;
-  let chartBorderStartPoint = null;
-  let chartBorderPreviewEnd = null;
-  let isExportMode = false; // Track if we're in export mode
 
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d', { alpha: false });
@@ -1174,14 +1092,16 @@
   const zoomInBtn = document.getElementById('zoom-in');
   const zoomOutBtn = document.getElementById('zoom-out');
   const zoomResetBtn = document.getElementById('zoom-reset');
-  const fileInput = document.getElementById('file-input');
-  const fileInputAdd = document.getElementById('file-input-add');
+  const fileInputEntities = document.getElementById('file-input-entities');
+  const fileInputConnections = document.getElementById('file-input-connections');
+  const fileInputFormatting = document.getElementById('file-input-formatting');
+  const fileInputAddEntities = document.getElementById('file-input-add-entities');
+  const fileInputAddConnections = document.getElementById('file-input-add-connections');
+  const fileInputAddFormatting = document.getElementById('file-input-add-formatting');
   const statusMsg = document.getElementById('status-msg');
   const downloadBtn = document.getElementById('download-btn');
   const confirmDialog = document.getElementById('confirm-dialog');
   const confirmMessage = document.getElementById('confirm-message');
-  const exportControls = document.getElementById('export-controls');
-  const exportOptionsModal = document.getElementById('export-options-modal');
   
   // Inline rule editing elements
   const formatRuleSelector = document.getElementById('format-rule-selector');
@@ -1506,6 +1426,12 @@
   fmtCustomSize.addEventListener('input', (e) => {
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].nodeSize = parseFloat(e.target.value);
+      // Ensure sizeEnabled is also true
+      if (!conditionalFormats[currentEditingRuleIndex].sizeEnabled) {
+        conditionalFormats[currentEditingRuleIndex].sizeEnabled = true;
+        fmtSizeEnabled.checked = true;
+        updateSectionState(sizeSection, true);
+      }
       invalidateFormatCache();
       applyNodeSizeScale();
       schedulePhysicsRestart();
@@ -1592,6 +1518,12 @@
     updateSectionState(sizeSection, fmtSizeEnabled.checked);
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].sizeEnabled = fmtSizeEnabled.checked;
+      // If disabling the section, also disable custom size
+      if (!fmtSizeEnabled.checked) {
+        fmtCustomSizeEnabled.checked = false;
+        customSizeControl.style.display = 'none';
+        conditionalFormats[currentEditingRuleIndex].nodeSize = null;
+      }
       invalidateFormatCache();
       applyNodeSizeScale();
       schedulePhysicsRestart();
@@ -1656,9 +1588,8 @@
     fmtSizeEnabled.style.display = 'inline-block';
     fmtLineEnabled.style.display = 'inline-block';
     
-    // Show custom size control within size section (instead of separate checkbox)
-    customSizeCheckboxControl.style.display = 'none';
-    customSizeControl.style.display = 'flex';
+    // Show custom size checkbox control for conditional rules
+    customSizeCheckboxControl.style.display = 'flex';
     
     // Set targets label
     ruleTargetsLabel.textContent = type === 'entity' ? 'ENTITIES' : 'CATEGORIES';
@@ -1689,9 +1620,20 @@
       updateSectionState(sizeSection, fmtSizeEnabled.checked);
       updateSectionState(lineSection, fmtLineEnabled.checked);
       
-      // Set custom size value if available
-      if (rule.nodeSize) {
+      // Set custom size checkbox and value based on whether nodeSize exists
+      if (rule.nodeSize !== null && rule.nodeSize !== undefined) {
+        fmtCustomSizeEnabled.checked = true;
+        customSizeControl.style.display = 'flex';
         fmtCustomSize.value = rule.nodeSize;
+        // If nodeSize exists, sizeEnabled should also be true
+        if (!rule.sizeEnabled) {
+          rule.sizeEnabled = true;
+          fmtSizeEnabled.checked = true;
+          updateSectionState(sizeSection, true);
+        }
+      } else {
+        fmtCustomSizeEnabled.checked = false;
+        customSizeControl.style.display = 'none';
       }
     } else {
       // New rule - disable controls until name is entered
@@ -1704,6 +1646,10 @@
       fmtOutlineEnabled.checked = false;
       fmtSizeEnabled.checked = false;
       fmtLineEnabled.checked = false;
+      
+      // Default custom size checkbox to OFF and hide size input
+      fmtCustomSizeEnabled.checked = false;
+      customSizeControl.style.display = 'none';
       
       // Set all sections to disabled state
       updateSectionState(nodeSection, false);
@@ -1815,7 +1761,7 @@
         outlineColor: fmtOutlineColor.value,
         outlineThickness: parseFloat(fmtOutlineThickness.value),
         sizeEnabled: fmtSizeEnabled.checked,
-        nodeSize: parseFloat(fmtCustomSize.value) || 20,
+        nodeSize: fmtCustomSizeEnabled.checked ? (parseFloat(fmtCustomSize.value) || 20) : null,
         lineEnabled: fmtLineEnabled.checked,
         lineColor: fmtLineColor.value,
         lineThickness: parseFloat(fmtLineThickness.value)
@@ -1947,6 +1893,12 @@
     if (fmtCustomSizeEnabled.checked) {
       customSizeControl.style.display = 'flex';
       if (currentEditingRuleIndex !== null) {
+        // Also enable the NODE SIZE section if not already enabled
+        if (!fmtSizeEnabled.checked) {
+          fmtSizeEnabled.checked = true;
+          updateSectionState(sizeSection, true);
+          conditionalFormats[currentEditingRuleIndex].sizeEnabled = true;
+        }
         conditionalFormats[currentEditingRuleIndex].nodeSize = parseFloat(fmtCustomSize.value) || 20;
         invalidateFormatCache();
         applyNodeSizeScale();
@@ -2031,7 +1983,7 @@
         fmtNodeColor.value = rule.nodeColor || formattingSettings.nodeColor;
         fmtOutlineColor.value = rule.outlineColor || formattingSettings.outlineColor;
         fmtOutlineThickness.value = rule.outlineThickness || formattingSettings.outlineThickness;
-        fmtCustomSize.value = rule.nodeSize || 20;
+        // nodeSize is already handled by showRuleEditInterface
         fmtLineColor.value = rule.lineColor || formattingSettings.lineColor;
         fmtLineThickness.value = rule.lineThickness || formattingSettings.lineThickness;
       }
@@ -2204,39 +2156,128 @@
   });
 
   /************************************************************************
-   * FILE UPLOAD - REPLACE
+   * FILE UPLOAD STATE TRACKING
    ************************************************************************/
-  fileInput.addEventListener('change', async (e) => {
-    await handleFileUpload(e.target.files, false);
-    fileInput.value = '';
+  let pendingFiles = {
+    entities: null,
+    connections: null,
+    formatting: null
+  };
+  
+  let pendingAddFiles = {
+    entities: null,
+    connections: null,
+    formatting: null
+  };
+
+  /************************************************************************
+   * FILE UPLOAD - REPLACE (Individual Files)
+   ************************************************************************/
+  fileInputEntities.addEventListener('change', async (e) => {
+    if (e.target.files[0]) {
+      pendingFiles.entities = e.target.files[0];
+      await processUpload(false);
+    }
+    fileInputEntities.value = '';
+  });
+
+  fileInputConnections.addEventListener('change', async (e) => {
+    if (e.target.files[0]) {
+      pendingFiles.connections = e.target.files[0];
+      await processUpload(false);
+    }
+    fileInputConnections.value = '';
+  });
+
+  fileInputFormatting.addEventListener('change', async (e) => {
+    if (e.target.files[0]) {
+      pendingFiles.formatting = e.target.files[0];
+      // If entities and connections were already processed, load formatting immediately
+      if (!pendingFiles.entities && !pendingFiles.connections && nodes.length > 0) {
+        await loadFormattingFileOnly(pendingFiles.formatting);
+        pendingFiles.formatting = null;
+      } else {
+        await processUpload(false);
+      }
+    }
+    fileInputFormatting.value = '';
   });
 
   /************************************************************************
-   * FILE UPLOAD - ADD
+   * FILE UPLOAD - ADD (Individual Files)
    ************************************************************************/
-  fileInputAdd.addEventListener('change', async (e) => {
-    await handleFileUpload(e.target.files, true);
-    fileInputAdd.value = '';
+  fileInputAddEntities.addEventListener('change', async (e) => {
+    if (e.target.files[0]) {
+      pendingAddFiles.entities = e.target.files[0];
+      await processUpload(true);
+    }
+    fileInputAddEntities.value = '';
   });
 
+  fileInputAddConnections.addEventListener('change', async (e) => {
+    if (e.target.files[0]) {
+      pendingAddFiles.connections = e.target.files[0];
+      await processUpload(true);
+    }
+    fileInputAddConnections.value = '';
+  });
+
+  fileInputAddFormatting.addEventListener('change', async (e) => {
+    if (e.target.files[0]) {
+      pendingAddFiles.formatting = e.target.files[0];
+      // If entities and connections were already processed, load formatting immediately
+      if (!pendingAddFiles.entities && !pendingAddFiles.connections && nodes.length > 0) {
+        await loadFormattingFileOnly(pendingAddFiles.formatting);
+        pendingAddFiles.formatting = null;
+      } else {
+        await processUpload(true);
+      }
+    }
+    fileInputAddFormatting.value = '';
+  });
+
+  async function processUpload(isAppend) {
+    const files = isAppend ? pendingAddFiles : pendingFiles;
+    
+    // Check if we have the minimum required files (entities and connections)
+    if (!files.entities || !files.connections) {
+      // Don't show error yet - user is still uploading files
+      return;
+    }
+    
+    // We have enough files to proceed
+    await handleFileUpload(files, isAppend);
+    
+    // Clear the pending files after successful upload
+    if (isAppend) {
+      pendingAddFiles = { entities: null, connections: null, formatting: null };
+    } else {
+      pendingFiles = { entities: null, connections: null, formatting: null };
+    }
+  }
+
+  async function loadFormattingFileOnly(file) {
+    if (!file) return;
+    
+    try {
+      const formattingData = await parseCSVFile(file);
+      loadFormattingData(formattingData);
+      updateNodeSizes();  // Apply size mode and custom size settings
+      schedulePhysicsRestart();  // Restart physics with new sizes
+      showStatus('Formatting loaded successfully', 'success');
+      invalidateFormatCache();
+      render();
+    } catch (err) {
+      console.error('Formatting file parse error', err);
+      showStatus('Failed to parse formatting file', 'error');
+    }
+  }
+
   async function handleFileUpload(files, isAppend) {
-    const filesArray = Array.from(files);
-    
-    if (filesArray.length === 0) return;
-    
-    if (filesArray.length < 2 || filesArray.length > 3) {
-      showStatus('Please select Entities.csv, Connections.csv, and optionally Formatting.csv', 'error');
-      return;
-    }
-    
-    const entitiesFile = filesArray.find(f => f.name.toLowerCase().includes('entities'));
-    const connectionsFile = filesArray.find(f => f.name.toLowerCase().includes('connections') || f.name.toLowerCase().includes('links'));
-    const formattingFile = filesArray.find(f => f.name.toLowerCase().includes('formatting'));
-    
-    if (!entitiesFile || !connectionsFile) {
-      showStatus('Files must include "Entities" and "Connections" (or "Links") in their names', 'error');
-      return;
-    }
+    const entitiesFile = files.entities;
+    const connectionsFile = files.connections;
+    const formattingFile = files.formatting;
+
     
     loadingOverlay.style.display = 'flex';
     loadingText.textContent = isAppend ? 'Adding CSVs...' : 'Loading CSVs...';
@@ -2295,7 +2336,7 @@
     
     // Process each row
     data.forEach(row => {
-      if (row.RuleType === 'Default' || !row.RuleType) {
+      if ((row.RuleType && row.RuleType.toLowerCase() === 'default') || !row.RuleType) {
         // Load default formatting settings
         if (row.NodeColor) {
           formattingSettings.nodeColor = row.NodeColor;
@@ -2342,20 +2383,11 @@
           fmtBgColor.value = row.BackgroundColor;
           document.documentElement.style.setProperty('--bg-white', row.BackgroundColor);
         }
-        // Load chart border area
-        if (row.ChartBorderX1 && row.ChartBorderY1 && row.ChartBorderX2 && row.ChartBorderY2) {
-          chartBorderArea = {
-            x1: parseFloat(row.ChartBorderX1),
-            y1: parseFloat(row.ChartBorderY1),
-            x2: parseFloat(row.ChartBorderX2),
-            y2: parseFloat(row.ChartBorderY2)
-          };
-        }
         // Load size mode settings
         if (row.SizeMode) {
-          formattingSettings.nodeSizeMode = row.SizeMode;
-          fmtSizeMode.value = row.SizeMode;
-          if (row.SizeMode === 'custom') {
+          formattingSettings.nodeSizeMode = row.SizeMode.toLowerCase();
+          fmtSizeMode.value = row.SizeMode.toLowerCase();
+          if (row.SizeMode.toLowerCase() === 'custom') {
             customSizeControl.style.display = 'flex';
           } else {
             customSizeControl.style.display = 'none';
@@ -2365,23 +2397,26 @@
           formattingSettings.customNodeSize = parseFloat(row.CustomNodeSize);
           fmtCustomSize.value = row.CustomNodeSize;
         }
-      } else if (row.RuleType === 'Entity' || row.RuleType === 'Category') {
+      } else if (row.RuleType && (row.RuleType.toLowerCase() === 'entity' || row.RuleType.toLowerCase() === 'category')) {
         // Load conditional format rule
         const targets = row.Targets ? row.Targets.split('|').map(t => t.trim()).filter(t => t) : [];
+        
+        const parsedNodeSize = row.NodeSize ? parseFloat(row.NodeSize) : null;
+        const parsedSizeEnabled = String(row.SizeEnabled).toLowerCase() === 'true';
         
         conditionalFormats.push({
           type: row.RuleType.toLowerCase(),
           name: row.RuleName || 'Unnamed Rule',
           order: parseInt(row.Order) || conditionalFormats.length,
           targets: targets,
-          nodeEnabled: row.NodeEnabled === 'true',
+          nodeEnabled: String(row.NodeEnabled).toLowerCase() === 'true',
           nodeColor: row.NodeColor || null,
-          outlineEnabled: row.OutlineEnabled === 'true',
+          outlineEnabled: String(row.OutlineEnabled).toLowerCase() === 'true',
           outlineColor: row.OutlineColor || null,
           outlineThickness: row.OutlineThickness ? parseFloat(row.OutlineThickness) : null,
-          sizeEnabled: row.SizeEnabled === 'true',
-          nodeSize: row.NodeSize ? parseFloat(row.NodeSize) : null,
-          lineEnabled: row.LineEnabled === 'true',
+          sizeEnabled: parsedNodeSize ? true : parsedSizeEnabled,  // Auto-enable if nodeSize exists
+          nodeSize: parsedNodeSize,
+          lineEnabled: String(row.LineEnabled).toLowerCase() === 'true',
           lineColor: row.LineColor || null,
           lineThickness: row.LineThickness ? parseFloat(row.LineThickness) : null
         });
@@ -2394,6 +2429,7 @@
     // Update the dropdown
     updateFormatRuleSelector();
     invalidateFormatCache();
+    applyNodeSizeScale();
   }
 
   function showStatus(msg, type = 'success') {
@@ -2579,7 +2615,8 @@
       sourceName: (r['A']||'').toString().trim(),
       targetName: (r['B']||'').toString().trim(),
       value: +((r['Link Size']||r['LinkSize']) || 1) || 1,
-      source: (r['Source']||'').toString().trim()
+      source: (r['Source']||'').toString().trim(),
+      raw: r  // Store the entire original row
     })).filter(l => l.sourceName && l.targetName);
 
     // Add missing nodes from links
@@ -2634,7 +2671,8 @@
       source: nodeById.get(l.sourceName), 
       target: nodeById.get(l.targetName), 
       value: l.value,
-      sourceUrl: l.source
+      sourceUrl: l.source,
+      raw: l.raw  // Include the raw data
     })).filter(l => l.source && l.target);
   }
 
@@ -2927,31 +2965,43 @@
   }
 
   function generateEntitiesCSV() {
-    const data = nodes.map(n => ({
-      'Entity Name': n.name,
-      'Description': n.raw['Description'] || '',
-      'Category': n.raw['Category'] || '',
-      'Area': n.raw['Area'] || '',
-      'Sub Area': n.raw['Sub Area'] || '',
-      'Image': n.raw['Image'] || '',
-      'Link': n.raw['Link'] || '',
-      'More Info': n.raw['More Info'] || '',
-      'Show': n.show,
-      'Fixed': n.isFixed,
-      'X': n.isFixed ? n.x.toFixed(2) : '',
-      'Y': n.isFixed ? n.y.toFixed(2) : ''
-    }));
+    const data = nodes.map(n => {
+      // Start with all original columns from raw data
+      const row = { ...n.raw };
+      
+      // Override/add the known columns with current values
+      row['Entity Name'] = n.name;
+      row['Description'] = n.raw['Description'] || '';
+      row['Category'] = n.raw['Category'] || '';
+      row['Area'] = n.raw['Area'] || '';
+      row['Sub Area'] = n.raw['Sub Area'] || '';
+      row['Image'] = n.raw['Image'] || '';
+      row['Link'] = n.raw['Link'] || '';
+      row['More Info'] = n.raw['More Info'] || '';
+      row['Show'] = n.show;
+      row['Fixed'] = n.isFixed;
+      row['X'] = n.isFixed ? n.x.toFixed(2) : '';
+      row['Y'] = n.isFixed ? n.y.toFixed(2) : '';
+      
+      return row;
+    });
     
     return Papa.unparse(data);
   }
 
   function generateConnectionsCSV() {
-    const data = links.map(l => ({
-      'A': l.source.id || l.source,
-      'B': l.target.id || l.target,
-      'Link Size': l.value || 1,
-      'Source': l.sourceUrl || ''
-    }));
+    const data = links.map(l => {
+      // Start with all original columns from raw data (if it exists)
+      const row = l.raw ? { ...l.raw } : {};
+      
+      // Override/add the known columns with current values
+      row['A'] = l.source.id || l.source;
+      row['B'] = l.target.id || l.target;
+      row['Link Size'] = l.value || 1;
+      row['Source'] = l.sourceUrl || '';
+      
+      return row;
+    });
     
     return Papa.unparse(data);
   }
@@ -2979,10 +3029,6 @@
       'LineThickness': formattingSettings.lineThickness,
       'LineHoverThickness': formattingSettings.lineHoverThickness,
       'BackgroundColor': formattingSettings.backgroundColor,
-      'ChartBorderX1': chartBorderArea ? chartBorderArea.x1 : '',
-      'ChartBorderY1': chartBorderArea ? chartBorderArea.y1 : '',
-      'ChartBorderX2': chartBorderArea ? chartBorderArea.x2 : '',
-      'ChartBorderY2': chartBorderArea ? chartBorderArea.y2 : ''
     });
     
     // Add conditional format rules
@@ -3010,10 +3056,6 @@
         'LineThickness': rule.lineThickness || '',
         'LineHoverThickness': '',
         'BackgroundColor': '',
-        'ChartBorderX1': '',
-        'ChartBorderY1': '',
-        'ChartBorderX2': '',
-        'ChartBorderY2': ''
       });
     });
     
@@ -3326,41 +3368,6 @@
   /************************************************************************
    * CHART BORDER DRAWING
    ************************************************************************/
-  function drawChartBorder() {
-    if (!chartBorderArea) return;
-    
-    ctx.save();
-    ctx.strokeStyle = '#020202';
-    ctx.lineWidth = 2 / zoomLevel;
-    ctx.setLineDash([10 / zoomLevel, 5 / zoomLevel]);
-    
-    const x1 = Math.min(chartBorderArea.x1, chartBorderArea.x2);
-    const y1 = Math.min(chartBorderArea.y1, chartBorderArea.y2);
-    const x2 = Math.max(chartBorderArea.x1, chartBorderArea.x2);
-    const y2 = Math.max(chartBorderArea.y1, chartBorderArea.y2);
-    
-    ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
-    
-    ctx.restore();
-  }
-
-  function drawChartBorderPreview() {
-    if (!chartBorderStartPoint || !chartBorderPreviewEnd) return;
-    
-    ctx.save();
-    ctx.strokeStyle = '#020202';
-    ctx.lineWidth = 2 / zoomLevel;
-    ctx.setLineDash([10 / zoomLevel, 5 / zoomLevel]);
-    
-    const x1 = Math.min(chartBorderStartPoint.x, chartBorderPreviewEnd.x);
-    const y1 = Math.min(chartBorderStartPoint.y, chartBorderPreviewEnd.y);
-    const x2 = Math.max(chartBorderStartPoint.x, chartBorderPreviewEnd.x);
-    const y2 = Math.max(chartBorderStartPoint.y, chartBorderPreviewEnd.y);
-    
-    ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
-    
-    ctx.restore();
-  }
 
   function render() {
     animationTime = Date.now();
@@ -3401,21 +3408,14 @@
 
     highlightedNodes.forEach(n => drawNode(n, CONFIG.pointOpacity, CONFIG.showImages));
 
-    // Draw grid OVER nodes when dragging or drawing chart border
-    if (isDraggingNode || isDrawingChartBorder) {
+    // Draw grid OVER nodes when dragging
+    if (isDraggingNode) {
       ctx.restore();
       ctx.save();
       applyTransform();
       drawGrid();
     }
 
-    // Draw chart border
-    drawChartBorder();
-    
-    // Draw chart border preview
-    if (isDrawingChartBorder) {
-      drawChartBorderPreview();
-    }
 
     if (selectedNode) {
       highlightedNodes.forEach(n => {
@@ -3485,9 +3485,7 @@
   }
 
   function updateCanvasCursor() {
-    if (isDrawingChartBorder) {
-      canvas.style.cursor = 'crosshair';
-    } else if (isDragging || isDraggingNode) {
+    if (isDragging || isDraggingNode) {
       canvas.style.cursor = 'grabbing';
     } else if (zoomLevel > 1.0) {
       canvas.style.cursor = 'grab';
@@ -3497,60 +3495,10 @@
   }
 
   canvas.addEventListener('mousedown', (evt) => {
-    // Prevent interaction if in export mode (except for drawing)
-    if (isExportMode && !isDrawingChartBorder) {
-      return;
-    }
     
     didDrag = false; // Reset drag flag for new interaction
     const pos = getCanvasPos(evt);
     
-    // Handle chart border drawing
-    if (isDrawingChartBorder) {
-      if (!chartBorderStartPoint) {
-        // First click - set start point
-        const snapped = snapToGrid(pos.x, pos.y);
-        chartBorderStartPoint = snapped;
-        chartBorderPreviewEnd = snapped;
-        render();
-      } else {
-        // Second click - complete the rectangle
-        const snapped = snapToGrid(pos.x, pos.y);
-        chartBorderArea = {
-          x1: chartBorderStartPoint.x,
-          y1: chartBorderStartPoint.y,
-          x2: snapped.x,
-          y2: snapped.y
-        };
-        
-        // Exit drawing mode
-        isDrawingChartBorder = false;
-        chartBorderStartPoint = null;
-        chartBorderPreviewEnd = null;
-        
-        // If in export mode, show export controls
-        if (isExportMode) {
-          // Calculate center of the drawn rectangle in screen coordinates
-          const rect = canvas.getBoundingClientRect();
-          const centerWorldX = (chartBorderArea.x1 + chartBorderArea.x2) / 2;
-          const centerWorldY = (chartBorderArea.y1 + chartBorderArea.y2) / 2;
-          
-          // Transform to screen coordinates
-          const centerX = (canvas.width/devicePixelRatio) / 2;
-          const centerY = (canvas.height/devicePixelRatio) / 2;
-          const screenX = ((centerWorldX - centerX) * zoomLevel + panX + centerX) * rect.width / (canvas.width / devicePixelRatio);
-          const screenY = ((centerWorldY - centerY) * zoomLevel + panY + centerY) * rect.height / (canvas.height / devicePixelRatio);
-          
-          showExportControls(rect.left + screenX - 150, rect.top + screenY - 25);
-        } else {
-          markDirty();
-        }
-        
-        updateCanvasCursor();
-        render();
-      }
-      return;
-    }
     
     const n = findNodeAtPos(pos.x, pos.y);
     
@@ -3598,19 +3546,6 @@
   });
 
   canvas.addEventListener('mousemove', (evt) => {
-    // Only allow drawing preview in export mode
-    if (isExportMode && !isDrawingChartBorder) {
-      return;
-    }
-    
-    // Handle chart border drawing preview
-    if (isDrawingChartBorder && chartBorderStartPoint) {
-      const pos = getCanvasPos(evt);
-      const snapped = snapToGrid(pos.x, pos.y);
-      chartBorderPreviewEnd = snapped;
-      render();
-      return;
-    }
     
     if (isDraggingNode && draggedNode) {
       didDrag = true; // Mark that actual dragging occurred
@@ -3776,242 +3711,6 @@
   zoomOutBtn.addEventListener('click', zoomOut);
   zoomResetBtn.addEventListener('click', resetZoom);
 
-  /************************************************************************
-   * EXPORT MODE FUNCTIONS
-   ************************************************************************/
-  function startExportMode() {
-    if (isExportMode) return; // Already in export mode
-    
-    isExportMode = true;
-    isDrawingChartBorder = true;
-    chartBorderStartPoint = null;
-    chartBorderPreviewEnd = null;
-    
-    // Disable other UI elements
-    disableUIForExport();
-    
-    updateCanvasCursor();
-    render();
-  }
-
-  function disableUIForExport() {
-    // Add disabled overlay class to panels
-    const entityManager = document.getElementById('entity-manager');
-    const infoPanel = document.getElementById('info-panel');
-    const zoomControls = document.getElementById('zoom-controls');
-    
-    entityManager.classList.add('disabled-overlay');
-    infoPanel.classList.add('disabled-overlay');
-    zoomControls.classList.add('disabled-overlay');
-  }
-
-  function enableUIAfterExport() {
-    // Remove disabled overlay class from panels
-    const entityManager = document.getElementById('entity-manager');
-    const infoPanel = document.getElementById('info-panel');
-    const zoomControls = document.getElementById('zoom-controls');
-    
-    entityManager.classList.remove('disabled-overlay');
-    infoPanel.classList.remove('disabled-overlay');
-    zoomControls.classList.remove('disabled-overlay');
-  }
-
-  function showExportControls(x, y) {
-    exportControls.style.display = 'flex';
-    exportControls.style.left = x + 'px';
-    exportControls.style.top = y + 'px';
-  }
-
-  function hideExportControls() {
-    exportControls.style.display = 'none';
-  }
-
-
-  /************************************************************************
-   * EXPORT IFRAME GENERATION
-   ************************************************************************/
-  function serializeChartData() {
-    // Serialize nodes with their current positions and formatting
-    const serializedNodes = nodes.map(n => ({
-      id: n.id,
-      name: n.name,
-      x: n.x,
-      y: n.y,
-      color: n.color || formattingSettings.nodeColor,
-      size: n.size || formattingSettings.customNodeSize,
-      labelSize: n.labelSize,
-      labelColor: n.labelColor,
-      image: n.image,
-      raw: n.raw
-    }));
-
-    // Serialize links with their formatting
-    const serializedLinks = links.map(l => ({
-      source: typeof l.source === 'object' ? l.source.id : l.source,
-      target: typeof l.target === 'object' ? l.target.id : l.target,
-      color: l.color || formattingSettings.lineColor,
-      width: l.width || formattingSettings.lineThickness
-    }));
-
-    return {
-      nodes: serializedNodes,
-      links: serializedLinks
-    };
-  }
-
-  function calculateExportViewport() {
-    if (!chartBorderArea) return { x: 0, y: 0, zoom: 1, width: 800, height: 600 };
-
-    const { x1, y1, x2, y2 } = chartBorderArea;
-    const width = Math.abs(x2 - x1);
-    const height = Math.abs(y2 - y1);
-    
-    // Get canvas center for Tool.html's transform
-    const centerX = (canvas.width / devicePixelRatio) / 2;
-    const centerY = (canvas.height / devicePixelRatio) / 2;
-    
-    // Convert rectangle top-left corner from screen space to world space
-    // Tool.html transform: screenX = (worldX - centerX) * zoom + centerX + panX
-    // Solving for worldX: worldX = (screenX - centerX - panX) / zoom + centerX
-    const worldX1 = (x1 - centerX - panX) / zoomLevel + centerX;
-    const worldY1 = (y1 - centerY - panY) / zoomLevel + centerY;
-    
-    // For Export.html using D3 transform: screenX = worldX * zoom + translateX
-    // We want worldX1 to appear at screen position 0
-    // 0 = worldX1 * zoomLevel + translateX
-    // translateX = -worldX1 * zoomLevel
-    const translateX = -worldX1 * zoomLevel;
-    const translateY = -worldY1 * zoomLevel;
-    
-    return {
-      x: translateX,
-      y: translateY,
-      zoom: zoomLevel,
-      width: Math.round(width),
-      height: Math.round(height)
-    };
-  }
-
-  function generateIframeCode() {
-    const chartData = serializeChartData();
-    const viewport = calculateExportViewport();
-    
-    const dataString = JSON.stringify(chartData);
-    const dataSize = new Blob([dataString]).size;
-    
-    // URL has practical limit around 2000 chars for compatibility
-    // If data is large, use localStorage approach
-    let iframeUrl;
-    
-    if (dataSize > 1500) {
-      // Use localStorage for large data
-      const dataKey = 'chartData_' + Date.now();
-      localStorage.setItem(dataKey, dataString);
-      
-      iframeUrl = `Export.html?dataKey=${dataKey}&x=${viewport.x}&y=${viewport.y}&zoom=${viewport.zoom}`;
-    } else {
-      // Use URL parameter for small data
-      const base64Data = btoa(dataString);
-      iframeUrl = `Export.html?data=${encodeURIComponent(base64Data)}&x=${viewport.x}&y=${viewport.y}&zoom=${viewport.zoom}`;
-    }
-    
-    const iframeCode = `<iframe src="${iframeUrl}" width="${viewport.width}" height="${viewport.height}" frameborder="0" style="border: none;"></iframe>`;
-    
-    return iframeCode;
-  }
-
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      // Show success feedback
-      const copyBtn = document.getElementById('copy-iframe-btn');
-      if (copyBtn) {
-        const originalText = copyBtn.textContent;
-        copyBtn.textContent = 'Copied!';
-        copyBtn.style.background = 'var(--main-yellow)';
-        setTimeout(() => {
-          copyBtn.textContent = originalText;
-          copyBtn.style.background = '';
-        }, 2000);
-      }
-    }).catch(err => {
-      console.error('Failed to copy:', err);
-      alert('Failed to copy to clipboard. Please copy manually.');
-    });
-  }
-
-  function showExportOptions() {
-    const iframeCode = generateIframeCode();
-    
-    // Update the export options content with the iframe code
-    const exportOptionsContent = document.querySelector('.export-options-content');
-    exportOptionsContent.innerHTML = `
-      <div style="margin-bottom: 16px;">
-        <label style="display: block; margin-bottom: 8px; font-weight: 700;">Embed Code:</label>
-        <textarea id="iframe-code-textarea" readonly style="
-          width: 100%;
-          height: 120px;
-          font-family: 'Courier New', monospace;
-          font-size: 12px;
-          padding: 12px;
-          border: 1px solid var(--shadow-grey);
-          border-radius: 6px;
-          background: var(--highlight-white);
-          color: var(--text-black);
-          resize: vertical;
-          box-sizing: border-box;
-        ">${iframeCode}</textarea>
-      </div>
-      <button id="copy-iframe-btn" style="
-        width: 100%;
-        padding: 10px;
-        background: var(--main-yellow);
-        color: var(--text-black);
-        border: 0px solid var(--shadow-grey);
-        border-radius: 6px;
-        font-family: var(--font-family);
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.2s;
-      " onmouseover="this.style.background='var(--light-yellow)'" onmouseout="this.style.background='var(--light-yellow)'">
-        Copy to Clipboard
-      </button>
-    `;
-    
-    // Add click handler for copy button
-    document.getElementById('copy-iframe-btn').addEventListener('click', () => {
-      copyToClipboard(iframeCode);
-    });
-    
-    exportOptionsModal.style.display = 'flex';
-  }
-
-
-  function closeExportOptions() {
-    exportOptionsModal.style.display = 'none';
-  }
-
-  function redrawBorder() {
-    hideExportControls();
-    chartBorderArea = null;
-    isDrawingChartBorder = true;
-    chartBorderStartPoint = null;
-    chartBorderPreviewEnd = null;
-    updateCanvasCursor();
-    render();
-  }
-
-  function cancelExport() {
-    hideExportControls();
-    isExportMode = false;
-    isDrawingChartBorder = false;
-    chartBorderStartPoint = null;
-    chartBorderPreviewEnd = null;
-    chartBorderArea = null;
-    enableUIAfterExport();
-    updateCanvasCursor();
-    render();
-  }
 
   /************************************************************************
    * INFO PANEL
