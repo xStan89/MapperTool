@@ -88,65 +88,22 @@
 
     /* INFO PANEL (RIGHT) */
     #info-panel {
-      width: 500px;
-      min-width: 500px;
-      max-width: 500px;
-      background: var(--panel-grey);
+      width: 37vw;
+      height: 100vw;
+      min-width: 250px;  /* minimum size on small screens */
+      max-width: 37vw;
+      background: var(--highlight-white);
       color: var(--text-black);
       padding: 12px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      border-left: 1px solid var(--shadow-grey);
-      font-size: 13px;
+      border-left: 1px solid var(--highlight-white);
+      font-size: 14px;
       height: 100vh;
       overflow: hidden;
       transition: width 0.3s ease, min-width 0.3s ease, max-width 0.3s ease, padding 0.3s ease;
       position: relative;
-    }
-    
-    #info-panel.collapsed {
-      width: 0;
-      min-width: 0;
-      max-width: 0;
-      padding: 0;
-      border-left: none;
-      overflow: hidden;
-    }
-    
-    #info-panel.collapsed > * {
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    /* PANEL TOGGLE BUTTON */
-    #panel-toggle {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      z-index: 15;
-      padding: 40px 4px;
-      border-radius: 4px 0 0 4px;
-      border: none;
-      cursor: pointer;
-      background: var(--panel-grey);
-      color: var(--text-black);
-      font-size: 12px;
-      font-family: var(--font-family);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-left: 1px solid var(--shadow-grey);
-      border-top: 1px solid var(--shadow-grey);
-      border-bottom: 1px solid var(--shadow-grey);
-    }
-    
-    #panel-toggle:hover {
-      background: var(--light-yellow);
-      border-left: 1px solid var(--light-yellow);
-      border-top: 1px solid var(--light-yellow);
-      border-bottom: 1px solid var(--light-yellow);
     }
     
     #controls { 
@@ -210,7 +167,7 @@
     #node-info { 
       margin-top: 8px; 
       padding: 8px; 
-      background: var(--panel-grey); 
+      background: var(--highlight-white); 
       border-radius: 6px; 
       flex-shrink: 0;
     }
@@ -224,7 +181,7 @@
 
     #connections-box {
       margin-top: -6px;
-      background: var(--light-grey);
+      background: var(--highlight-white);
       border-radius: 6px;
       padding: 6px;
       overflow: auto;
@@ -235,7 +192,7 @@
     .conn-item {
       padding: 6px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-black);
       border-bottom: 1px dashed var(--shadow-grey);
     }
@@ -243,7 +200,7 @@
       background: var(--light-yellow); 
     }
 
-    #msg { margin-top: 6px; color: var(--error-red); font-size: 13px; min-height: 18px; }
+    #msg { margin-top: 6px; color: var(--error-red); font-size: 14px; min-height: 18px; }
 
     /* LOADING OVERLAY */
     #loading-overlay {
@@ -400,7 +357,7 @@
     }
 
     .view-progress {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--shadow-grey);
       margin-bottom: 12px;
@@ -416,16 +373,18 @@
     }
 
     .view-text {
-      font-size: 15px;
+      font-size: 16px;
       line-height: 1.5;
       white-space: pre-wrap;
       word-wrap: break-word;
+      max-height: 33vw;
+      overflow-y: auto;
     }
 
-    /* responsive */
+    /* responsive
     @media (max-width: 900px) { 
       #info-panel { width: 260px; min-width: 260px; max-width: 260px; } 
-    }
+    } */
   </style>
 </head>
 <body>
@@ -437,7 +396,6 @@
         <img src="https://i.ibb.co/RXfZbS8/De-Smog-Logo-small.png" alt="Logo">
       </div>
       
-      <button id="panel-toggle" title="Toggle Panel">▶</button>
       
       <div id="top-controls">
         <div id="zoom-controls">
@@ -458,13 +416,10 @@
         <div id="search-box">
           <input id="search-input" placeholder="Search..." />
           <button id="search-btn">Search</button>
+          <button id="clear-btn">Clear</button>
         </div>
       </div>
-
-      <button id="clear-btn" style="margin-bottom: 8px; flex-shrink: 0;">Clear Selection</button>
-
       <button id="story-btn">Start Story</button>
-
       <div id="suggestions"></div>
 
       <div id="view-content">
@@ -566,6 +521,7 @@
   let nodeById = new Map();
   let adjacency = new Map();
   let connectionSources = new Map();
+  let connectionTexts = new Map();
   let nameIndex = [];
   let simulation = null;
   let selectedNode = null;
@@ -1196,7 +1152,9 @@
       sourceName: (r['A']||'').toString().trim(),
       targetName: (r['B']||'').toString().trim(),
       value: +((r['Link Size']||r['LinkSize']) || 1) || 1,
-      source: (r['Source']||'').toString().trim()
+      source: (r['Source']||'').toString().trim(),
+      note: (r['Note']||'').toString().trim(),
+      text: (r['Text']||'').toString().trim()
     })).filter(l => l.sourceName && l.targetName);
 
     // Add missing nodes from links
@@ -1254,7 +1212,9 @@
       source: nodeById.get(l.sourceName),
       target: nodeById.get(l.targetName),
       value: l.value,
-      sourceUrl: l.source
+      sourceUrl: l.source,
+      note: l.note,
+      text: l.text
     })).filter(l => l.source && l.target);
   }
 
@@ -1309,6 +1269,7 @@
   function buildAdjacency() {
     adjacency.clear();
     connectionSources.clear();
+    connectionTexts.clear();
     
     links.forEach(l => {
       const sId = l.source.id;
@@ -1325,6 +1286,14 @@
         if (!connectionSources.has(tId)) connectionSources.set(tId, new Map());
         connectionSources.get(sId).set(tId, l.sourceUrl);
         connectionSources.get(tId).set(sId, l.sourceUrl);
+      }
+      
+      // Track text descriptions for connections
+      if (l.text) {
+        if (!connectionTexts.has(sId)) connectionTexts.set(sId, new Map());
+        if (!connectionTexts.has(tId)) connectionTexts.set(tId, new Map());
+        connectionTexts.get(sId).set(tId, l.text);
+        connectionTexts.get(tId).set(sId, l.text);
       }
     });
   }
@@ -1502,7 +1471,7 @@
     if (!view) return;
     
     // Update progress
-    viewProgress.textContent = `View ${currentViewIndex + 1} of ${sortedViewIds.length}`;
+    viewProgress.textContent = `Page ${currentViewIndex + 1} of ${sortedViewIds.length}`;
     
     // Update title
     viewTitle.textContent = view.title;
@@ -1552,12 +1521,13 @@
         <span>${d.name}</span>
         ${d.image ? `<img src="${d.image}" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">` : ''}
       </div>
-      ${category ? `<div style="font-size: 15px; font-weight: bold; margin-top: 6px;">${category.replace(/\n/g, '<br>')}</div>` : ''}
-      ${desc ? `<div style="font-size: 13px; font-weight: normal;">${desc}</div>` : ''}
+      ${category ? `<div style="font-size: 16px; font-weight: bold; margin-top: 6px;">${category.replace(/\n/g, '<br>')}</div>` : ''}
+      <br>
+      ${desc ? `<div style="font-size: 14px; font-weight: normal; max-height: 350px; overflow-y: auto; margin-top: 6px;">${desc.replace(/\n/g, '<br>')}</div>` : ''}
       ${linksHTML ? `<div style="margin-top: 8px;">${linksHTML}</div>` : ''}
       <div style="font-size: 14px; font-weight: bold; margin-top: 6px;">
         <br>
-        <br>Connected to: 
+        <br>Connections: 
       </div>
     `);
 
@@ -1589,6 +1559,7 @@
     
     const frag = document.createDocumentFragment();
     const nodeSourceMap = connectionSources.get(d.id);
+    const nodeTextsMap = connectionTexts.get(d.id);
     
     filteredConns.forEach(name => {
       const item = document.createElement('div');
@@ -1599,7 +1570,9 @@
       item.style.gap = '8px';
       
       const nameSpan = document.createElement('span');
-      nameSpan.textContent = name;
+      // Display the text description if available, otherwise fall back to node name
+      const textDesc = nodeTextsMap ? nodeTextsMap.get(name) : null;
+      nameSpan.textContent = textDesc || name;
       nameSpan.style.flex = '1';
       nameSpan.style.cursor = 'pointer';
       nameSpan.addEventListener('click', () => {
@@ -1760,6 +1733,141 @@
     ctx.quadraticCurveTo(x, y, x + r, y);
   }
 
+  function drawArrowHead(x1, y1, x2, y2, lineColor, lineThickness) {
+    // Calculate direction vector
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const length = Math.sqrt(dx * dx + dy * dy);
+    
+    if (length === 0) return;
+    
+    // Normalize direction
+    const ux = dx / length;
+    const uy = dy / length;
+    
+    // Arrow dimensions (scaled with line thickness)
+    const arrowLength = Math.max(8, lineThickness * 3) / zoomLevel;
+    const arrowWidth = Math.max(5, lineThickness * 2) / zoomLevel;
+    
+    // Arrow tip position (at the target point)
+    const tipX = x2;
+    const tipY = y2;
+    
+    // Base of arrow
+    const baseX = tipX - ux * arrowLength;
+    const baseY = tipY - uy * arrowLength;
+    
+    // Perpendicular vector for arrow wings
+    const px = -uy;
+    const py = ux;
+    
+    // Arrow points
+    const leftX = baseX + px * arrowWidth;
+    const leftY = baseY + py * arrowWidth;
+    const rightX = baseX - px * arrowWidth;
+    const rightY = baseY - py * arrowWidth;
+    
+    // Draw filled arrow head
+    ctx.save();
+    ctx.fillStyle = lineColor;
+    ctx.beginPath();
+    ctx.moveTo(tipX, tipY);
+    ctx.lineTo(leftX, leftY);
+    ctx.lineTo(rightX, rightY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawChevronLabel(x1, y1, x2, y2, text, lineColor) {
+    if (!text || text.trim() === '') return;
+    
+    // Calculate midpoint
+    const midX = (x1 + x2) / 2;
+    const midY = (y1 + y2) / 2;
+    
+    // Calculate direction vector
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const length = Math.sqrt(dx * dx + dy * dy);
+    
+    if (length === 0) return;
+    
+    // Normalize direction
+    const ux = dx / length;
+    const uy = dy / length;
+    
+    // Perpendicular vector
+    const px = -uy;
+    const py = ux;
+    
+    // Text measurements
+    ctx.save();
+    const fontSize = Math.max(10, 12 / zoomLevel);
+    ctx.font = `${fontSize}px Rubik, Arial, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const metrics = ctx.measureText(text);
+    const textWidth = metrics.width;
+    
+    // Chevron dimensions
+    const padding = 6 / zoomLevel;
+    const chevronWidth = textWidth + padding * 2;
+    const chevronHeight = fontSize + padding * 2;
+    const chevronPointSize = chevronHeight * 0.4;
+    
+    // Calculate chevron points (pointing in direction of arrow)
+    const halfHeight = chevronHeight / 2;
+    
+    // Left side
+    const leftBaseX = midX - ux * chevronWidth / 2;
+    const leftBaseY = midY - uy * chevronWidth / 2;
+    const leftTopX = leftBaseX + px * halfHeight;
+    const leftTopY = leftBaseY + py * halfHeight;
+    const leftBottomX = leftBaseX - px * halfHeight;
+    const leftBottomY = leftBaseY - py * halfHeight;
+    
+    // Right side (with point)
+    const rightBaseX = midX + ux * chevronWidth / 2;
+    const rightBaseY = midY + uy * chevronWidth / 2;
+    const rightTopX = rightBaseX + px * halfHeight;
+    const rightTopY = rightBaseY + py * halfHeight;
+    const rightBottomX = rightBaseX - px * halfHeight;
+    const rightBottomY = rightBaseY - py * halfHeight;
+    const rightPointX = rightBaseX + ux * chevronPointSize;
+    const rightPointY = rightBaseY + uy * chevronPointSize;
+    
+    // Draw chevron shape
+    ctx.fillStyle = lineColor;
+    ctx.beginPath();
+    ctx.moveTo(leftTopX, leftTopY);
+    ctx.lineTo(rightTopX, rightTopY);
+    ctx.lineTo(rightPointX, rightPointY);
+    ctx.lineTo(rightBottomX, rightBottomY);
+    ctx.lineTo(leftBottomX, leftBottomY);
+    ctx.closePath();
+    ctx.fill();
+    
+    // Draw text with rotation
+    ctx.save();
+    // Calculate angle of the line
+    let angle = Math.atan2(dy, dx);
+    
+    // Keep text readable (flip if upside down)
+    if (angle > Math.PI / 2 || angle < -Math.PI / 2) {
+      angle += Math.PI;
+    }
+    
+    // Translate to midpoint, rotate, then draw text at origin
+    ctx.translate(midX, midY);
+    ctx.rotate(angle);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(text, 0, 0);
+    ctx.restore();
+    
+    ctx.restore();
+  }
+
   function drawLink(l, opacity) {
     ctx.save();
     ctx.globalAlpha = opacity;
@@ -1769,6 +1877,19 @@
     
     // Check if either end of the link is hovered
     const isHovered = hoveredNode && (l.source === hoveredNode || l.target === hoveredNode);
+    
+    // Check if either end is selected
+    const isSelected = selectedNode && (l.source === selectedNode || l.target === selectedNode);
+    
+    // Check if either end is highlighted in current view (Story Mode)
+    let isHighlighted = false;
+    if (isStoryMode && sortedViewIds.length > 0) {
+      const currentViewId = sortedViewIds[currentViewIndex];
+      const sourceHighlights = entityHighlightsMap.get(l.source.id);
+      const targetHighlights = entityHighlightsMap.get(l.target.id);
+      isHighlighted = (sourceHighlights && sourceHighlights.has(currentViewId)) || 
+                      (targetHighlights && targetHighlights.has(currentViewId));
+    }
     
     // Use hover colors/thickness if link is connected to hovered node
     // Only use conditional format if lineEnabled is true
@@ -1784,6 +1905,17 @@
     ctx.lineWidth = lineThickness / zoomLevel;
     ctx.strokeStyle = lineColor;
     ctx.stroke();
+    
+    // Draw arrow head and label ONLY if link is selected, hovered, or highlighted
+    if (isSelected || isHovered || isHighlighted) {
+      // Draw chevron label with Note text if available
+      if (l.note) {
+        // Set chevron to 100% opacity (same as line, not affected by link opacity)
+        ctx.globalAlpha = 1.0;
+        drawChevronLabel(l.source.x, l.source.y, l.target.x, l.target.y, l.note, lineColor);
+      }
+    }
+    
     ctx.restore();
   }
 
@@ -1967,14 +2099,28 @@
     }
     
     // Draw links - ONLY draw links between highlighted nodes when there's a selection
+    // Sort links by priority: selected & hovered > selected & not hovered > unselected & hovered > unselected & not hovered
+    const sortedLinks = visibleLinks.slice().sort((a, b) => {
+      const aIsSelected = selectedNode && (a.source === selectedNode || a.target === selectedNode);
+      const bIsSelected = selectedNode && (b.source === selectedNode || b.target === selectedNode);
+      const aIsHovered = hoveredNode && (a.source === hoveredNode || a.target === hoveredNode);
+      const bIsHovered = hoveredNode && (b.source === hoveredNode || b.target === hoveredNode);
+      
+      // Calculate priority (higher number = drawn later = appears on top)
+      const aPriority = (aIsSelected ? 2 : 0) + (aIsHovered ? 1 : 0);
+      const bPriority = (bIsSelected ? 2 : 0) + (bIsHovered ? 1 : 0);
+      
+      return aPriority - bPriority; // Draw lower priority first
+    });
+    
     if (selectedNode) {
-      visibleLinks.forEach(l => {
+      sortedLinks.forEach(l => {
         if (highlightedSet.has(l.source.id) && highlightedSet.has(l.target.id)) {
           drawLink(l, CONFIG.linkOpacitySelected);
         }
       });
     } else {
-      visibleLinks.forEach(l => {
+      sortedLinks.forEach(l => {
         drawLink(l, CONFIG.linkOpacityNoSelection);
       });
     }
@@ -2306,37 +2452,6 @@
   zoomOutBtn.addEventListener('click', zoomOut);
   zoomResetBtn.addEventListener('click', resetZoom);
 
-  /************************************************************************
-   * PANEL TOGGLE
-   ************************************************************************/
-  const panelToggleBtn = document.getElementById('panel-toggle');
-  const infoPanel = document.getElementById('info-panel');
-  
-  function togglePanel() {
-    const wasCollapsed = infoPanel.classList.contains('collapsed');
-    const isCollapsed = infoPanel.classList.toggle('collapsed');
-    panelToggleBtn.textContent = isCollapsed ? '◀' : '▶';
-    
-    // Calculate the offset change (panel is 500px when expanded)
-    const panelWidth = 500;
-    const offsetChange = isCollapsed ? panelWidth / 2 : -panelWidth / 2;
-    
-    // Resize canvas after transition
-    setTimeout(() => {
-      resizeCanvas();
-      
-      // Adjust all node positions to recenter them
-      nodes.forEach(n => {
-        n.x += offsetChange;
-        if (n.fx !== undefined) n.fx += offsetChange;
-        if (n.unfixedX !== null) n.unfixedX += offsetChange;
-      });
-      
-      render();
-    }, 320);
-  }
-  
-  panelToggleBtn.addEventListener('click', togglePanel);
 
   /************************************************************************
    * INFO PANEL
@@ -2368,12 +2483,13 @@
         <span>${d.name}</span>
         ${d.image ? `<img src="${d.image}" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">` : ''}
       </div>
-      ${category ? `<div style="font-size: 15px; font-weight: bold; margin-top: 6px;">${category.replace(/\n/g, '<br>')}</div>` : ''}
-      ${desc ? `<div style="font-size: 13px; font-weight: normal;">${desc}</div>` : ''}
+      ${category ? `<div style="font-size: 16px; font-weight: bold; margin-top: 6px;">${category.replace(/\n/g, '<br>')}</div>` : ''}
+      <br>
+      ${desc ? `<div style="font-size: 14px; font-weight: normal; max-height: 350px; overflow-y: auto; margin-top: 6px;">${desc.replace(/\n/g, '<br>')}</div>` : ''}
       ${linksHTML ? `<div style="margin-top: 8px;">${linksHTML}</div>` : ''}
       <div style="font-size: 14px; font-weight: bold; margin-top: 6px;">
         <br>
-        <br>Connected to: 
+        <br>Connections: 
       </div>
     `);
 
@@ -2388,6 +2504,7 @@
     }
     const frag = document.createDocumentFragment();
     const nodeSourceMap = connectionSources.get(d.id);
+    const nodeTextsMap = connectionTexts.get(d.id);
     conns.forEach(name => {
       const item = document.createElement('div');
       item.className = 'conn-item';
@@ -2397,7 +2514,9 @@
       item.style.gap = '8px';
       
       const nameSpan = document.createElement('span');
-      nameSpan.textContent = name;
+      // Display the text description if available, otherwise fall back to node name
+      const textDesc = nodeTextsMap ? nodeTextsMap.get(name) : null;
+      nameSpan.textContent = textDesc || name;
       nameSpan.style.flex = '1';
       nameSpan.style.cursor = 'pointer';
       nameSpan.addEventListener('click', () => {
