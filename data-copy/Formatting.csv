@@ -1,0 +1,5 @@
+RuleType,RuleName,Order,Targets,NodeColor,NodeHoverColor,OutlineColor,OutlineHoverColor,OutlineThickness,OutlineHoverThickness,NodeSize,SizeMode,CustomNodeSize,LineColor,LineHoverColor,LineThickness,LineHoverThickness,BackgroundColor
+Default,,,,#000000,#FFD241,#ffffff,#FFD241,4,5,,connections,30,#000000,#FFD241,3,5,#ffffff
+Entity,bad,0,bad|climate denier|pro fossil fuel|conservative|hate group,#838c94,,#ffffff,,4,,60,,,#000000,,3,,
+Entity,good,1,good|progressive|indigenous rights|climate change|environment|labour,#838c94,,#ffffff,,4,,60,,,#000000,,3,,
+Entity,?,2,?|media|politics,#838c94,,#ffffff,,4,,60,,,#000000,,3,,
