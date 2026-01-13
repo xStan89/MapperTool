@@ -100,7 +100,7 @@
       flex-direction: column;
       border-left: 1px solid var(--highlight-white);
       font-size: 14px;
-      height: 100vh;
+      /*height: 100vh;*/
       overflow: hidden;
       transition: width 0.3s ease, min-width 0.3s ease, max-width 0.3s ease, padding 0.3s ease;
       position: relative;
@@ -1733,52 +1733,6 @@
     ctx.quadraticCurveTo(x, y, x + r, y);
   }
 
-  function drawArrowHead(x1, y1, x2, y2, lineColor, lineThickness) {
-    // Calculate direction vector
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const length = Math.sqrt(dx * dx + dy * dy);
-    
-    if (length === 0) return;
-    
-    // Normalize direction
-    const ux = dx / length;
-    const uy = dy / length;
-    
-    // Arrow dimensions (scaled with line thickness)
-    const arrowLength = Math.max(8, lineThickness * 3) / zoomLevel;
-    const arrowWidth = Math.max(5, lineThickness * 2) / zoomLevel;
-    
-    // Arrow tip position (at the target point)
-    const tipX = x2;
-    const tipY = y2;
-    
-    // Base of arrow
-    const baseX = tipX - ux * arrowLength;
-    const baseY = tipY - uy * arrowLength;
-    
-    // Perpendicular vector for arrow wings
-    const px = -uy;
-    const py = ux;
-    
-    // Arrow points
-    const leftX = baseX + px * arrowWidth;
-    const leftY = baseY + py * arrowWidth;
-    const rightX = baseX - px * arrowWidth;
-    const rightY = baseY - py * arrowWidth;
-    
-    // Draw filled arrow head
-    ctx.save();
-    ctx.fillStyle = lineColor;
-    ctx.beginPath();
-    ctx.moveTo(tipX, tipY);
-    ctx.lineTo(leftX, leftY);
-    ctx.lineTo(rightX, rightY);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
-  }
-
   function drawChevronLabel(x1, y1, x2, y2, text, lineColor) {
     if (!text || text.trim() === '') return;
     
@@ -1803,7 +1757,7 @@
     
     // Text measurements
     ctx.save();
-    const fontSize = Math.max(10, 12 / zoomLevel);
+    const fontSize = Math.max(11, 11 / zoomLevel);
     ctx.font = `${fontSize}px Rubik, Arial, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
