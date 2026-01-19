@@ -25,11 +25,14 @@
     }
     
     html,body { 
-      height:100%; 
+      /* height:100%;  */
+      width:100%;
       margin:0; 
       font-family: var(--font-family); 
       background:var(--bg-white); 
     }
+    html, body {overscroll-behavior: none;}
+
     #wrap { display:flex; height:100vh; overflow:hidden; }
 
     /* GRAPH AREA */
@@ -88,10 +91,10 @@
 
     /* INFO PANEL (RIGHT) */
     #info-panel {
-      width: 37vw;
-      height: 100vw;
-      min-width: 250px;  /* minimum size on small screens */
-      max-width: 37vw;
+      width: 350px;
+      min-width: 350px;  
+      max-width: 30vw;
+      height: 100%;
       background: var(--highlight-white);
       color: var(--text-black);
       padding: 12px;
