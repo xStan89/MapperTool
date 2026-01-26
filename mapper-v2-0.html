@@ -8,29 +8,25 @@
     @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
     
     :root {
-      --text-black: #020202;
-      --near-black: #383838;
-      --bg-white: #d3d3d3;
-      --panel-grey: #C2C2C2;
-      --main-yellow: #FFD241;
-      --shadow-grey: #9E9E9E;
-      --light-yellow: #FFEDB4;
-      --shadow-yellow: #DEB555;
+      --white: #FFFFFF;
       --light-grey:  #d8d8d8;
-      --highlight-white: #FFFFFF;
+      --panel-grey: #C2C2C2;
+      --shadow-grey: #9E9E9E;
+      --near-black: #383838;
+      --text-black: #020202;
+      --light-yellow: #FFEDB4;
+      --main-yellow: #FFD241;
+      --shadow-yellow: #DEB555;
       --error-red: #dc2626;
-      --story-blue: #3B82F6;
-      --story-blue-hover: #60A5FA;
       --font-family: 'Rubik', Arial, Helvetica, sans-serif;
     }
     
     html,body { 
       width:100%;
       height: 100vh;
-      max-height:1000px;  
       margin:0; 
       font-family: var(--font-family); 
-      background:var(--bg-white); 
+      background:var(--white); 
       align-items: center;
       justify-content: center;
     }
@@ -39,8 +35,8 @@
     #wrap { display:flex; width:100%; height:100%; overflow:hidden; }
 
     /* GRAPH AREA */
-    #graph-area { position:relative; flex:1; background:var(--bg-white); }
-    canvas { width:100%; height:100%; display:block; background:var(--bg-white); }
+    #graph-area { position:relative; flex:1; background:var(--white); }
+    canvas { width:100%; height:100%; display:block; background:var(--white); }
 
     /* LOGO */
     #logo {
@@ -61,7 +57,7 @@
     #top-controls {
       position: absolute;
       top: 12px;
-      right: 12px;
+      left: 12px;
       display: flex;
       gap: 12px;
       z-index: 10;
@@ -73,15 +69,14 @@
     }
     
     .zoom-btn {
-      padding: 6px 8px;
+      height: 28px;
+      width: 28px;
       border-radius: 20px;
       border: none;
       cursor: pointer;
-      background: var(--panel-grey);
+      background: var(--main-yellow);
       color: var(--text-black);
-      font-size: 18px;
-      font-weight: bold;
-      min-width: 35px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -91,21 +86,39 @@
     .zoom-btn:hover {
       background: var(--light-yellow);
     }
+    
+    #fullscreen-btn {
+      height: 28px;
+      width: 28px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      background: var(--main-yellow);
+      color: var(--text-black);
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-family);
+    }
+    
+    #fullscreen-btn:hover {
+      background: var(--light-yellow);
+    }
 
     /* INFO PANEL (RIGHT) */
     #info-panel {
       width: 30vw;
-      min-width: 20vw;  
+      min-width: 200px;  
       max-width: 30vw;
       height: 100vh;
-      max-height: 1000px;
-      background: var(--highlight-white);
+      background: var(--white);
       color: var(--text-black);
-      padding: 12px;
+      padding: 12px 20px 12px 12px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      border-left: 1px solid var(--highlight-white);
+      border-left: 1px solid var(--white);
       font-size: 14px;
       /*height: 100vh;*/
       overflow: hidden;
@@ -131,17 +144,31 @@
       color: var(--text-black);
       font-family: var(--font-family); 
     }
-    #search-btn, #clear-btn { 
-      padding: 8px 8px; 
+    #search-btn { 
+      height: 29px;
+      padding: 1px 8px; 
       border-radius: 4px; 
       border: none; 
       cursor: pointer; 
       background: var(--main-yellow); 
       color: var(--text-black);
       font-family: var(--font-family);
-      font-weight: bold;
+      flex-shrink: 0;
+      font-size: 18px;
+      white-space: nowrap;
+    }
+    #clear-btn { 
+      height: 29px;
+      padding: 6px 6px; 
+      border-radius: 4px; 
+      border: none; 
+      cursor: pointer; 
+      background: var(--main-yellow); 
+      color: var(--text-black);
+      font-family: var(--font-family);
       flex-shrink: 0;
       white-space: nowrap;
+      font-weight: bold;
     }
     
     #search-btn:hover, #clear-btn:hover {
@@ -172,29 +199,34 @@
     }
 
     #node-info { 
-      margin-top: 8px; 
-      padding: 8px; 
-      background: var(--highlight-white); 
+      margin-top: 0px; 
+      margin-bottom: 6px; 
+      padding-left: 6px; 
+      padding-right: 6px; 
+      background: var(--white); 
       border-radius: 6px; 
       flex-shrink: 0;
     }
-    #node-title { font-weight: 700; }
+    #node-title { 
+      font-weight: 700; 
+      margin-top: 8px; 
+    }
     .muted { color: var(--shadow-grey); font-weight: 700; }
 
     #node-links {
-      margin-top: 8px;
+      margin-top: 6px;
       flex-shrink: 0;
     }
 
     #connections-box {
-      margin-top: -6px;
-      background: var(--highlight-white);
+      margin-top: 4px;
+      background: var(--white);
       border-radius: 6px;
       padding: 6px;
       overflow: auto;
       border: 1px solid var(--shadow-grey);
       flex: 1;
-      min-height: 0;
+      min-height: 2;
     }
     .conn-item {
       padding: 6px;
@@ -208,6 +240,127 @@
     }
 
     #msg { margin-top: 6px; color: var(--error-red); font-size: 14px; min-height: 18px; }
+
+    /* MOBILE RESPONSIVE - HORIZONTAL BOTTOM PANEL */
+    @media (max-width: 768px) {
+      #wrap {
+        flex-direction: column;
+      }
+      
+      #graph-area {
+        flex: 1;
+        height: auto;
+        max-height: 60vh;
+      }
+      
+      #info-panel {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        height: 40vh;
+        padding: 12px;
+        border-left: none;
+        border-top: 2px solid var(--shadow-grey);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto auto auto auto 1fr auto;
+        gap: 2px;
+      }
+      
+      /* Row 1: Controls + Story button */
+      #controls {
+        grid-column: 1 / 2;
+        grid-row: 1;
+        margin-bottom: 0;
+      }
+      
+      #search-box {
+        display: flex;
+        gap: 3px;
+      }
+      
+      #search-input {
+        flex: 1;
+        min-width: 40px;
+        font-size: 12px;
+        padding: 4px 6px;
+      }
+      
+      #search-btn {
+        height: 29px;
+        padding: 0px 6px;
+        font-size: 16px;
+      }
+      
+      #clear-btn {
+        height: 29px;
+        padding: 6px 6px;
+        font-size: 11px;
+      }
+      
+      #story-btn {
+        height: 29px;
+        grid-column: 2;
+        grid-row: 1;
+        width: auto !important;
+        margin: 0 !important;
+        padding: 6px 6px !important;
+        font-size: 11px !important;
+        align-self: start;
+      }
+      
+      /* Row 2: Suggestions */
+      #suggestions {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+      
+      /* Row 3: Story view content */
+      #view-content {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+      
+      /* Row 4: Node info (title/description) */
+      #node-info {
+        grid-column: 1 / -1;
+        grid-row: 3;
+      }
+      
+      #node-title {
+        font-size: 13px;
+        grid-row: 2;
+      }
+      
+      /* Row 5: Node links label */
+      #node-links {
+        grid-column: 1 / -1;
+        grid-row: 4;
+      }
+      
+      /* Row 6: Connections box (flexible/scrollable) */
+      #connections-box {
+        grid-column: 1 / -1;
+        grid-row: 4;
+        overflow: auto;
+        min-height: 2px;
+      }
+      
+      /* Row 7: Message */
+      #msg {
+        grid-column: 1 / -1;
+        grid-row: 7;
+      }
+      
+      #logo {
+        bottom: 12px;
+        right: 12px;
+      }
+      
+      #logo img {
+        height: 40px;
+      }
+    }
 
     /* LOADING OVERLAY */
     #loading-overlay {
@@ -239,12 +392,13 @@
 
     /* STORY MODE BUTTONS */
     #story-btn {
-      padding: 8px 8px;
+      height: 29px;
+      padding: 6px 6px;
       border-radius: 4px;
       border: none;
       cursor: pointer;
-      background: var(--story-blue);
-      color: white;
+      background: var(--main-yellow);
+      color: black;
       font-family: var(--font-family);
       font-weight: bold;
       flex-shrink: 0;
@@ -252,17 +406,23 @@
       margin-bottom: 8px;
       width: 100%;
       display: none;
-      animation: glow 2s ease-in-out infinite;
+      animation: outlinePulse 2s ease-in-out infinite;
+    }
+    
+    @media (max-width: 768px) {
+      #story-btn {
+        width: auto;
+      }
     }
 
     #story-btn:hover {
-      background: var(--story-blue-hover);
+      background: var(--light-yellow);
     }
 
     #story-nav-container {
       display: none;
       gap: 4px;
-      margin-top: 14px;
+      margin-bottom: 14px;
       flex-shrink: 0;
     }
 
@@ -271,21 +431,26 @@
     }
 
     .story-nav-btn {
-      padding: 8px 6px;
+      padding: 6px 8px;
+      /* align-items: bottom;
+      padding-top: 6px;
+      padding-top: 12px;
+      padding-left: 6px;
+      padding-right: 6px; */
       border-radius: 4px;
       border: none;
       cursor: pointer;
-      background: var(--story-blue);
-      color: white;
+      background: var(--main-yellow);
+      color: black;
       font-family: var(--font-family);
       font-weight: bold;
-      font-size: 12px;
+      font-size: 13px;
       white-space: nowrap;
       flex: 1;
     }
 
     .story-nav-btn:hover:not(:disabled) {
-      background: var(--story-blue-hover);
+      background: var(--light-yellow);
     }
 
     .story-nav-btn:disabled {
@@ -293,9 +458,40 @@
       cursor: not-allowed;
     }
 
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 5px var(--story-blue); }
-      50% { box-shadow: 0 0 20px var(--story-blue), 0 0 30px var(--story-blue-hover); }
+    .exit-story-nav-btn {
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: var(--panel-grey);
+      color: black;
+      font-family: var(--font-family);
+      font-weight: bold;
+      font-size: 13px;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    .exit-story-nav-btn:hover:not(:disabled) {
+      background: var(--light-grey);
+    }
+
+    .exit-story-nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @keyframes outlinePulse {
+      0%, 100% { 
+        outline: 0px solid var(--main-yellow);
+        outline-offset: 0px;
+        opacity: 1;
+      }
+      50% { 
+        outline: 0px solid var(--light-yellow);
+        outline-offset: 0px;
+        opacity: 0.8;
+      }
     }
 
     /* ENTITY MODAL IN STORY MODE */
@@ -350,6 +546,19 @@
     /* VIEW CONTENT STYLES */
     #view-content {
       display: none;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
+    #view-content.active {
+      display: flex;
+    }
+    #view-content {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
     }
 
     #view-content.active {
@@ -359,15 +568,16 @@
     .view-title {
       font-size: 28px;
       font-weight: 700;
+      margin-top: 12px;
       margin-bottom: 12px;
       color: var(--text-black);
     }
 
     .view-progress {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--shadow-grey);
-      margin-bottom: 12px;
+      margin-top: 4px;
     }
 
     .view-image {
@@ -384,14 +594,45 @@
       line-height: 1.5;
       white-space: pre-wrap;
       word-wrap: break-word;
-      max-height: 33vw;
+      flex: 1;
       overflow-y: auto;
+      padding-bottom: 12px;
+      min-height: 0;
     }
 
-    /* responsive
-    @media (max-width: 900px) { 
-      #info-panel { width: 260px; min-width: 260px; max-width: 260px; } 
-    } */
+    /* Story mode MOBILE adjustments */
+    @media (max-width: 768px) {
+      .view-title {
+        font-size: 20px !important;
+        margin-top: 6px !important;
+        margin-bottom: 6px !important;
+      }
+      
+      .view-text {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        padding-bottom: 6px !important;
+      }
+      
+      .view-image {
+        margin-bottom: 6px !important;
+      }
+      
+      #story-nav-container {
+        margin-bottom: 6px !important;
+        gap: 3px !important;
+      }
+      
+      .story-nav-btn {
+        padding: 6px 7px !important;
+        font-size: 11px !important;
+      }
+
+      .exit-story-nav-btn {
+        padding: 6px 7px !important;
+        font-size: 11px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -400,15 +641,16 @@
       <canvas id="canvas"></canvas>
       
       <div id="logo">
-        <img src="https://i.ibb.co/RXfZbS8/De-Smog-Logo-small.png" alt="Logo">
+        <img src="https://i.ibb.co/60z33Lp3/scroller-11.png" alt="Logo">
       </div>
       
       
       <div id="top-controls">
         <div id="zoom-controls">
           <button id="zoom-in" class="zoom-btn" title="Zoom In">+</button>
-          <button id="zoom-out" class="zoom-btn" title="Zoom Out">−</button>
-          <button id="zoom-reset" class="zoom-btn" title="Reset Zoom">↻</button>
+          <button id="zoom-out" class="zoom-btn" title="Zoom Out">–</button>
+          <button id="zoom-reset" class="zoom-btn" title="Reset Zoom">⛶</button>
+          <button id="fullscreen-btn" title="Toggle Fullscreen">⌞⌝</button>
         </div>
       </div>
 
@@ -422,7 +664,7 @@
       <div id="controls">
         <div id="search-box">
           <input id="search-input" placeholder="Search..." />
-          <button id="search-btn">Search</button>
+          <button id="search-btn">⌕</button>
           <button id="clear-btn">Clear</button>
         </div>
       </div>
@@ -430,21 +672,20 @@
       <div id="suggestions"></div>
 
       <div id="view-content">
+      <div id="story-nav-container">
         <div class="view-progress" id="view-progress"></div>
+      </div>
+        <button id="story-prev-btn" class="story-nav-btn">◄ Back</button>
+        <button id="story-next-btn" class="story-nav-btn">Next ►</button>
+        <button id="story-exit-btn" class="exit-story-nav-btn">Exit Story</button>
         <div class="view-title" id="view-title"></div>
         <img class="view-image" id="view-image" style="display: none;" />
         <div class="view-text" id="view-text"></div>
       </div>
 
-      <div id="story-nav-container">
-        <button id="story-prev-btn" class="story-nav-btn">◀ Back</button>
-        <button id="story-next-btn" class="story-nav-btn">Next ▶</button>
-        <button id="story-exit-btn" class="story-nav-btn">Exit Story</button>
-      </div>
 
       <div id="node-info">
-        <div id="node-title">Select a node or start story</div>
-        <div id="node-meta" class="muted" style="margin-top:6px;"></div>
+        <div id="node-title">Click/hover on map, search for a person/group or click Start Story</div>
       </div>
 
       <div id="node-links"></div>
@@ -483,22 +724,22 @@
     gridSize: 25,
     dragDelayMs: 600,
     force: {
-      linkDistance: 30,
-      linkStrength: 0.8,
-      chargeStrength: -300,
-      collisionPadding: 10,
-      velocityDecay: 0.1
+      linkDistance: 0.1,
+      linkStrength: 0.5,
+      chargeStrength: -100,
+      collisionPadding: 20,
+      velocityDecay: 0.4
     },
     showImages: true,
     maxSuggestions: 25,
     zoomMin: 0.2,
     zoomMax: 5.0,
     zoomStep: 0.2,
-    // DATA FOLDER - Change this path to point to your data folder
-    dataFolder: 'https://xstan89.github.io/NewMapper/'
+    // DATA FOLDER
+    dataFolder: 'https://xstan89.github.io/GwynTest/'
   };
 
-  const PADDING = 80;
+  const PADDING = 50;
 
   // Default Formatting Settings
   let formattingSettings = {
@@ -533,6 +774,7 @@
   let simulation = null;
   let selectedNode = null;
   let hoveredNode = null;
+  let hoveredConnection = null; // {source, target} for connection hover
   let isDragging = false;
   let isDraggingNode = false;
   let draggedNode = null;
@@ -573,13 +815,14 @@
   const clearBtn = document.getElementById('clear-btn');
   const suggestionsEl = d3.select('#suggestions');
   const nodeTitleEl = d3.select('#node-title');
-  const nodeMetaEl = d3.select('#node-meta');
+  // const nodeMetaEl = d3.select('#node-meta');
   const nodeLinkEl = d3.select('#node-links');
   const connectionsBox = document.getElementById('connections-box');
   const msgEl = d3.select('#msg');
   const zoomInBtn = document.getElementById('zoom-in');
   const zoomOutBtn = document.getElementById('zoom-out');
   const zoomResetBtn = document.getElementById('zoom-reset');
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
 
   // Story mode elements
   const storyBtn = document.getElementById('story-btn');
@@ -602,6 +845,13 @@
    * CANVAS SETUP
    ************************************************************************/
   function resizeCanvas() {
+    // Clear inline styles to let CSS percentage sizing work
+    canvas.style.width = '';
+    canvas.style.height = '';
+    
+    // Force reflow to get actual available space
+    void canvas.offsetHeight;
+    
     const rect = canvas.getBoundingClientRect();
     const hiResScale = devicePixelRatio * 1.5;
     canvas.width  = Math.max(600, Math.floor(rect.width  * hiResScale));
@@ -676,7 +926,7 @@
     nodes.forEach(n => {
       const format = getNodeFormat(n);
       if (format?.sizeEnabled && format?.nodeSize) {
-        n.r = (format.nodeSize * scale) / 2;
+        n.r = (format.nodeSize * scale);
       } else {
         n.r = (n.baseR || 15) * scale;
       }
@@ -867,7 +1117,7 @@
         if (row.OutlineHoverThickness) formattingSettings.outlineHoverThickness = parseFloat(row.OutlineHoverThickness);
         if (row.BackgroundColor) {
           formattingSettings.backgroundColor = row.BackgroundColor;
-          document.documentElement.style.setProperty('--bg-white', row.BackgroundColor);
+          document.documentElement.style.setProperty('--white', row.BackgroundColor);
         }
         if (row.SizeMode) formattingSettings.nodeSizeMode = row.SizeMode;
         if (row.CustomNodeSize) formattingSettings.customNodeSize = parseFloat(row.CustomNodeSize);
@@ -1073,7 +1323,7 @@
       // Scale node radius - check for conditional format first
       const format = getNodeFormat(n);
       if (format?.sizeEnabled && format?.nodeSize) {
-        n.r = (format.nodeSize * currentScaleFactor) / 2;
+        n.r = (format.nodeSize * currentScaleFactor);
       } else {
         n.r = orig.baseR * currentScaleFactor;
       }
@@ -1423,7 +1673,7 @@
     const canvasHeight = canvas.height / devicePixelRatio;
     const canvasCenterX = canvasWidth / 2;
     const canvasCenterY = canvasHeight / 2;
-    const padding = 150; // padding in pixels
+    const padding = 50; // padding in pixels
     
     const targetZoomX = width > 0 ? (canvasWidth - padding * 2) / width : 1.5;
     const targetZoomY = height > 0 ? (canvasHeight - padding * 2) / height : 1.5;
@@ -1492,7 +1742,7 @@
     }
     
     // Update text
-    viewText.textContent = view.text;
+    viewText.innerHTML = processHtmlLinks(view.text);
     
     // Update navigation buttons
     storyPrevBtn.disabled = currentViewIndex === 0;
@@ -1513,29 +1763,15 @@
     const desc = (d.raw && (d.raw['Description'] || '')) || '';
     const category = (d.raw && (d.raw['Category'] || '')) || '';
 
-    const rawLink = (d.raw && (d.raw['Link'] || d.raw['Link '])) || '';
-    const safe = normalizeUrl(rawLink);
-    const rawMoreInfo = (d.raw && (d.raw['DeSmog Profile'] || d.raw['DeSmog Profile'])) || '';
-    const safeMoreInfo = normalizeUrl(rawMoreInfo);
-
-    let links = [];
-    if (safe) links.push(`<a href="${safe}" target="_blank" rel="noopener">More Info</a>`);
-    if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">DeSmog Profile</a>`);
-    const linksHTML = links.length > 0 ? links.join(' | ') : '';
-
     entityModalTitle.html(`
       <div style="display:flex; align-items:center; gap:8px; font-size:24px; font-weight:700;">
         <span>${d.name}</span>
         ${d.image ? `<img src="${d.image}" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">` : ''}
       </div>
-      ${category ? `<div style="font-size: 16px; font-weight: bold; margin-top: 6px;">${category.replace(/\n/g, '<br>')}</div>` : ''}
+      ${category ? `<div style="font-size: 16px; font-weight: bold; margin-top: 6px;">${processHtmlLinks(category.replace(/\n/g, '<br>'))}</div>` : ''}
       <br>
-      ${desc ? `<div style="font-size: 14px; font-weight: normal; max-height: 350px; overflow-y: auto; margin-top: 6px;">${desc.replace(/\n/g, '<br>')}</div>` : ''}
-      ${linksHTML ? `<div style="margin-top: 8px;">${linksHTML}</div>` : ''}
-      <div style="font-size: 14px; font-weight: bold; margin-top: 6px;">
-        <br>
-        <br>Connections: 
-      </div>
+      ${desc ? `<div style="font-size: 14px; font-weight: normal; max-height: 350px; overflow-y: auto; margin-top: 6px;">${processHtmlLinks(desc.replace(/\n/g, '<br>'))}</div>` : ''}
+
     `);
 
     // Get current view's entities for filtering connections
@@ -1579,7 +1815,7 @@
       const nameSpan = document.createElement('span');
       // Display the text description if available, otherwise fall back to node name
       const textDesc = nodeTextsMap ? nodeTextsMap.get(name) : null;
-      nameSpan.textContent = textDesc || name;
+      nameSpan.innerHTML = processHtmlLinks(textDesc || name);
       nameSpan.style.flex = '1';
       nameSpan.style.cursor = 'pointer';
       nameSpan.addEventListener('click', () => {
@@ -1598,18 +1834,28 @@
         sourceIcon.href = normalizeUrl(sourceUrl) || '#';
         sourceIcon.target = '_blank';
         sourceIcon.rel = 'noopener';
-        sourceIcon.innerHTML = '🔗';
+        sourceIcon.innerHTML = '➜]';
         sourceIcon.style.fontSize = '16px';
         sourceIcon.style.textDecoration = 'none';
         sourceIcon.style.cursor = 'pointer';
         sourceIcon.style.flexShrink = '0';
-        sourceIcon.title = 'View source';
+        sourceIcon.title = 'Source';
         sourceIcon.addEventListener('click', (e) => {
           e.stopPropagation();
         });
         item.appendChild(sourceIcon);
       }
       
+      
+      // Add hover handlers to highlight connection in chart
+      item.addEventListener('mouseenter', () => {
+        hoveredConnection = { source: d.id, target: name };
+        render();
+      });
+      item.addEventListener('mouseleave', () => {
+        hoveredConnection = null;
+        render();
+      });
       frag.appendChild(item);
     });
     
@@ -1743,20 +1989,34 @@
   function drawChevronLabel(x1, y1, x2, y2, text, lineColor) {
     if (!text || text.trim() === '') return;
     
-    // Calculate midpoint
-    const midX = (x1 + x2) / 2;
-    const midY = (y1 + y2) / 2;
-    
-    // Calculate direction vector
+    // Calculate curve control point (same as in drawLink)
     const dx = x2 - x1;
     const dy = y2 - y1;
-    const length = Math.sqrt(dx * dx + dy * dy);
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    if (dist === 0) return;
+    
+    const offset = dist * 0.15;
+    const midX = (x1 + x2) / 2;
+    const midY = (y1 + y2) / 2;
+    const controlX = midX - (dy / dist) * offset;
+    const controlY = midY + (dx / dist) * offset;
+    
+    // Calculate position on curve at t=0.5 (midpoint)
+    const t = 0.5;
+    const curveX = (1-t)*(1-t)*x1 + 2*(1-t)*t*controlX + t*t*x2;
+    const curveY = (1-t)*(1-t)*y1 + 2*(1-t)*t*controlY + t*t*y2;
+    
+    // Calculate tangent at t=0.5 for proper orientation
+    const tangentX = 2*(1-t)*(controlX - x1) + 2*t*(x2 - controlX);
+    const tangentY = 2*(1-t)*(controlY - y1) + 2*t*(y2 - controlY);
+    const length = Math.sqrt(tangentX * tangentX + tangentY * tangentY);
     
     if (length === 0) return;
     
     // Normalize direction
-    const ux = dx / length;
-    const uy = dy / length;
+    const ux = tangentX / length;
+    const uy = tangentY / length;
     
     // Perpendicular vector
     const px = -uy;
@@ -1764,7 +2024,7 @@
     
     // Text measurements
     ctx.save();
-    const fontSize = Math.max(11, 11 / zoomLevel);
+    const fontSize = 12 / zoomLevel;
     ctx.font = `${fontSize}px Rubik, Arial, sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -1781,16 +2041,16 @@
     const halfHeight = chevronHeight / 2;
     
     // Left side
-    const leftBaseX = midX - ux * chevronWidth / 2;
-    const leftBaseY = midY - uy * chevronWidth / 2;
+    const leftBaseX = curveX - ux * chevronWidth / 2;
+    const leftBaseY = curveY - uy * chevronWidth / 2;
     const leftTopX = leftBaseX + px * halfHeight;
     const leftTopY = leftBaseY + py * halfHeight;
     const leftBottomX = leftBaseX - px * halfHeight;
     const leftBottomY = leftBaseY - py * halfHeight;
     
     // Right side (with point)
-    const rightBaseX = midX + ux * chevronWidth / 2;
-    const rightBaseY = midY + uy * chevronWidth / 2;
+    const rightBaseX = curveX + ux * chevronWidth / 2;
+    const rightBaseY = curveY + uy * chevronWidth / 2;
     const rightTopX = rightBaseX + px * halfHeight;
     const rightTopY = rightBaseY + py * halfHeight;
     const rightBottomX = rightBaseX - px * halfHeight;
@@ -1811,16 +2071,16 @@
     
     // Draw text with rotation
     ctx.save();
-    // Calculate angle of the line
-    let angle = Math.atan2(dy, dx);
+    // Calculate angle from tangent
+    let angle = Math.atan2(tangentY, tangentX);
     
     // Keep text readable (flip if upside down)
     if (angle > Math.PI / 2 || angle < -Math.PI / 2) {
       angle += Math.PI;
     }
     
-    // Translate to midpoint, rotate, then draw text at origin
-    ctx.translate(midX, midY);
+    // Translate to curve position, rotate, then draw text at origin
+    ctx.translate(curveX, curveY);
     ctx.rotate(angle);
     ctx.fillStyle = '#FFFFFF';
     ctx.fillText(text, 0, 0);
@@ -1837,10 +2097,17 @@
     const format = getLinkFormat(l);
     
     // Check if either end of the link is hovered
-    const isHovered = hoveredNode && (l.source === hoveredNode || l.target === hoveredNode);
+    const isHovered = (hoveredNode && (l.source === hoveredNode || l.target === hoveredNode)) ||
+                      (hoveredConnection && 
+                       ((l.source.id === hoveredConnection.source && l.target.id === hoveredConnection.target) ||
+                        (l.source.id === hoveredConnection.target && l.target.id === hoveredConnection.source)));
     
-    // Check if either end is selected
-    const isSelected = selectedNode && (l.source === selectedNode || l.target === selectedNode);
+    // Check if either end is selected OR both ends are connected to the selected node
+    const isSelected = selectedNode && (
+      l.source === selectedNode || 
+      l.target === selectedNode ||
+      (adjacency.get(selectedNode.id)?.has(l.source.id) && adjacency.get(selectedNode.id)?.has(l.target.id))
+    );
     
     // Check if either end is highlighted in current view (Story Mode)
     let isHighlighted = false;
@@ -1860,9 +2127,23 @@
     // Scale line thickness with the current scale factor
     const lineThickness = baseLineThickness * currentScaleFactor;
     
+    // Calculate curve control point for subtle curve
+    const dx = l.target.x - l.source.x;
+    const dy = l.target.y - l.source.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    // Perpendicular offset (15% of distance for subtle curve)
+    const offset = dist * 0.15;
+    const midX = (l.source.x + l.target.x) / 2;
+    const midY = (l.source.y + l.target.y) / 2;
+    
+    // Control point perpendicular to line
+    const controlX = midX - (dy / dist) * offset;
+    const controlY = midY + (dx / dist) * offset;
+    
     ctx.beginPath();
     ctx.moveTo(l.source.x, l.source.y);
-    ctx.lineTo(l.target.x, l.target.y);
+    ctx.quadraticCurveTo(controlX, controlY, l.target.x, l.target.y);
     ctx.lineWidth = lineThickness / zoomLevel;
     ctx.strokeStyle = lineColor;
     ctx.stroke();
@@ -1886,7 +2167,8 @@
     
     // Get formatting for this node (conditional or default)
     const format = getNodeFormat(n);
-    const isHovered = hoveredNode && n === hoveredNode;
+    const isHovered = (hoveredNode && n === hoveredNode) ||
+                      (hoveredConnection && (n.id === hoveredConnection.source || n.id === hoveredConnection.target));
     const isSelected = selectedNode && n === selectedNode;
     
     // Check if this node is connected to the hovered node
@@ -2347,6 +2629,7 @@
       render();
     } else {
       selectedNode = null;
+      hoveredConnection = null;
       if (isStoryMode) {
         hideEntityModal();
       } else {
@@ -2405,6 +2688,32 @@
     zoomLevel = 1.0;
     panX = 0;
     panY = 0;
+    
+    // CRITICAL: Clear inline styles that lock canvas size!
+    // resizeCanvas() sets inline styles, which prevent proper resizing
+    canvas.style.width = '';
+    canvas.style.height = '';
+    
+    // Force reflow so getBoundingClientRect() reads the CSS size
+    void canvas.offsetHeight;
+    
+    // Now resize canvas (will read correct CSS dimensions)
+    resizeCanvas();
+    
+    // Rescale nodes to fit the actual available space
+    if (nodes.length > 0 && originalDataBounds) {
+      scaleNodesToFit();
+    }
+    
+    // Update simulation center
+    if (simulation && simulation.force) { 
+      const c = simulation.force('center'); 
+      if (c) {
+        c.x((canvas.width/(devicePixelRatio))/2);
+        c.y((canvas.height/(devicePixelRatio))/2);
+      }
+    }
+    
     updateCanvasCursor();
     render();
   }
@@ -2412,6 +2721,93 @@
   zoomInBtn.addEventListener('click', zoomIn);
   zoomOutBtn.addEventListener('click', zoomOut);
   zoomResetBtn.addEventListener('click', resetZoom);
+
+  /************************************************************************
+   * FULLSCREEN FUNCTIONALITY
+   ************************************************************************/
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      // Enter fullscreen
+      const element = document.documentElement; // or document.getElementById('wrap') for just the tool
+      if (element.requestFullscreen) {
+        element.requestFullscreen().catch(err => {
+          console.error('Error attempting to enable fullscreen:', err);
+        });
+      } else if (element.webkitRequestFullscreen) { // Safari
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) { // IE11
+        element.msRequestFullscreen();
+      }
+    } else {
+      // Exit fullscreen
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { // Safari
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { // IE11
+        document.msExitFullscreen();
+      }
+    }
+  }
+
+  function updateFullscreenButton() {
+    if (document.fullscreenElement) {
+      fullscreenBtn.innerHTML = '⌞⌝'; // Exit fullscreen icon
+      fullscreenBtn.title = 'Exit Fullscreen';
+    } else {
+      fullscreenBtn.innerHTML = '⌞⌝'; // Enter fullscreen icon
+      fullscreenBtn.title = 'Enter Fullscreen';
+    }
+    
+    // Force immediate reflow and resize with multiple attempts
+    // This ensures proper resizing especially on mobile
+    setTimeout(() => {
+      // Force browser to reflow layout
+      const wrapper = document.getElementById('wrap');
+      const graphArea = document.getElementById('graph-area');
+      
+      // Force reflow
+      void wrapper.offsetHeight;
+      void graphArea.offsetHeight;
+      void canvas.offsetHeight;
+      
+      // Clear any inline styles that might be constraining
+      canvas.style.width = '';
+      canvas.style.height = '';
+      
+      // Trigger resize and rescale
+      resizeCanvas();
+      if (nodes.length > 0 && originalDataBounds) {
+        scaleNodesToFit();
+      }
+      render();
+    }, 50);
+    
+    // Second attempt after initial reflow
+    setTimeout(() => {
+      resizeCanvas();
+      if (nodes.length > 0 && originalDataBounds) {
+        scaleNodesToFit();
+      }
+      render();
+    }, 150);
+    
+    // Final resize after fullscreen animation completes
+    setTimeout(() => {
+      resizeCanvas();
+      if (nodes.length > 0 && originalDataBounds) {
+        scaleNodesToFit();
+      }
+      render();
+    }, 500);
+  }
+
+  fullscreenBtn.addEventListener('click', toggleFullscreen);
+  
+  // Update button when fullscreen state changes (including when user presses ESC)
+  document.addEventListener('fullscreenchange', updateFullscreenButton);
+  document.addEventListener('webkitfullscreenchange', updateFullscreenButton); // Safari
+  document.addEventListener('msfullscreenchange', updateFullscreenButton); // IE11
 
 
   /************************************************************************
@@ -2425,33 +2821,45 @@
     return 'https://' + s.replace(/^[\/]+/, '');
   }
 
+  function processHtmlLinks(html) {
+    if (!html) return html;
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    const links = temp.querySelectorAll('a');
+    links.forEach(link => {
+      if (!link.hasAttribute('target')) {
+        link.setAttribute('target', '_blank');
+      }
+      if (!link.hasAttribute('rel')) {
+        link.setAttribute('rel', 'noopener');
+      }
+    });
+    return temp.innerHTML;
+  }
+
   function populateInfoPanel(d) {
     const desc = (d.raw && (d.raw['Description'] || '')) || '';
     const category = (d.raw && (d.raw['Category'] || '')) || '';
 
-    const rawLink = (d.raw && (d.raw['Link'] || d.raw['Link '])) || '';
-    const safe = normalizeUrl(rawLink);
-    const rawMoreInfo = (d.raw && (d.raw['DeSmog Profile'] || d.raw['DeSmog Profile'])) || '';
-    const safeMoreInfo = normalizeUrl(rawMoreInfo);
+    // const rawLink = (d.raw && (d.raw['Link'] || d.raw['Link '])) || '';
+    // const safe = normalizeUrl(rawLink);
+    // const rawMoreInfo = (d.raw && (d.raw['DeSmog Profile'] || d.raw['DeSmog Profile'])) || '';
+    // const safeMoreInfo = normalizeUrl(rawMoreInfo);
 
-    let links = [];
-    if (safe) links.push(`<a href="${safe}" target="_blank" rel="noopener">More Info</a>`);
-    if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">DeSmog Profile</a>`);
-    const linksHTML = links.length > 0 ? links.join(' | ') : '';
+    // let links = [];
+    // if (safe) links.push(`<a href="${safe}" target="_blank" rel="noopener">More Info</a>`);
+    // if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">DeSmog Profile</a>`);
+    // const linksHTML = links.length > 0 ? links.join(' | ') : '';
 
     nodeTitleEl.html(`
       <div style="display:flex; align-items:center; gap:8px; font-size:24px; font-weight:700;">
         <span>${d.name}</span>
         ${d.image ? `<img src="${d.image}" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">` : ''}
       </div>
-      ${category ? `<div style="font-size: 16px; font-weight: bold; margin-top: 6px;">${category.replace(/\n/g, '<br>')}</div>` : ''}
+      ${category ? `<div style="font-size: 16px; font-weight: bold; margin-top: 6px;">${processHtmlLinks(category.replace(/\n/g, '<br>'))}</div>` : ''}
       <br>
-      ${desc ? `<div style="font-size: 14px; font-weight: normal; max-height: 350px; overflow-y: auto; margin-top: 6px;">${desc.replace(/\n/g, '<br>')}</div>` : ''}
-      ${linksHTML ? `<div style="margin-top: 8px;">${linksHTML}</div>` : ''}
-      <div style="font-size: 14px; font-weight: bold; margin-top: 6px;">
-        <br>
-        <br>Connections: 
-      </div>
+      ${desc ? `<div style="font-size: 14px; font-weight: normal; max-height: 350px; overflow-y: auto; margin-top: 6px;">${processHtmlLinks(desc.replace(/\n/g, '<br>'))}</div>` : ''}
+  
     `);
 
     nodeLinkEl.html('');
@@ -2477,7 +2885,7 @@
       const nameSpan = document.createElement('span');
       // Display the text description if available, otherwise fall back to node name
       const textDesc = nodeTextsMap ? nodeTextsMap.get(name) : null;
-      nameSpan.textContent = textDesc || name;
+      nameSpan.innerHTML = processHtmlLinks(textDesc || name);
       nameSpan.style.flex = '1';
       nameSpan.style.cursor = 'pointer';
       nameSpan.addEventListener('click', () => {
@@ -2497,26 +2905,36 @@
         sourceIcon.href = normalizeUrl(sourceUrl) || '#';
         sourceIcon.target = '_blank';
         sourceIcon.rel = 'noopener';
-        sourceIcon.innerHTML = '🔗';
+        sourceIcon.innerHTML = '➜]';
         sourceIcon.style.fontSize = '16px';
         sourceIcon.style.textDecoration = 'none';
         sourceIcon.style.cursor = 'pointer';
         sourceIcon.style.flexShrink = '0';
-        sourceIcon.title = 'View source';
+        sourceIcon.title = 'Source';
         sourceIcon.addEventListener('click', (e) => {
           e.stopPropagation();
         });
         item.appendChild(sourceIcon);
       }
       
+      
+      // Add hover handlers to highlight connection in chart
+      item.addEventListener('mouseenter', () => {
+        hoveredConnection = { source: d.id, target: name };
+        render();
+      });
+      item.addEventListener('mouseleave', () => {
+        hoveredConnection = null;
+        render();
+      });
       frag.appendChild(item);
     });
     connectionsBox.appendChild(frag);
   }
 
   function clearInfoPanel() {
-    nodeTitleEl.html('Select a node or start story');
-    nodeMetaEl.text('');
+    nodeTitleEl.html('Click/hover on map, search for a person/group or click Start Story');
+    // nodeMetaEl.text('');
     nodeLinkEl.html('');
     connectionsBox.innerHTML = '';
   }
@@ -2535,6 +2953,7 @@
 
   clearBtn.addEventListener('click', () => { 
     selectedNode = null;
+    hoveredConnection = null;
     
     if (isStoryMode) {
       hideEntityModal();
