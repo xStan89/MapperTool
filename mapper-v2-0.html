@@ -736,7 +736,7 @@
     zoomMax: 5.0,
     zoomStep: 0.2,
     // DATA FOLDER
-    dataFolder: 'https://xstan89.github.io/GwynTest/'
+    dataFolder: 'https://xstan89.github.io/Mapper2/'
   };
 
   const PADDING = 50;
@@ -756,8 +756,8 @@
     backgroundColor: '#E3E3E3',
     nodeSizeMode: 'connections',
     customNodeSize: 30,
-    minNodeSize: 12,
-    maxNodeSize: 80,
+    minNodeSize: 10,
+    maxNodeSize: 100,
     sizeScale: 1.0
   };
 
@@ -1125,27 +1125,44 @@
         const targets = row.Targets ? row.Targets.split('|').map(t => t.trim()).filter(t => t) : [];
         
         const parsedNodeSize = row.NodeSize ? parseFloat(row.NodeSize) : null;
-        const parsedNodeColor = row.NodeColor || null;
-        const parsedOutlineColor = row.OutlineColor || null;
-        const parsedOutlineThickness = row.OutlineThickness ? parseFloat(row.OutlineThickness) : null;
-        const parsedLineColor = row.LineColor || null;
-        const parsedLineThickness = row.LineThickness ? parseFloat(row.LineThickness) : null;
+        
+        // BACKWARD COMPATIBILITY: If enabled columns missing but data exists, default to true
+        const hasNodeEnabled = row.NodeEnabled !== undefined;
+        const hasOutlineEnabled = row.OutlineEnabled !== undefined;
+        const hasSizeEnabled = row.SizeEnabled !== undefined;
+        const hasLineEnabled = row.LineEnabled !== undefined;
+        
+        const nodeEnabled = hasNodeEnabled 
+          ? String(row.NodeEnabled).toLowerCase() === 'true'
+          : (row.NodeColor ? true : false);
+        
+        const outlineEnabled = hasOutlineEnabled
+          ? String(row.OutlineEnabled).toLowerCase() === 'true'
+          : (row.OutlineColor || row.OutlineThickness ? true : false);
+        
+        const sizeEnabled = hasSizeEnabled
+          ? String(row.SizeEnabled).toLowerCase() === 'true'
+          : (parsedNodeSize ? true : false);
+        
+        const lineEnabled = hasLineEnabled
+          ? String(row.LineEnabled).toLowerCase() === 'true'
+          : (row.LineColor || row.LineThickness ? true : false);
         
         conditionalFormats.push({
           type: row.RuleType.toLowerCase(),
           name: row.RuleName || 'Unnamed Rule',
           order: parseInt(row.Order) || conditionalFormats.length,
           targets: targets,
-          nodeEnabled: parsedNodeColor ? true : (String(row.NodeEnabled).toLowerCase() === 'true'),
-          nodeColor: parsedNodeColor,
-          outlineEnabled: (parsedOutlineColor || parsedOutlineThickness) ? true : (String(row.OutlineEnabled).toLowerCase() === 'true'),
-          outlineColor: parsedOutlineColor,
-          outlineThickness: parsedOutlineThickness,
-          sizeEnabled: parsedNodeSize ? true : (String(row.SizeEnabled).toLowerCase() === 'true'),
+          nodeEnabled: nodeEnabled,
+          nodeColor: row.NodeColor || null,
+          outlineEnabled: outlineEnabled,
+          outlineColor: row.OutlineColor || null,
+          outlineThickness: row.OutlineThickness ? parseFloat(row.OutlineThickness) : null,
+          sizeEnabled: sizeEnabled,
           nodeSize: parsedNodeSize,
-          lineEnabled: (parsedLineColor || parsedLineThickness) ? true : (String(row.LineEnabled).toLowerCase() === 'true'),
-          lineColor: parsedLineColor,
-          lineThickness: parsedLineThickness
+          lineEnabled: lineEnabled,
+          lineColor: row.LineColor || null,
+          lineThickness: row.LineThickness ? parseFloat(row.LineThickness) : null
         });
       }
     });
