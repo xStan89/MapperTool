@@ -2,22 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Research Tool</title>
+  <title>Node Mapper</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
     
     :root {
-      --text-black: #020202;
+      --white: #FFFFFF;
+      --light-grey: #e9e9e9;
+      --panel-grey: #cdcdcd;
       --near-black: #383838;
-      --bg-white: #d3d3d3;
-      --panel-grey: #C2C2C2;
-      --main-yellow: #FFD241;
-      --shadow-grey: #9E9E9E;
+      --text-black: #020202;
       --light-yellow: #FFEDB4;
+      --main-yellow: #FFD241;
       --shadow-yellow: #DEB555;
-      --light-grey:  #d8d8d8;
-      --highlight-white: #FFFFFF;
       --error-red: #dc2626;
       --font-family: 'Rubik', Arial, Helvetica, sans-serif;
     }
@@ -26,21 +24,21 @@
       height:100%; 
       margin:0; 
       font-family: var(--font-family); 
-      background:var(--bg-white); 
+      background:var(--white); 
     }
     #wrap { display:flex; height:100vh; overflow:hidden; }
 
     /* ENTITY MANAGER PANEL (LEFT) */
     #entity-manager {
-      width: 292px;
-      min-width: 292px;
-      background: var(--panel-grey);
+      width: 333px;
+      min-width: 333px;
+      background: var(--white);
       color: var(--text-black);
       padding: 16px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      border-right: 1px solid var(--shadow-grey);
+      border-right: 1px solid var(--panel-grey);
       font-size: 13px;
       overflow: hidden;
     }
@@ -57,31 +55,25 @@
     }
     
     .upload-area {
-      border: 2px dashed var(--shadow-grey);
+      border: 2px dashed var(--panel-grey);
       border-radius: 8px;
       padding-top: 0px;
       padding-left: 3px;
       padding-right: 3px;
       padding-bottom: 0px;
       text-align: center;
-      background: var(--light-grey);
+      background: var(--white);
     }
     
     .button-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
       gap: 6px;
       margin-bottom: 4px;
       margin-top: 4px;
       margin-left: 12px;
       margin-right: 12px;
       justify-content: center;
-    }
-    
-    .icon-btn.save-btn {
-      grid-column: 4;
-      grid-row: 1 / 3;
     }
     
     .icon-btn {
@@ -98,18 +90,9 @@
       align-items: center;
       justify-content: center;
     }
-    
-    .add-btn {
-      background: var(--light-grey);
-      color: var(--text-black);
-    }
-    
-    .add-btn:hover {
-      background: var(--light-yellow);
-    }
 
     .upload-btn {
-      background: var(--light-grey);
+      background: var(--white);
       color: var(--text-black);
     }
     
@@ -118,7 +101,7 @@
     }
     
     .download-btn {
-      background: var(--light-grey);
+      background: var(--white);
       color: var(--text-black);
     }
     
@@ -126,27 +109,7 @@
       background: var(--light-yellow);
     }
     
-    /* .download-btn.unsaved {
-      background: rgba(70,248,128,0.2);
-      animation: pulse 2s infinite;
-    } */
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-    
-    @keyframes pulseGlow {
-      50%, 100% { 
-        box-shadow: 0 0 7px 2px rgba(255, 210, 65, 0.8);
-      }
-      50% { 
-        box-shadow: 0 0 15px 5px rgba(255, 210, 65, 1);
-      }
-    }
-    
-    #file-input-entities, #file-input-connections, #file-input-formatting,
-    #file-input-add-entities, #file-input-add-connections, #file-input-add-formatting {
+    #file-input-entities, #file-input-connections, #file-input-formatting {
       display: none;
     }
     
@@ -175,7 +138,7 @@
       font-family: var(--font-family);
       color: var(--near-black);
       background: var(--light-grey);
-      border: 1px solid var(--shadow-grey);
+      border: 1px solid var(--panel-grey);
       border-bottom: none;
       border-radius: 8px 8px 0 0;
       padding-top: 4px;
@@ -201,9 +164,9 @@
     .tab-btn.active {
       font-weight: bold;
       color: var(--text-black);
-      background: var(--shadow-grey);
-      border-color: var(--shadow-grey);
-      border-bottom: 1px solid var(--shadow-grey);
+      background: var(--panel-grey);
+      border-color: var(--panel-grey);
+      border-bottom: 1px solid var(--panel-grey);
       z-index: 1;
     }
     
@@ -213,9 +176,9 @@
       overflow-y: auto;
       display: none;
       flex-direction: column;
-      background: var(--light-grey);
+      background: var(--white);
       border-radius: 0 0 10px 10px;  /* No top-left radius */
-      border: 1px solid var(--shadow-grey);
+      border: 1px solid var(--panel-grey);
       padding: 0px;
     }
 
@@ -226,9 +189,9 @@
       padding-bottom: 12px;
       padding-left: 4px;
       padding-right: 0px;
-      width: 258px;
+      width: 100%;
       height: 42px;
-      background: var(--shadow-grey);
+      background: var(--panel-grey);
       border-bottom: 1px solid var(--text-black);
       font-weight: 700;
       font-size: 11px;
@@ -237,7 +200,7 @@
       justify-content: center;
       position: sticky; top: 0;
       z-index: 10; /* or higher */
-      background: var(--shadow-grey); /* important: ensures solid cover */
+      background: var(--panel-grey); /* important: ensures solid cover */
     }
     
     .format-control input[type="color"] {
@@ -245,7 +208,7 @@
       height: 32px;
       margin-left: 10px;
       margin-right: 10px;
-      border: 1px solid var(--shadow-grey);
+      border: 1px solid var(--panel-grey);
       border-radius: 4px;
       cursor: pointer;
     }
@@ -255,7 +218,7 @@
       padding: 6px;
       margin-left: 10px;
       margin-right: 10px;
-      border: 1px solid var(--shadow-grey);
+      border: 1px solid var(--panel-grey);
       border-radius: 4px;
       font-family: var(--font-family);
       font-size: 12px;
@@ -266,16 +229,16 @@
       font-weight: 700;
       text-transform: uppercase;
       color: solid var(--near-black);
-      margin-bottom: 6px;
-      border-bottom: 1px solid var(--shadow_grey);
+      margin-top: 12px;
+      border-top: 1px solid var(--panel-grey);
       padding-top: 12px;
       padding-left: 8px;
-      padding-bottom: 2px;
+      padding-bottom: 8px;
     }
 
     .format-divider {
       border: none;
-      border-top: 1px solid var(--shadow-grey);
+      border-top: 1px solid var(--panel-grey);
       margin: 12px 0;
     }
 
@@ -331,9 +294,9 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      background: var(--light-grey);
+      background: var(--white);
       border-radius: 0 0px 10px 10px;  /* No top-left radius */
-      border: 1px solid var(--shadow-grey);
+      border: 1px solid var(--panel-grey);
     }
     
     .table-header {
@@ -344,7 +307,7 @@
       padding-bottom: 0px;
       padding-left: 8px;
       padding-right: 10px;
-      background: var(--shadow-grey);
+      background: var(--panel-grey);
       border-bottom: 1px solid var(--text-black);
       font-weight: 700;
       font-size: 11px;
@@ -431,12 +394,12 @@
     .empty-state {
       padding: 40px 20px;
       text-align: center;
-      color: var(--shadow-grey);
+      color: var(--panel-grey);
     }
 
     /* GRAPH AREA */
-    #graph-area { position:relative; flex:1; background:var(--bg-white); }
-    canvas { width:100%; height:100%; display:block; background:var(--bg-white); }
+    #graph-area { position:relative; flex:1; background:var(--white); }
+    canvas { width:100%; height:100%; display:block; background:var(--white); }
 
     /* LOGO */
     #logo {
@@ -457,7 +420,7 @@
     #top-controls {
       position: absolute;
       top: 12px;
-      right: 12px;
+      left: 12px;
       display: flex;
       gap: 12px;
       z-index: 10;
@@ -469,15 +432,14 @@
     }
     
     .zoom-btn {
-      padding: 6px 8px;
+      height: 27px;
+      width: 27px;
       border-radius: 20px;
       border: none;
       cursor: pointer;
-      background: var(--panel-grey);
+      background: var(--main-yellow);
       color: var(--text-black);
-      font-size: 18px;
-      font-weight: bold;
-      min-width: 35px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -490,16 +452,16 @@
 
     /* INFO PANEL (RIGHT) */
     #info-panel {
-      width: 292px;
-      min-width: 292px;
-      max-width: 292px;
-      background: var(--panel-grey);
+      width: 333px;
+      min-width: 333px;
+      max-width: 333px;
+      background: var(--white);
       color: var(--text-black);
       padding: 12px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      border-left: 1px solid var(--shadow-grey);
+      border-left: 1px solid var(--panel-grey);
       font-size: 13px;
       height: 100vh;
       overflow: hidden;
@@ -518,13 +480,26 @@
       min-width: 0;
       padding: 6px 8px; 
       border-radius: 4px; 
-      border: 1px solid var(--shadow-grey); 
+      border: 1px solid var(--panel-grey); 
       background: rgba(255,255,255,0.5); 
       color: var(--text-black);
       font-family: var(--font-family); 
     }
-    #search-btn, #clear-btn { 
-      padding: 8px 8px; 
+    #search-btn { 
+      height: 29px;
+      border-radius: 4px; 
+      border: none; 
+      cursor: pointer; 
+      background: var(--main-yellow); 
+      color: var(--text-black);
+      font-family: var(--font-family);
+      flex-shrink: 0;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    #clear-btn { 
+      height: 29px;
       border-radius: 4px; 
       border: none; 
       cursor: pointer; 
@@ -542,7 +517,7 @@
 
     #suggestions { 
       background: rgba(255,255,255,0.5); 
-      border: 1px solid var(--shadow-grey); 
+      border: 1px solid var(--panel-grey); 
       max-height: 160px; 
       overflow: auto; 
       display: none; 
@@ -552,7 +527,7 @@
     .suggestion { 
       padding: 6px; 
       cursor: pointer; 
-      border-bottom: 1px dashed var(--shadow-grey); 
+      border-bottom: 1px dashed var(--panel-grey); 
     }
     .suggestion:hover { 
       background: var(--light-yellow); 
@@ -561,12 +536,12 @@
     #node-info { 
       margin-top: 8px; 
       padding: 8px; 
-      background: var(--panel-grey); 
+      background: var(--white); 
       border-radius: 6px; 
       flex-shrink: 0;
     }
     #node-title { font-weight: 700; }
-    .muted { color: var(--shadow-grey); font-weight: 700; }
+    .muted { color: var(--panel-grey); font-weight: 700; }
 
     #node-links {
       margin-top: 8px;
@@ -575,20 +550,20 @@
 
     #connections-box {
       margin-top: -6px;
-      background: var(--light-grey);
+      background: var(--white);
       border-radius: 6px;
       padding: 6px;
       overflow: auto;
-      border: 1px solid var(--shadow-grey);
+      border: 1px solid var(--panel-grey);
       flex: 1;
       min-height: 0;
     }
     .conn-item {
       padding: 6px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-black);
-      border-bottom: 1px dashed var(--shadow-grey);
+      border-bottom: 1px dashed var(--panel-grey);
     }
     .conn-item:hover { 
       background: var(--light-yellow); 
@@ -617,7 +592,7 @@
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      border: 8px solid var(--shadow-grey);
+      border: 8px solid var(--panel-grey);
       border-left-color: var(--main-yellow);
       animation: spin 1s linear infinite;
     }
@@ -638,7 +613,7 @@
     }
     
     .confirm-box {
-      background: var(--highlight-white);
+      background: var(--white);
       border: 2px solid var(--text-black);
       border-radius: 8px;
       padding: 24px;
@@ -679,7 +654,7 @@
     }
     
     .confirm-no {
-      background: var(--shadow-grey);
+      background: var(--panel-grey);
       color: white;
     }
     
@@ -718,37 +693,19 @@
           <input type="file" id="file-input-entities" accept=".csv" />
           <input type="file" id="file-input-connections" accept=".csv" />
           <input type="file" id="file-input-formatting" accept=".csv" />
-          <input type="file" id="file-input-add-entities" accept=".csv" />
-          <input type="file" id="file-input-add-connections" accept=".csv" />
-          <input type="file" id="file-input-add-formatting" accept=".csv" />
 
           <div class="button-row">
             <button class="icon-btn upload-btn" onclick="document.getElementById('file-input-entities').click()" title="Upload Entities">
               <img src="https://i.ibb.co/HfxVTtr4/upE.png" alt="Upload Entities" style="width:40px; height:40px;">
-              <!-- <div style="font-size: 10px; margin-top: 2px;">Replace Entities.csv</div> -->
             </button>
             <button class="icon-btn upload-btn" onclick="document.getElementById('file-input-connections').click()" title="Upload Connections">
               <img src="https://i.ibb.co/LBG9j3L/upC.png" alt="Upload Connections" style="width:40px; height:40px;">
-              <!-- <div style="font-size: 10px; margin-top: 2px;">Replace Connections.csv</div> -->
             </button>
             <button class="icon-btn upload-btn" onclick="document.getElementById('file-input-formatting').click()" title="Upload Formatting">
               <img src="https://i.ibb.co/pHD1d7N/upF.png" alt="Upload Formatting" style="width:40px; height:40px;">
-              <!-- <div style="font-size: 10px; margin-top: 2px;">Replace Formatting.csv</div> -->
             </button>
             <button class="icon-btn download-btn save-btn" id="download-btn" onclick="handleDownload()" title="Save">
-              <img src="https://i.ibb.co/9kyv57Pz/downicon1.png" alt="Save" style="width:50px; height:50px;">
-            </button>
-            <button class="icon-btn add-btn" onclick="document.getElementById('file-input-add-entities').click()" title="Add Entities">
-              <img src="https://i.ibb.co/XxYLrMM2/addE.png" alt="Add Entities" style="width:40px; height:40px;">
-              <!-- <div style="font-size: 10px; margin-top: 2px;">Add Entities.csv</div> -->
-            </button>
-            <button class="icon-btn add-btn" onclick="document.getElementById('file-input-add-connections').click()" title="Add Connections">
-              <img src="https://i.ibb.co/Rkrn72kj/addC.png" alt="Add Connections" style="width:40px; height:40px;">
-              <!-- <div style="font-size: 10px; margin-top: 2px;">Add Connections.csv</div> -->
-            </button>
-            <button class="icon-btn add-btn" onclick="document.getElementById('file-input-add-formatting').click()" title="Add Formatting">
-              <img src="https://i.ibb.co/Zzk0nbN2/downF.png" alt="Add Formatting" style="width:40px; height:40px;">
-              <!-- <div style="font-size: 10px; margin-top: 2px;">Add Formatting.csv</div> -->
+              <img src="https://i.ibb.co/9kyv57Pz/downicon1.png" alt="Save" style="width:40px; height:40px;">
             </button>
           </div>
 
@@ -788,38 +745,38 @@
         
         <div id="formatting-menu">
           <div class="format-header">
-            <select id="format-rule-selector" style="width: 100%; height: 100%; border: none; background: var(--shadow-grey); color: var(--text-black); font-family: var(--font-family); font-size: 14px; font-weight: 700; text-align: center; cursor: pointer; padding: 0 30px 0 10px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22><path fill=%22%23020202%22 d=%22M0 0l6 8 6-8z%22/></svg>'); background-repeat: no-repeat; background-position: right 10px center; background-size: 10px;">
+            <select id="format-rule-selector" style="width: 100%; height: 100%; border: none; background: var(--panel-grey); color: var(--text-black); font-family: var(--font-family); font-size: 14px; font-weight: 700; text-align: center; cursor: pointer; padding: 0 30px 0 10px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22><path fill=%22%23020202%22 d=%22M0 0l6 8 6-8z%22/></svg>'); background-repeat: no-repeat; background-position: right 10px center; background-size: 10px;">
               <option value="default">DEFAULT FORMAT</option>
               <optgroup label="───────────────" disabled></optgroup>
               <option value="create-entity">+ Create a new Entity rule</option>
               <option value="create-category">+ Create a new Category rule</option>
             </select>
           </div>
-          <div id="rule-controls" style="display: none; padding: 8px; background: var(--light-grey); border-bottom: 1px solid var(--shadow-grey); flex-direction:row-reverse ; gap: 4px; ">
+          <div id="rule-controls" style="display: none; padding: 8px; background: var(--white); border-bottom: 1px solid var(--panel-grey); flex-direction:row-reverse ; gap: 4px; ">
             <button id="rule-delete-btn" style="width: 30px; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-family: var(--font-family); font-size: 11px; font-weight: 600; background: var(--error-red); color: white;" title="Delete Rule">×</button>
-            <button id="rule-down-btn" style="width: 30px; padding: 6px 9px; border: none; border-radius: 4px; cursor: pointer; font-family: var(--font-family); font-size: 11px; font-weight: 600; background: var(--panel-grey); color: var(--text-black);" title="Move Rule Down">▼</button>
-            <button id="rule-up-btn" style="width: 30px; padding: 6px 9px; border: none; border-radius: 4px; cursor: pointer; font-family: var(--font-family); font-size: 11px; font-weight: 600; background: var(--panel-grey); color: var(--text-black);" title="Move Rule Up">▲</button>
-            <label style="display: block; font-size: 11px; padding-top: 6px; padding-right: 6px; font-family: var(--font-family); color: var(--shadow-grey);">Rule controls:</label>
+            <button id="rule-down-btn" style="width: 30px; padding: 6px 9px; border: none; border-radius: 4px; cursor: pointer; font-family: var(--font-family); font-size: 11px; font-weight: 600; background: var(--white); color: var(--text-black);" title="Move Rule Down">▼</button>
+            <button id="rule-up-btn" style="width: 30px; padding: 6px 9px; border: none; border-radius: 4px; cursor: pointer; font-family: var(--font-family); font-size: 11px; font-weight: 600; background: var(--white); color: var(--text-black);" title="Move Rule Up">▲</button>
+            <label style="display: block; font-size: 11px; padding-top: 6px; padding-right: 6px; font-family: var(--font-family); color: var(--near-black);">Rule controls:</label>
           </div>
           
           <!-- Rule Name Input (shown when creating/editing a rule) -->
-          <div id="rule-name-section" style="display: none; padding: 12px; background: var(--light-grey); border-bottom: 1px solid var(--shadow-grey);">
+          <div id="rule-name-section" style="display: none; padding: 12px; background: var(--white); border-bottom: 1px solid var(--panel-grey);">
             <label style="display: block; font-size: 11px; font-weight: 700; margin-bottom: 4px; font-family: var(--font-family); color: var(--near-black);">RULE NAME</label>
-            <input type="text" id="rule-name-input" placeholder="Enter rule name" style="width: 100%; padding: 8px; border: 1px solid var(--shadow-grey); border-radius: 4px; font-family: var(--font-family); font-size: 13px; box-sizing: border-box; ">
+            <input type="text" id="rule-name-input" placeholder="Enter rule name" style="width: 100%; padding: 8px; border: 1px solid var(--panel-grey); border-radius: 4px; font-family: var(--font-family); font-size: 13px; box-sizing: border-box; ">
           </div>
           
           <!-- Target Selection (shown when creating/editing entity/category rules) -->
-          <div id="rule-targets-section" style="display: none; padding: 12px; background: var(--light-grey); border-bottom: 1px solid var(--shadow-grey);">
+          <div id="rule-targets-section" style="display: none; padding: 12px; background: var(--white); border-bottom: 1px solid var(--panel-grey);">
             <label style="display: block; font-size: 11px; font-weight: 700; margin-bottom: 4px; font-family: var(--font-family); color: var(--near-black);" id="rule-targets-label">TARGETS</label>
-            <input type="text" id="rule-targets-search" placeholder="Search..." style="width: 100%; padding: 8px; border: 1px solid var(--shadow-grey); border-radius: 4px; font-family: var(--font-family); font-size: 13px; box-sizing: border-box; margin-bottom: 8px;">
-            <div id="rule-targets-list" style="max-height: 150px; overflow-y: auto; border: 1px solid var(--shadow-grey); border-radius: 4px; background: white; padding: 4px; margin-bottom: 8px;"></div>
+            <input type="text" id="rule-targets-search" placeholder="Search..." style="width: 100%; padding: 8px; border: 1px solid var(--panel-grey); border-radius: 4px; font-family: var(--font-family); font-size: 13px; box-sizing: border-box; margin-bottom: 8px;">
+            <div id="rule-targets-list" style="max-height: 150px; overflow-y: auto; border: 1px solid var(--panel-grey); border-radius: 4px; background: white; padding: 4px; margin-bottom: 8px;"></div>
             <div id="rule-selected-targets" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
           </div>
           
           <div class="format-section" id="node-section">
-          <div class="format-section-header">
-            <input type="checkbox" id="fmt-node-enabled" title="Enable custom node color for this rule" style="display: none;">
-            <h3 class="format-subheader" style="padding-top: 12px;">Node</h3>
+          <div class="format-section-header" style="display: flex; align-items: center; gap: 8px; padding-left: 8px;">
+            <input type="checkbox" id="fmt-node-enabled" title="Enable/disable node color formatting for this rule" style="display: none; margin: 0; width: 18px; height: 18px;">
+            <h3 class="format-subheader" style="padding-top: 12px; margin: 0; flex: 1;">Node Fill</h3>
           </div>
           <div class="format-control">
             <label>Color</label>
@@ -831,9 +788,9 @@
           </div>
           </div>
           <div class="format-section" id="outline-section">
-          <div class="format-section-header">
-            <input type="checkbox" id="fmt-outline-enabled" title="Enable custom outline for this rule" style="display: none;">
-            <h3 class="format-subheader">Node Outline</h3>
+          <div class="format-section-header" style="display: flex; align-items: center; gap: 8px; padding-left: 8px;">
+            <input type="checkbox" id="fmt-outline-enabled" title="Enable/disable outline formatting for this rule" style="display: none; margin: 0; width: 18px; height: 18px;">
+            <h3 class="format-subheader" style="margin: 0; flex: 1;">Node Outline</h3>
           </div>
           <div class="format-control">
             <label>Color</label>
@@ -853,15 +810,15 @@
           </div>
           </div>
           <div class="format-section" id="size-section">
-          <div class="format-section-header">
-            <input type="checkbox" id="fmt-size-enabled" title="Enable custom size for this rule" style="display: none;">
-            <h3 class="format-subheader">Node Size</h3>
+          <div class="format-section-header" style="display: flex; align-items: center; gap: 8px; padding-left: 8px;">
+            <input type="checkbox" id="fmt-size-enabled" title="Enable/disable custom size for this rule" style="display: none; margin: 0; width: 18px; height: 18px;">
+            <h3 class="format-subheader" style="margin: 0; flex: 1;">Node Size</h3>
           </div>
           <div class="format-control" id="size-mode-control">
             <label>Size Mode</label>
-            <select id="fmt-size-mode" style="padding: 6px; margin-right: 10px; border: 1px solid var(--shadow-grey); border-radius: 4px; font-family: var(--font-family); font-size: 12px;">
+            <select id="fmt-size-mode" style="padding: 6px; margin-right: 10px; border: 1px solid var(--panel-grey); border-radius: 4px; font-family: var(--font-family); font-size: 12px;">
               <option value="connections"># of Connections</option>
-              <option value="custom">Custom Size</option>
+              <option value="custom" selected>Custom Size</option>
             </select>
           </div>
           <div class="format-control" id="custom-size-checkbox-control" style="display: none;">
@@ -880,18 +837,12 @@
             <label>Max Size (px)</label>
             <input type="number" id="fmt-max-size" min="10" max="200" value="100">
           </div>
-          <div class="format-control" id="size-scale-control">
-            <label>Size Scale: <span id="scale-value">1.0x</span></label>
-            <input type="range" id="fmt-size-scale" min="0" max="100" step="1" value="50" style="width: 120px; margin-right: 10px;">
-          </div>
         </div>
 
-        <hr class="format-divider">
-
         <div class="format-section" id="line-section">
-          <div class="format-section-header">
-            <input type="checkbox" id="fmt-line-enabled" title="Enable custom line style for this rule" style="display: none;">
-            <h3 class="format-subheader">Connection Line</h3>
+          <div class="format-section-header" style="display: flex; align-items: center; gap: 8px; padding-left: 8px;">
+            <input type="checkbox" id="fmt-line-enabled" title="Enable/disable line formatting for this rule" style="display: none; margin: 0; width: 18px; height: 18px;">
+            <h3 class="format-subheader" style="margin: 0; flex: 1;">Connection Line</h3>
           </div>
           <div class="format-control">
             <label>Color</label>
@@ -911,13 +862,11 @@
           </div>
         </div>
 
-        <hr class="format-divider" id="other-options-divider">
-
         <div class="format-section" id="other-options-section">
           <h3 class="format-subheader">Other Options</h3>
           <div class="format-control">
             <label>Background Color</label>
-            <input type="color" id="fmt-bg-color" value="#dadada">
+            <input type="color" id="fmt-bg-color" value="#FFFFFF">
           </div>          
           <br></br>
           <div class="format-control">
@@ -940,7 +889,7 @@
         <div id="zoom-controls">
           <button id="zoom-in" class="zoom-btn" title="Zoom In">+</button>
           <button id="zoom-out" class="zoom-btn" title="Zoom Out">−</button>
-          <button id="zoom-reset" class="zoom-btn" title="Reset Zoom">↻</button>
+          <button id="zoom-reset" class="zoom-btn" title="Reset Zoom">⛶</button>
         </div>
       </div>
 
@@ -954,11 +903,10 @@
       <div id="controls">
         <div id="search-box">
           <input id="search-input" placeholder="Search..." />
-          <button id="search-btn">Search</button>
+          <button id="search-btn">⌕</button>
+          <button id="clear-btn">Clear</button>
         </div>
       </div>
-
-      <button id="clear-btn" style="margin-bottom: 8px; flex-shrink: 0;">Clear Selection</button>
 
       <div id="suggestions"></div>
 
@@ -1006,11 +954,11 @@
     gridSize: 25,
     dragDelayMs: 600, // hold before drag
     force: {
-      linkDistance: 30,
-      linkStrength: 0.8,
-      chargeStrength: -300,
-      collisionPadding: 10,
-      velocityDecay: 0.1
+      linkDistance: 0.1,
+      linkStrength: 0.5,
+      chargeStrength: -100,
+      collisionPadding: 20,
+      velocityDecay: 0.4
     },
     showImages: true,
     maxSuggestions: 25, //what is this?
@@ -1019,13 +967,13 @@
     zoomStep: 0.2
   };
 
-  const PADDING = 80;
+  const PADDING = 50;
 
   // Default Formatting Settings that can be customized by user
   let formattingSettings = {
     nodeColor: '#000000',
     nodeHoverColor: '#FFD241',
-    outlineColor: '#E3E3E3',
+    outlineColor: '#FFFFFF',
     outlineHoverColor: '#FFD241',
     outlineThickness: 4,
     outlineHoverThickness: 5,
@@ -1033,12 +981,11 @@
     lineHoverColor: '#FFD241',
     lineThickness: 3,
     lineHoverThickness: 5,
-    backgroundColor: '#E3E3E3',
-    nodeSizeMode: 'connections', // 'connections' or 'custom'
-    customNodeSize: 30,
-    minNodeSize: 12,
-    maxNodeSize: 80,
-    sizeScale: 1.0
+    backgroundColor: '#FFFFFF',
+    nodeSizeMode: 'custom', // 'connections' or 'custom'
+    customNodeSize: 50,
+    minNodeSize: 10,
+    maxNodeSize: 100
   };
 
   // Global state
@@ -1048,10 +995,12 @@
   let nodeById = new Map();
   let adjacency = new Map();
   let connectionSources = new Map();
+  let connectionTexts = new Map();
   let nameIndex = [];
   let simulation = null;
   let selectedNode = null;
   let hoveredNode = null;
+  let hoveredConnection = null; // {source, target} for connection hover
   let isDragging = false;
   let isDraggingNode = false;
   let draggedNode = null;
@@ -1095,9 +1044,6 @@
   const fileInputEntities = document.getElementById('file-input-entities');
   const fileInputConnections = document.getElementById('file-input-connections');
   const fileInputFormatting = document.getElementById('file-input-formatting');
-  const fileInputAddEntities = document.getElementById('file-input-add-entities');
-  const fileInputAddConnections = document.getElementById('file-input-add-connections');
-  const fileInputAddFormatting = document.getElementById('file-input-add-formatting');
   const statusMsg = document.getElementById('status-msg');
   const downloadBtn = document.getElementById('download-btn');
   const confirmDialog = document.getElementById('confirm-dialog');
@@ -1137,8 +1083,6 @@
   const fmtCustomSize = document.getElementById('fmt-custom-size');
   const fmtMinSize = document.getElementById('fmt-min-size');
   const fmtMaxSize = document.getElementById('fmt-max-size');
-  const fmtSizeScale = document.getElementById('fmt-size-scale');
-  const scaleValueDisplay = document.getElementById('scale-value');
   const customSizeControl = document.getElementById('custom-size-control');
   const customSizeCheckboxControl = document.getElementById("custom-size-checkbox-control");
   const fmtCustomSizeEnabled = document.getElementById("fmt-custom-size-enabled");
@@ -1147,7 +1091,6 @@
   const sizeModeControl = document.getElementById('size-mode-control');
   const minSizeControl = document.getElementById('min-size-control');
   const maxSizeControl = document.getElementById('max-size-control');
-  const sizeScaleControl = document.getElementById('size-scale-control');
   const otherOptionsSection = document.getElementById('other-options-section');
   const otherOptionsDivider = document.getElementById('other-options-divider');
   const nodeHoverColorControl = document.getElementById('node-hover-color-control');
@@ -1216,12 +1159,10 @@
     fmtMinSize.value = formattingSettings.minNodeSize;
     fmtMaxSize.value = formattingSettings.maxNodeSize;
     
-    // Set size scale slider to 50 (middle position = 1x)
-    fmtSizeScale.value = 50;
-    scaleValueDisplay.textContent = '1.0x';
-    
-    // Hide custom size control if not in custom mode
-    if (formattingSettings.nodeSizeMode !== 'custom') {
+    // Show custom size control since default mode is now 'custom'
+    if (formattingSettings.nodeSizeMode === 'custom') {
+      customSizeControl.style.display = 'flex';
+    } else {
       customSizeControl.style.display = 'none';
     }
   }
@@ -1324,6 +1265,7 @@
     entitiesTab.classList.remove('active');
     entityTableContainer.style.display = 'none';
     formattingMenu.style.display = 'flex';
+    renderFormattingMenu(); // Render the UI when tab is clicked
   });
 
   /************************************************************************
@@ -1332,6 +1274,12 @@
   fmtNodeColor.addEventListener('input', (e) => {
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].nodeColor = e.target.value;
+      // Auto-enable the NODE FILL section if not already enabled
+      if (!conditionalFormats[currentEditingRuleIndex].nodeEnabled) {
+        conditionalFormats[currentEditingRuleIndex].nodeEnabled = true;
+        fmtNodeEnabled.checked = true;
+        updateSectionState(nodeSection, true);
+      }
       invalidateFormatCache();
     } else {
       formattingSettings.nodeColor = e.target.value;
@@ -1347,6 +1295,12 @@
   fmtLineColor.addEventListener('input', (e) => {
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].lineColor = e.target.value;
+      // Auto-enable the LINE section if not already enabled
+      if (!conditionalFormats[currentEditingRuleIndex].lineEnabled) {
+        conditionalFormats[currentEditingRuleIndex].lineEnabled = true;
+        fmtLineEnabled.checked = true;
+        updateSectionState(lineSection, true);
+      }
       invalidateFormatCache();
     } else {
       formattingSettings.lineColor = e.target.value;
@@ -1362,6 +1316,12 @@
   fmtLineThickness.addEventListener('input', (e) => {
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].lineThickness = parseFloat(e.target.value);
+      // Auto-enable the LINE section if not already enabled
+      if (!conditionalFormats[currentEditingRuleIndex].lineEnabled) {
+        conditionalFormats[currentEditingRuleIndex].lineEnabled = true;
+        fmtLineEnabled.checked = true;
+        updateSectionState(lineSection, true);
+      }
       invalidateFormatCache();
     } else {
       formattingSettings.lineThickness = parseFloat(e.target.value);
@@ -1377,9 +1337,14 @@
   fmtOutlineColor.addEventListener('input', (e) => {
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].outlineColor = e.target.value;
+      // Auto-enable the OUTLINE section if not already enabled
+      if (!conditionalFormats[currentEditingRuleIndex].outlineEnabled) {
+        conditionalFormats[currentEditingRuleIndex].outlineEnabled = true;
+        fmtOutlineEnabled.checked = true;
+        updateSectionState(outlineSection, true);
+      }
       invalidateFormatCache();
-    } else if (!isCreatingNewRule) {
-      // Only update default if not creating a new rule
+    } else {
       formattingSettings.outlineColor = e.target.value;
     }
     render();
@@ -1393,6 +1358,12 @@
   fmtOutlineThickness.addEventListener('input', (e) => {
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].outlineThickness = parseFloat(e.target.value);
+      // Auto-enable the OUTLINE section if not already enabled
+      if (!conditionalFormats[currentEditingRuleIndex].outlineEnabled) {
+        conditionalFormats[currentEditingRuleIndex].outlineEnabled = true;
+        fmtOutlineEnabled.checked = true;
+        updateSectionState(outlineSection, true);
+      }
       invalidateFormatCache();
     } else {
       formattingSettings.outlineThickness = parseFloat(e.target.value);
@@ -1407,7 +1378,7 @@
   
   fmtBgColor.addEventListener('input', (e) => {
     formattingSettings.backgroundColor = e.target.value;
-    document.documentElement.style.setProperty('--bg-white', e.target.value);
+    document.documentElement.style.setProperty('--white', e.target.value);
     render();
   });
 
@@ -1459,26 +1430,6 @@
     render();
   });
 
-  fmtSizeScale.addEventListener('input', (e) => {
-    const sliderValue = parseFloat(e.target.value);
-    let scale;
-    
-    // Map slider value (0-100) to scale (0.1x-10x) with 50=1x
-    if (sliderValue <= 50) {
-      // 0-50 maps to 0.1x-1x (linear)
-      scale = 0.1 + (sliderValue / 50) * 0.9;
-    } else {
-      // 50-100 maps to 1x-10x (linear)
-      scale = 1.0 + ((sliderValue - 50) / 50) * 9.0;
-    }
-    
-    formattingSettings.sizeScale = scale;
-    scaleValueDisplay.textContent = scale.toFixed(1) + 'x';
-    applyNodeSizeScale();
-    schedulePhysicsRestart();
-    render();
-  });
-
   /************************************************************************
    * CONDITIONAL FORMATTING
    ************************************************************************/
@@ -1486,6 +1437,153 @@
   let selectedTargetsSet = new Set();
   let currentRuleType = null;
   let isCreatingNewRule = false;
+
+  /************************************************************************
+   * NEW FORMATTING UI - STATE-BASED RENDERING
+   ************************************************************************/
+  class FormattingUIState {
+    constructor() {
+      this.mode = 'default';
+      this.ruleIndex = null;
+    }
+
+    setDefaultMode() {
+      this.mode = 'default';
+      this.ruleIndex = null;
+      currentEditingRuleIndex = null;
+      currentRuleType = null;
+    }
+
+    setRuleMode(ruleIndex) {
+      const rule = conditionalFormats[ruleIndex];
+      if (!rule) return;
+      this.mode = rule.type === 'entity' ? 'entity_rule' : 'category_rule';
+      this.ruleIndex = ruleIndex;
+      currentEditingRuleIndex = ruleIndex;
+      currentRuleType = rule.type;
+      selectedTargetsSet = new Set(rule.targets || []);
+    }
+
+    getCurrentRule() {
+      return this.ruleIndex !== null ? conditionalFormats[this.ruleIndex] : null;
+    }
+
+    isDefaultMode() {
+      return this.mode === 'default';
+    }
+
+    isRuleMode() {
+      return !this.isDefaultMode();
+    }
+
+    ruleHasName() {
+      const rule = this.getCurrentRule();
+      return rule && rule.name && rule.name.trim().length > 0;
+    }
+  }
+
+  const formatUIState = new FormattingUIState();
+
+  // SINGLE RENDER PASS - replaces showRuleEditInterface, hideRuleEditInterface, etc.
+  function renderFormattingMenu() {
+    if (formatUIState.isDefaultMode()) {
+      // DEFAULT MODE
+      ruleNameSection.style.display = 'none';
+      ruleTargetsSection.style.display = 'none';
+      ruleControls.style.display = 'none';
+      customSizeCheckboxControl.style.display = 'none';
+      customSizeControl.style.display = formattingSettings.nodeSizeMode === 'custom' ? 'flex' : 'none';
+      
+      sizeModeControl.style.display = 'flex';
+      minSizeControl.style.display = 'flex';
+      maxSizeControl.style.display = 'flex';
+      otherOptionsSection.style.display = 'block';
+      
+      nodeHoverColorControl.style.display = 'flex';
+      outlineHoverColorControl.style.display = 'flex';
+      outlineHoverThicknessControl.style.display = 'flex';
+      lineHoverColorControl.style.display = 'flex';
+      lineHoverThicknessControl.style.display = 'flex';
+      
+      fmtNodeEnabled.style.display = 'none';
+      fmtOutlineEnabled.style.display = 'none';
+      fmtSizeEnabled.style.display = 'none';
+      fmtLineEnabled.style.display = 'none';
+      
+      nodeSection.classList.remove('disabled');
+      outlineSection.classList.remove('disabled');
+      sizeSection.classList.remove('disabled');
+      lineSection.classList.remove('disabled');
+      
+      fmtNodeColor.value = formattingSettings.nodeColor;
+      fmtNodeHoverColor.value = formattingSettings.nodeHoverColor;
+      fmtOutlineColor.value = formattingSettings.outlineColor;
+      fmtOutlineHoverColor.value = formattingSettings.outlineHoverColor;
+      fmtOutlineThickness.value = formattingSettings.outlineThickness;
+      fmtLineColor.value = formattingSettings.lineColor;
+      fmtLineHoverColor.value = formattingSettings.lineHoverColor;
+      fmtLineThickness.value = formattingSettings.lineThickness;
+      
+    } else {
+      // RULE MODE
+      const rule = formatUIState.getCurrentRule();
+      if (!rule) return;
+      
+      ruleNameSection.style.display = 'block';
+      ruleTargetsSection.style.display = 'block';
+      customSizeCheckboxControl.style.display = 'flex';
+      
+      sizeModeControl.style.display = 'none';
+      minSizeControl.style.display = 'none';
+      maxSizeControl.style.display = 'none';
+      otherOptionsSection.style.display = 'none';
+      
+      nodeHoverColorControl.style.display = 'none';
+      outlineHoverColorControl.style.display = 'none';
+      outlineHoverThicknessControl.style.display = 'none';
+      lineHoverColorControl.style.display = 'none';
+      lineHoverThicknessControl.style.display = 'none';
+      
+      fmtNodeEnabled.style.display = 'block';
+      fmtOutlineEnabled.style.display = 'block';
+      fmtSizeEnabled.style.display = 'block';
+      fmtLineEnabled.style.display = 'block';
+      
+      fmtNodeEnabled.checked = rule.nodeEnabled || false;
+      fmtOutlineEnabled.checked = rule.outlineEnabled || false;
+      fmtSizeEnabled.checked = rule.sizeEnabled || false;
+      fmtLineEnabled.checked = rule.lineEnabled || false;
+      
+      updateSectionState(nodeSection, rule.nodeEnabled);
+      updateSectionState(outlineSection, rule.outlineEnabled);
+      updateSectionState(sizeSection, rule.sizeEnabled);
+      updateSectionState(lineSection, rule.lineEnabled);
+      
+      ruleControls.style.display = formatUIState.ruleHasName() ? 'flex' : 'none';
+      if (formatUIState.ruleHasName()) {
+        ruleUpBtn.disabled = formatUIState.ruleIndex === 0;
+        ruleDownBtn.disabled = formatUIState.ruleIndex === conditionalFormats.length - 1;
+      }
+      
+      fmtCustomSizeEnabled.checked = rule.nodeSize !== null && rule.nodeSize !== undefined;
+      customSizeControl.style.display = (rule.nodeSize !== null && rule.nodeSize !== undefined) ? 'flex' : 'none';
+      if (rule.nodeSize !== null && rule.nodeSize !== undefined) {
+        fmtCustomSize.value = rule.nodeSize;
+      }
+      
+      ruleNameInput.value = rule.name || '';
+      fmtNodeColor.value = rule.nodeColor || formattingSettings.nodeColor;
+      fmtOutlineColor.value = rule.outlineColor || formattingSettings.outlineColor;
+      fmtOutlineThickness.value = rule.outlineThickness || formattingSettings.outlineThickness;
+      fmtLineColor.value = rule.lineColor || formattingSettings.lineColor;
+      fmtLineThickness.value = rule.lineThickness || formattingSettings.lineThickness;
+      
+      ruleTargetsLabel.textContent = formatUIState.mode === 'entity_rule' ? 'ENTITIES' : 'CATEGORIES';
+      updateTargetsList();
+      updateSelectedTargets();
+    }
+  }
+
 
   // Section enable checkbox event listeners
   function updateSectionState(section, enabled) {
@@ -1497,69 +1595,114 @@
   }
 
   fmtNodeEnabled.addEventListener('change', () => {
-    updateSectionState(nodeSection, fmtNodeEnabled.checked);
-    if (currentEditingRuleIndex !== null) {
-      conditionalFormats[currentEditingRuleIndex].nodeEnabled = fmtNodeEnabled.checked;
-      invalidateFormatCache();
-      render();
+    if (formatUIState.isRuleMode()) {
+      const rule = formatUIState.getCurrentRule();
+      if (rule) {
+        rule.nodeEnabled = fmtNodeEnabled.checked;
+        renderFormattingMenu();
+        invalidateFormatCache();
+        render();
+      }
     }
   });
 
   fmtOutlineEnabled.addEventListener('change', () => {
-    updateSectionState(outlineSection, fmtOutlineEnabled.checked);
-    if (currentEditingRuleIndex !== null) {
-      conditionalFormats[currentEditingRuleIndex].outlineEnabled = fmtOutlineEnabled.checked;
-      invalidateFormatCache();
-      render();
+    if (formatUIState.isRuleMode()) {
+      const rule = formatUIState.getCurrentRule();
+      if (rule) {
+        rule.outlineEnabled = fmtOutlineEnabled.checked;
+        renderFormattingMenu();
+        invalidateFormatCache();
+        render();
+      }
     }
   });
 
   fmtSizeEnabled.addEventListener('change', () => {
-    updateSectionState(sizeSection, fmtSizeEnabled.checked);
-    if (currentEditingRuleIndex !== null) {
-      conditionalFormats[currentEditingRuleIndex].sizeEnabled = fmtSizeEnabled.checked;
-      // If disabling the section, also disable custom size
-      if (!fmtSizeEnabled.checked) {
-        fmtCustomSizeEnabled.checked = false;
-        customSizeControl.style.display = 'none';
-        conditionalFormats[currentEditingRuleIndex].nodeSize = null;
+    if (formatUIState.isRuleMode()) {
+      const rule = formatUIState.getCurrentRule();
+      if (rule) {
+        rule.sizeEnabled = fmtSizeEnabled.checked;
+        if (!fmtSizeEnabled.checked) {
+          rule.nodeSize = null;
+        }
+        renderFormattingMenu();
+        invalidateFormatCache();
+        applyNodeSizeScale();
+        schedulePhysicsRestart();
+        render();
       }
-      invalidateFormatCache();
-      applyNodeSizeScale();
-      schedulePhysicsRestart();
-      render();
     }
   });
 
   fmtLineEnabled.addEventListener('change', () => {
-    updateSectionState(lineSection, fmtLineEnabled.checked);
-    if (currentEditingRuleIndex !== null) {
-      conditionalFormats[currentEditingRuleIndex].lineEnabled = fmtLineEnabled.checked;
-      invalidateFormatCache();
-      render();
+    if (formatUIState.isRuleMode()) {
+      const rule = formatUIState.getCurrentRule();
+      if (rule) {
+        rule.lineEnabled = fmtLineEnabled.checked;
+        renderFormattingMenu();
+        invalidateFormatCache();
+        render();
+      }
     }
   });
 
-  // Handle format rule selector dropdown
+  // Handle format rule selector dropdown - NEW STATE-BASED VERSION
   formatRuleSelector.addEventListener('change', (e) => {
     const value = e.target.value;
     
+    // Clean up any empty-named rules before switching
+    if (formatUIState.ruleIndex !== null && formatUIState.isRuleMode()) {
+      const currentRule = formatUIState.getCurrentRule();
+      if (currentRule && !currentRule.name.trim()) {
+        conditionalFormats.splice(formatUIState.ruleIndex, 1);
+        conditionalFormats.forEach((r, idx) => r.order = idx);
+        invalidateFormatCache();
+        applyNodeSizeScale();
+      }
+    }
+    
     if (value === 'create-entity' || value === 'create-category') {
-      // Start creating a new rule
-      isCreatingNewRule = true;
-      currentRuleType = value === 'create-entity' ? 'entity' : 'category';
-      currentEditingRuleIndex = null;
-      selectedTargetsSet.clear();
+      // Create new rule
+      const ruleType = value === 'create-entity' ? 'entity' : 'category';
+      const newRule = {
+        type: ruleType,
+        name: '',
+        order: conditionalFormats.length,
+        targets: [],
+        nodeEnabled: false,
+        nodeColor: formattingSettings.nodeColor,
+        outlineEnabled: false,
+        outlineColor: formattingSettings.outlineColor,
+        outlineThickness: formattingSettings.outlineThickness,
+        sizeEnabled: false,
+        nodeSize: null,
+        lineEnabled: false,
+        lineColor: formattingSettings.lineColor,
+        lineThickness: formattingSettings.lineThickness
+      };
       
-      // Show rule creation interface
-      showRuleEditInterface(currentRuleType, null);
+      conditionalFormats.push(newRule);
+      formatUIState.setRuleMode(conditionalFormats.length - 1);
+      updateFormatRuleSelector();
+      formatRuleSelector.value = formatUIState.ruleIndex.toString();
+      renderFormattingMenu(); // SINGLE RENDER PASS!
+      setTimeout(() => ruleNameInput.focus(), 100);
+      
+    } else if (value === 'default') {
+      formatUIState.setDefaultMode();
+      renderFormattingMenu(); // SINGLE RENDER PASS!
       
     } else {
-      // Loading existing rule or default
-      isCreatingNewRule = false;
-      currentFormatRule = value;
-      loadFormatRule(value);
+      // Load existing rule
+      const ruleIndex = parseInt(value);
+      formatUIState.setRuleMode(ruleIndex);
+      renderFormattingMenu(); // SINGLE RENDER PASS!
     }
+    
+    invalidateFormatCache();
+    applyNodeSizeScale();
+    render();
   });
 
   function showRuleEditInterface(type, ruleIndex) {
@@ -1571,7 +1714,6 @@
     sizeModeControl.style.display = 'none';
     minSizeControl.style.display = 'none';
     maxSizeControl.style.display = 'none';
-    sizeScaleControl.style.display = 'none';
     otherOptionsSection.style.display = 'none';
     otherOptionsDivider.style.display = 'none';
     
@@ -1583,10 +1725,10 @@
     lineHoverThicknessControl.style.display = 'none';
     
     // Show section enable checkboxes for conditional rules
-    fmtNodeEnabled.style.display = 'inline-block';
-    fmtOutlineEnabled.style.display = 'inline-block';
-    fmtSizeEnabled.style.display = 'inline-block';
-    fmtLineEnabled.style.display = 'inline-block';
+    fmtNodeEnabled.style.display = 'block';
+    fmtOutlineEnabled.style.display = 'block';
+    fmtSizeEnabled.style.display = 'block';
+    fmtLineEnabled.style.display = 'block';
     
     // Show custom size checkbox control for conditional rules
     customSizeCheckboxControl.style.display = 'flex';
@@ -1594,71 +1736,48 @@
     // Set targets label
     ruleTargetsLabel.textContent = type === 'entity' ? 'ENTITIES' : 'CATEGORIES';
     
-    // Load rule data if editing
-    if (ruleIndex !== null) {
-      const rule = conditionalFormats[ruleIndex];
-      ruleNameInput.value = rule.name;
-      selectedTargetsSet = new Set(rule.targets);
-      
-      // Show rule controls
+    // Load rule data
+    const rule = conditionalFormats[ruleIndex];
+    ruleNameInput.value = rule.name;
+    selectedTargetsSet = new Set(rule.targets);
+    
+    // Show/hide rule controls based on whether name exists
+    if (rule.name.trim()) {
       ruleControls.style.display = 'flex';
       ruleUpBtn.disabled = ruleIndex === 0;
       ruleDownBtn.disabled = ruleIndex === conditionalFormats.length - 1;
-      
-      // Enable all formatting controls since rule exists
       enableFormattingControls();
-      
-      // Set section enable checkboxes based on rule
-      fmtNodeEnabled.checked = rule.nodeEnabled || false;
-      fmtOutlineEnabled.checked = rule.outlineEnabled || false;
-      fmtSizeEnabled.checked = rule.sizeEnabled || false;
-      fmtLineEnabled.checked = rule.lineEnabled || false;
-      
-      // Update section states based on checkboxes
-      updateSectionState(nodeSection, fmtNodeEnabled.checked);
-      updateSectionState(outlineSection, fmtOutlineEnabled.checked);
-      updateSectionState(sizeSection, fmtSizeEnabled.checked);
-      updateSectionState(lineSection, fmtLineEnabled.checked);
-      
-      // Set custom size checkbox and value based on whether nodeSize exists
-      if (rule.nodeSize !== null && rule.nodeSize !== undefined) {
-        fmtCustomSizeEnabled.checked = true;
-        customSizeControl.style.display = 'flex';
-        fmtCustomSize.value = rule.nodeSize;
-        // If nodeSize exists, sizeEnabled should also be true
-        if (!rule.sizeEnabled) {
-          rule.sizeEnabled = true;
-          fmtSizeEnabled.checked = true;
-          updateSectionState(sizeSection, true);
-        }
-      } else {
-        fmtCustomSizeEnabled.checked = false;
-        customSizeControl.style.display = 'none';
+    } else {
+      ruleControls.style.display = 'none';
+      disableFormattingControls();
+    }
+    
+    // Set section enable checkboxes based on rule
+    fmtNodeEnabled.checked = rule.nodeEnabled || false;
+    fmtOutlineEnabled.checked = rule.outlineEnabled || false;
+    fmtSizeEnabled.checked = rule.sizeEnabled || false;
+    fmtLineEnabled.checked = rule.lineEnabled || false;
+    
+    // Update section states based on checkboxes
+    updateSectionState(nodeSection, fmtNodeEnabled.checked);
+    updateSectionState(outlineSection, fmtOutlineEnabled.checked);
+    updateSectionState(sizeSection, fmtSizeEnabled.checked);
+    updateSectionState(lineSection, fmtLineEnabled.checked);
+    
+    // Set custom size checkbox and value based on whether nodeSize exists
+    if (rule.nodeSize !== null && rule.nodeSize !== undefined) {
+      fmtCustomSizeEnabled.checked = true;
+      customSizeControl.style.display = 'flex';
+      fmtCustomSize.value = rule.nodeSize;
+      // If nodeSize exists, sizeEnabled should also be true
+      if (!rule.sizeEnabled) {
+        rule.sizeEnabled = true;
+        fmtSizeEnabled.checked = true;
+        updateSectionState(sizeSection, true);
       }
     } else {
-      // New rule - disable controls until name is entered
-      ruleNameInput.value = '';
-      selectedTargetsSet.clear();
-      ruleControls.style.display = 'none';
-      
-      // Default all section checkboxes to OFF (unchecked)
-      fmtNodeEnabled.checked = false;
-      fmtOutlineEnabled.checked = false;
-      fmtSizeEnabled.checked = false;
-      fmtLineEnabled.checked = false;
-      
-      // Default custom size checkbox to OFF and hide size input
       fmtCustomSizeEnabled.checked = false;
       customSizeControl.style.display = 'none';
-      
-      // Set all sections to disabled state
-      updateSectionState(nodeSection, false);
-      updateSectionState(outlineSection, false);
-      updateSectionState(sizeSection, false);
-      updateSectionState(lineSection, false);
-      
-      // Disable all formatting controls until rule name is entered
-      disableFormattingControls();
     }
     
     updateTargetsList();
@@ -1693,6 +1812,19 @@
     outlineHoverThicknessControl.style.display = 'flex';
     lineHoverColorControl.style.display = 'flex';
     lineHoverThicknessControl.style.display = 'flex';
+
+    // RESTORE DEFAULT SIZE UI STATE
+    sizeModeControl.style.display = 'flex';
+    minSizeControl.style.display = 'flex';
+    maxSizeControl.style.display = 'flex';
+
+    fmtSizeMode.value = formattingSettings.nodeSizeMode;
+
+    if (formattingSettings.nodeSizeMode === 'custom') {
+      customSizeControl.style.display = 'flex';
+    } else {
+      customSizeControl.style.display = 'none';
+    }
   }
 
   function disableFormattingControls() {
@@ -1737,57 +1869,14 @@
 
   // Auto-save when rule name changes
   ruleNameInput.addEventListener('input', () => {
-    const ruleName = ruleNameInput.value.trim();
-    
-    // Enable formatting controls once user enters a name
-    if (ruleName) {
-      enableFormattingControls();
-    } else {
-      disableFormattingControls();
-      return;
-    }
-    
-    if (isCreatingNewRule && ruleName) {
-      // Create the rule immediately with current control values
-      // All sections default to OFF (disabled)
-      const newRule = {
-        type: currentRuleType,
-        name: ruleName,
-        order: conditionalFormats.length,
-        targets: Array.from(selectedTargetsSet),
-        nodeEnabled: fmtNodeEnabled.checked,
-        nodeColor: fmtNodeColor.value,
-        outlineEnabled: fmtOutlineEnabled.checked,
-        outlineColor: fmtOutlineColor.value,
-        outlineThickness: parseFloat(fmtOutlineThickness.value),
-        sizeEnabled: fmtSizeEnabled.checked,
-        nodeSize: fmtCustomSizeEnabled.checked ? (parseFloat(fmtCustomSize.value) || 20) : null,
-        lineEnabled: fmtLineEnabled.checked,
-        lineColor: fmtLineColor.value,
-        lineThickness: parseFloat(fmtLineThickness.value)
-      };
-      
-      conditionalFormats.push(newRule);
-      currentEditingRuleIndex = conditionalFormats.length - 1;
-      isCreatingNewRule = false;
-      
-      updateFormatRuleSelector();
-      currentFormatRule = currentEditingRuleIndex.toString();
-      formatRuleSelector.value = currentFormatRule;
-      
-      // Show rule controls now
-      ruleControls.style.display = 'flex';
-      ruleUpBtn.disabled = currentEditingRuleIndex === 0;
-      ruleDownBtn.disabled = currentEditingRuleIndex === conditionalFormats.length - 1;
-      
-      invalidateFormatCache();
-      applyNodeSizeScale();
-      render();
-    } else if (currentEditingRuleIndex !== null) {
-      // Update existing rule name
-      conditionalFormats[currentEditingRuleIndex].name = ruleName;
-      updateFormatRuleSelector();
-      formatRuleSelector.value = currentEditingRuleIndex.toString();
+    if (formatUIState.isRuleMode()) {
+      const rule = formatUIState.getCurrentRule();
+      if (rule) {
+        rule.name = ruleNameInput.value;
+        updateFormatRuleSelector();
+        formatRuleSelector.value = formatUIState.ruleIndex.toString();
+        renderFormattingMenu(); // Re-render to show/hide controls
+      }
     }
   });
 
@@ -1847,7 +1936,7 @@
     });
     
     if (filtered.length === 0) {
-      ruleTargetsList.innerHTML = '<div style="padding: 12px; text-align: center; color: var(--shadow-grey); font-family: var(--font-family);">No items found</div>';
+      ruleTargetsList.innerHTML = '<div style="padding: 12px; text-align: center; color: var(--panel-grey); font-family: var(--font-family);">No items found</div>';
     }
   }
 
@@ -1856,7 +1945,7 @@
     
     selectedTargetsSet.forEach(target => {
       const tag = document.createElement('div');
-      tag.style.cssText = 'display: inline-flex; align-items: center; gap: 6px; background: var(--shadow-grey); color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-family: var(--font-family);';
+      tag.style.cssText = 'display: inline-flex; align-items: center; gap: 6px; background: var(--panel-grey); color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-family: var(--font-family);';
       
       const text = document.createElement('span');
       text.textContent = target;
@@ -1890,104 +1979,88 @@
 
   // Custom size checkbox event listener
   fmtCustomSizeEnabled.addEventListener('change', () => {
-    if (fmtCustomSizeEnabled.checked) {
-      customSizeControl.style.display = 'flex';
-      if (currentEditingRuleIndex !== null) {
-        // Also enable the NODE SIZE section if not already enabled
-        if (!fmtSizeEnabled.checked) {
-          fmtSizeEnabled.checked = true;
-          updateSectionState(sizeSection, true);
-          conditionalFormats[currentEditingRuleIndex].sizeEnabled = true;
+    if (formatUIState.isRuleMode()) {
+      const rule = formatUIState.getCurrentRule();
+      if (rule) {
+        if (fmtCustomSizeEnabled.checked) {
+          if (!rule.sizeEnabled) {
+            rule.sizeEnabled = true;
+          }
+          rule.nodeSize = parseFloat(fmtCustomSize.value) || 20;
+        } else {
+          rule.nodeSize = null;
         }
-        conditionalFormats[currentEditingRuleIndex].nodeSize = parseFloat(fmtCustomSize.value) || 20;
+        renderFormattingMenu();
         invalidateFormatCache();
         applyNodeSizeScale();
-        render();
-      }
-    } else {
-      customSizeControl.style.display = 'none';
-      if (currentEditingRuleIndex !== null) {
-        conditionalFormats[currentEditingRuleIndex].nodeSize = null;
-        invalidateFormatCache();
-        applyNodeSizeScale();
+        schedulePhysicsRestart();
         render();
       }
     }
   });
 
-  function loadFormatRule(ruleIdentifier) {
+function loadFormatRule(ruleIdentifier) {
+    // Reset rule-specific UI text
+    ruleNameInput.value = '';
+    ruleTargetsSearch.value = '';
+    ruleSelectedTargets.innerHTML = '';
+
     if (ruleIdentifier === 'default') {
-      // Hide all rule editing UI
+      // KILL THE RULE INDEX so event listeners stop targeting rules
+      currentEditingRuleIndex = null;
+      currentRuleType = null;
+      isCreatingNewRule = false;
+      
       hideRuleEditInterface();
       
-      // Show default-only controls
-      sizeModeControl.style.display = 'flex';
-      minSizeControl.style.display = 'flex';
-      maxSizeControl.style.display = 'flex';
-      sizeScaleControl.style.display = 'flex';
-      otherOptionsSection.style.display = 'block';
-      otherOptionsDivider.style.display = 'block';
-      nodeHoverColorControl.style.display = 'flex';
-      outlineHoverColorControl.style.display = 'flex';
-      outlineHoverThicknessControl.style.display = 'flex';
-      lineHoverColorControl.style.display = 'flex';
-      lineHoverThicknessControl.style.display = 'flex';
-      
-      // Restore custom size control visibility based on current size mode
-      if (formattingSettings.nodeSizeMode === 'custom') {
-        customSizeControl.style.display = 'flex';
-        fmtCustomSize.value = formattingSettings.customNodeSize;
-      }
-      fmtSizeMode.value = formattingSettings.nodeSizeMode;
-      
-      // Load default formatting settings into controls
+      // RESTORE GLOBAL PICKER VALUES (This stops the sticking)
       fmtNodeColor.value = formattingSettings.nodeColor;
       fmtNodeHoverColor.value = formattingSettings.nodeHoverColor;
       fmtOutlineColor.value = formattingSettings.outlineColor;
       fmtOutlineHoverColor.value = formattingSettings.outlineHoverColor;
       fmtOutlineThickness.value = formattingSettings.outlineThickness;
-      fmtOutlineHoverThickness.value = formattingSettings.outlineHoverThickness;
       fmtLineColor.value = formattingSettings.lineColor;
       fmtLineHoverColor.value = formattingSettings.lineHoverColor;
       fmtLineThickness.value = formattingSettings.lineThickness;
-      fmtLineHoverThickness.value = formattingSettings.lineHoverThickness;
+      fmtBgColor.value = formattingSettings.backgroundColor;
       
+      // Restore default visibility
+      sizeModeControl.style.display = 'flex';
+      otherOptionsSection.style.display = 'block';
+      if (otherOptionsDivider) otherOptionsDivider.style.display = 'block';
+
+    } else if (ruleIdentifier === 'create-entity' || ruleIdentifier === 'create-category') {
+      isCreatingNewRule = true;
       currentEditingRuleIndex = null;
-      currentRuleType = null;
+      currentRuleType = (ruleIdentifier === 'create-entity') ? 'entity' : 'category';
+      showRuleEditInterface(currentRuleType);
+      
     } else {
+      // Loading an existing rule
       const ruleIndex = parseInt(ruleIdentifier);
       const rule = conditionalFormats[ruleIndex];
-      
       if (rule) {
         currentEditingRuleIndex = ruleIndex;
         currentRuleType = rule.type;
         isCreatingNewRule = false;
         
-        // Hide default-only controls
-        sizeModeControl.style.display = 'none';
-        minSizeControl.style.display = 'none';
-        maxSizeControl.style.display = 'none';
-        sizeScaleControl.style.display = 'none';
-        otherOptionsSection.style.display = 'none';
-        otherOptionsDivider.style.display = 'none';
-        nodeHoverColorControl.style.display = 'none';
-        outlineHoverColorControl.style.display = 'none';
-        outlineHoverThicknessControl.style.display = 'none';
-        lineHoverColorControl.style.display = 'none';
-        lineHoverThicknessControl.style.display = 'none';
-        
-        // Show rule edit interface (handles section checkboxes)
         showRuleEditInterface(rule.type, ruleIndex);
         
-        // Load rule values into formatting controls
+        // Sync pickers to THIS rule's values
+        ruleNameInput.value = rule.name || '';
         fmtNodeColor.value = rule.nodeColor || formattingSettings.nodeColor;
         fmtOutlineColor.value = rule.outlineColor || formattingSettings.outlineColor;
-        fmtOutlineThickness.value = rule.outlineThickness || formattingSettings.outlineThickness;
-        // nodeSize is already handled by showRuleEditInterface
         fmtLineColor.value = rule.lineColor || formattingSettings.lineColor;
-        fmtLineThickness.value = rule.lineThickness || formattingSettings.lineThickness;
+        
+        renderSelectedTargets();
       }
     }
+    
+    // Force the UI to refresh its "enabled/disabled" logic
+    if (typeof updateFormattingSections === 'function') {
+      updateFormattingSections();
+    }
+    render();
   }
 
   function updateFormatRuleSelector() {
@@ -2001,7 +2074,8 @@
     conditionalFormats.forEach((rule, index) => {
       const option = document.createElement('option');
       option.value = index;
-      option.textContent = `${rule.type === 'entity' ? 'Entity' : 'Category'}: ${rule.name}`;
+      const displayName = rule.name.trim() || '(unnamed)';
+      option.textContent = `${rule.type === 'entity' ? 'Entity' : 'Category'}: ${displayName}`;
       formatRuleSelector.appendChild(option);
     });
     
@@ -2147,6 +2221,7 @@
           // Update UI
           updateFormatRuleSelector();
           loadFormatRule('default');
+          closeConfirmDialog();
           invalidateFormatCache();
           applyNodeSizeScale();
           render();
@@ -2163,12 +2238,6 @@
     connections: null,
     formatting: null
   };
-  
-  let pendingAddFiles = {
-    entities: null,
-    connections: null,
-    formatting: null
-  };
 
   /************************************************************************
    * FILE UPLOAD - REPLACE (Individual Files)
@@ -2176,7 +2245,7 @@
   fileInputEntities.addEventListener('change', async (e) => {
     if (e.target.files[0]) {
       pendingFiles.entities = e.target.files[0];
-      await processUpload(false);
+      await processUpload();
     }
     fileInputEntities.value = '';
   });
@@ -2184,7 +2253,7 @@
   fileInputConnections.addEventListener('change', async (e) => {
     if (e.target.files[0]) {
       pendingFiles.connections = e.target.files[0];
-      await processUpload(false);
+      await processUpload();
     }
     fileInputConnections.value = '';
   });
@@ -2197,47 +2266,17 @@
         await loadFormattingFileOnly(pendingFiles.formatting);
         pendingFiles.formatting = null;
       } else {
-        await processUpload(false);
+        await processUpload();
       }
     }
     fileInputFormatting.value = '';
   });
 
   /************************************************************************
-   * FILE UPLOAD - ADD (Individual Files)
+   * FILE UPLOAD - REPLACE (Individual Files)
    ************************************************************************/
-  fileInputAddEntities.addEventListener('change', async (e) => {
-    if (e.target.files[0]) {
-      pendingAddFiles.entities = e.target.files[0];
-      await processUpload(true);
-    }
-    fileInputAddEntities.value = '';
-  });
-
-  fileInputAddConnections.addEventListener('change', async (e) => {
-    if (e.target.files[0]) {
-      pendingAddFiles.connections = e.target.files[0];
-      await processUpload(true);
-    }
-    fileInputAddConnections.value = '';
-  });
-
-  fileInputAddFormatting.addEventListener('change', async (e) => {
-    if (e.target.files[0]) {
-      pendingAddFiles.formatting = e.target.files[0];
-      // If entities and connections were already processed, load formatting immediately
-      if (!pendingAddFiles.entities && !pendingAddFiles.connections && nodes.length > 0) {
-        await loadFormattingFileOnly(pendingAddFiles.formatting);
-        pendingAddFiles.formatting = null;
-      } else {
-        await processUpload(true);
-      }
-    }
-    fileInputAddFormatting.value = '';
-  });
-
-  async function processUpload(isAppend) {
-    const files = isAppend ? pendingAddFiles : pendingFiles;
+  async function processUpload() {
+    const files = pendingFiles;
     
     // Check if we have the minimum required files (entities and connections)
     if (!files.entities || !files.connections) {
@@ -2246,14 +2285,10 @@
     }
     
     // We have enough files to proceed
-    await handleFileUpload(files, isAppend);
+    await handleFileUpload(files, false);
     
     // Clear the pending files after successful upload
-    if (isAppend) {
-      pendingAddFiles = { entities: null, connections: null, formatting: null };
-    } else {
-      pendingFiles = { entities: null, connections: null, formatting: null };
-    }
+    pendingFiles = { entities: null, connections: null, formatting: null };
   }
 
   async function loadFormattingFileOnly(file) {
@@ -2381,7 +2416,7 @@
         if (row.BackgroundColor) {
           formattingSettings.backgroundColor = row.BackgroundColor;
           fmtBgColor.value = row.BackgroundColor;
-          document.documentElement.style.setProperty('--bg-white', row.BackgroundColor);
+          document.documentElement.style.setProperty('--white', row.BackgroundColor);
         }
         // Load size mode settings
         if (row.SizeMode) {
@@ -2402,21 +2437,42 @@
         const targets = row.Targets ? row.Targets.split('|').map(t => t.trim()).filter(t => t) : [];
         
         const parsedNodeSize = row.NodeSize ? parseFloat(row.NodeSize) : null;
-        const parsedSizeEnabled = String(row.SizeEnabled).toLowerCase() === 'true';
+        
+        // BACKWARD COMPATIBILITY: If enabled columns missing but data exists, default to true
+        const hasNodeEnabled = row.NodeEnabled !== undefined;
+        const hasOutlineEnabled = row.OutlineEnabled !== undefined;
+        const hasSizeEnabled = row.SizeEnabled !== undefined;
+        const hasLineEnabled = row.LineEnabled !== undefined;
+        
+        const nodeEnabled = hasNodeEnabled 
+          ? String(row.NodeEnabled).toLowerCase() === 'true'
+          : (row.NodeColor ? true : false);
+        
+        const outlineEnabled = hasOutlineEnabled
+          ? String(row.OutlineEnabled).toLowerCase() === 'true'
+          : (row.OutlineColor || row.OutlineThickness ? true : false);
+        
+        const sizeEnabled = hasSizeEnabled
+          ? String(row.SizeEnabled).toLowerCase() === 'true'
+          : (parsedNodeSize ? true : false);
+        
+        const lineEnabled = hasLineEnabled
+          ? String(row.LineEnabled).toLowerCase() === 'true'
+          : (row.LineColor || row.LineThickness ? true : false);
         
         conditionalFormats.push({
           type: row.RuleType.toLowerCase(),
           name: row.RuleName || 'Unnamed Rule',
           order: parseInt(row.Order) || conditionalFormats.length,
           targets: targets,
-          nodeEnabled: String(row.NodeEnabled).toLowerCase() === 'true',
+          nodeEnabled: nodeEnabled,
           nodeColor: row.NodeColor || null,
-          outlineEnabled: String(row.OutlineEnabled).toLowerCase() === 'true',
+          outlineEnabled: outlineEnabled,
           outlineColor: row.OutlineColor || null,
           outlineThickness: row.OutlineThickness ? parseFloat(row.OutlineThickness) : null,
-          sizeEnabled: parsedNodeSize ? true : parsedSizeEnabled,  // Auto-enable if nodeSize exists
+          sizeEnabled: sizeEnabled,
           nodeSize: parsedNodeSize,
-          lineEnabled: String(row.LineEnabled).toLowerCase() === 'true',
+          lineEnabled: lineEnabled,
           lineColor: row.LineColor || null,
           lineThickness: row.LineThickness ? parseFloat(row.LineThickness) : null
         });
@@ -2616,6 +2672,8 @@
       targetName: (r['B']||'').toString().trim(),
       value: +((r['Link Size']||r['LinkSize']) || 1) || 1,
       source: (r['Source']||'').toString().trim(),
+      note: (r['Note']||'').toString().trim(),
+      text: (r['Text']||'').toString().trim(),
       raw: r  // Store the entire original row
     })).filter(l => l.sourceName && l.targetName);
 
@@ -2672,6 +2730,8 @@
       target: nodeById.get(l.targetName), 
       value: l.value,
       sourceUrl: l.source,
+      note: l.note,
+      text: l.text,
       raw: l.raw  // Include the raw data
     })).filter(l => l.source && l.target);
   }
@@ -2679,9 +2739,11 @@
   function buildAdjacency() {
     adjacency = new Map(); 
     connectionSources = new Map();
+    connectionTexts = new Map();
     nodes.forEach(n => {
       adjacency.set(n.id, new Set());
       connectionSources.set(n.id, new Map());
+      connectionTexts.set(n.id, new Map());
     });
     links.forEach(l => {
       adjacency.get(l.source.id).add(l.target.id);
@@ -2690,6 +2752,12 @@
       if (l.sourceUrl) {
         connectionSources.get(l.source.id).set(l.target.id, l.sourceUrl);
         connectionSources.get(l.target.id).set(l.source.id, l.sourceUrl);
+      }
+      
+      // Track text descriptions for connections
+      if (l.text) {
+        connectionTexts.get(l.source.id).set(l.target.id, l.text);
+        connectionTexts.get(l.target.id).set(l.source.id, l.text);
       }
     });
   }
@@ -2738,16 +2806,15 @@
   }
 
   function applyNodeSizeScale() {
-    const scale = formattingSettings.sizeScale;
     nodes.forEach(n => {
       // Check if this node has a conditional format with custom nodeSize AND size is enabled
       const format = getNodeFormat(n);
       if (format?.sizeEnabled && format?.nodeSize) {
-        // Use conditional format size with scale applied
-        n.r = (format.nodeSize * scale) / 2;
+        // Use conditional format size
+        n.r = format.nodeSize;
       } else {
-        // Use base size with scale applied
-        n.r = (n.baseR || 15) * scale;
+        // Use base size
+        n.r = n.baseR || 15;
       }
     });
   }
@@ -2999,6 +3066,8 @@
       row['B'] = l.target.id || l.target;
       row['Link Size'] = l.value || 1;
       row['Source'] = l.sourceUrl || '';
+      row['Note'] = l.note || '';
+      row['Text'] = l.text || '';
       
       return row;
     });
@@ -3009,21 +3078,25 @@
   function generateFormattingCSV() {
     const data = [];
     
-    // First row: default formatting
+    // First row: default formatting - MUST include all columns that rules use
     data.push({
       'RuleType': 'Default',
       'RuleName': '',
       'Order': '',
       'Targets': '',
+      'NodeEnabled': '', // Empty for default, but needed for CSV header
       'NodeColor': formattingSettings.nodeColor,
       'NodeHoverColor': formattingSettings.nodeHoverColor,
+      'OutlineEnabled': '', // Empty for default, but needed for CSV header
       'OutlineColor': formattingSettings.outlineColor,
       'OutlineHoverColor': formattingSettings.outlineHoverColor,
       'OutlineThickness': formattingSettings.outlineThickness,
       'OutlineHoverThickness': formattingSettings.outlineHoverThickness,
+      'SizeEnabled': '', // Empty for default, but needed for CSV header
       'NodeSize': '',
       'SizeMode': formattingSettings.nodeSizeMode,
       'CustomNodeSize': formattingSettings.customNodeSize,
+      'LineEnabled': '', // Empty for default, but needed for CSV header
       'LineColor': formattingSettings.lineColor,
       'LineHoverColor': formattingSettings.lineHoverColor,
       'LineThickness': formattingSettings.lineThickness,
@@ -3131,11 +3204,15 @@
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.lineWidth = 1 / zoomLevel;
     
+    // Calculate how far we need to extend in each direction to cover the entire canvas
+    const maxDistX = Math.max(Math.abs(centerX), Math.abs(centerX - width)) + CONFIG.gridSize;
+    const maxDistY = Math.max(Math.abs(centerY), Math.abs(centerY - height)) + CONFIG.gridSize;
+    
     // Vertical lines from center
-    for (let dx = 0; dx <= width; dx += CONFIG.gridSize) {
+    for (let dx = 0; dx <= maxDistX; dx += CONFIG.gridSize) {
         // Right of center
         let xRight = centerX + dx;
-        if (xRight <= width) {
+        if (xRight >= 0 && xRight <= width) {
         ctx.beginPath();
         ctx.moveTo(xRight, 0);
         ctx.lineTo(xRight, height);
@@ -3144,7 +3221,7 @@
         // Left of center
         if (dx > 0) { // avoid drawing center twice
         let xLeft = centerX - dx;
-        if (xLeft >= 0) {
+        if (xLeft >= 0 && xLeft <= width) {
             ctx.beginPath();
             ctx.moveTo(xLeft, 0);
             ctx.lineTo(xLeft, height);
@@ -3154,10 +3231,10 @@
     }
 
     // Horizontal lines from center
-    for (let dy = 0; dy <= height; dy += CONFIG.gridSize) {
+    for (let dy = 0; dy <= maxDistY; dy += CONFIG.gridSize) {
         // Below center
         let yDown = centerY + dy;
-        if (yDown <= height) {
+        if (yDown >= 0 && yDown <= height) {
         ctx.beginPath();
         ctx.moveTo(0, yDown);
         ctx.lineTo(width, yDown);
@@ -3166,7 +3243,7 @@
         // Above center
         if (dy > 0) {
         let yUp = centerY - dy;
-        if (yUp >= 0) {
+        if (yUp >= 0 && yUp <= height) {
             ctx.beginPath();
             ctx.moveTo(0, yUp);
             ctx.lineTo(width, yUp);
@@ -3175,24 +3252,29 @@
         }
     }
     
-    // Draw thicker center lines
+    // Draw thicker center lines (only if visible)
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.lineWidth = 2 / zoomLevel;
     
     // Vertical center line
-    ctx.beginPath();
-    ctx.moveTo(centerX, 0);
-    ctx.lineTo(centerX, height);
-    ctx.stroke();
+    if (centerX >= 0 && centerX <= width) {
+      ctx.beginPath();
+      ctx.moveTo(centerX, 0);
+      ctx.lineTo(centerX, height);
+      ctx.stroke();
+    }
     
     // Horizontal center line
-    ctx.beginPath();
-    ctx.moveTo(0, centerY);
-    ctx.lineTo(width, centerY);
-    ctx.stroke();
+    if (centerY >= 0 && centerY <= height) {
+      ctx.beginPath();
+      ctx.moveTo(0, centerY);
+      ctx.lineTo(width, centerY);
+      ctx.stroke();
+    }
     
     ctx.restore();
     }
+
 
 
   /************************************************************************
@@ -3223,6 +3305,110 @@
     ctx.quadraticCurveTo(x, y, x + r, y);
   }
 
+  function drawChevronLabel(x1, y1, x2, y2, text, lineColor) {
+    if (!text || text.trim() === '') return;
+    
+    // Calculate curve control point (same as in drawLink)
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    // Perpendicular offset (15% of distance for subtle curve)
+    const offset = dist * 0.15;
+    const midX = (x1 + x2) / 2;
+    const midY = (y1 + y2) / 2;
+    
+    // Control point perpendicular to line
+    const controlX = midX - (dy / dist) * offset;
+    const controlY = midY + (dx / dist) * offset;
+    
+    // Calculate position on curve at t=0.5 (midpoint)
+    const t = 0.5;
+    const curveX = (1-t)*(1-t)*x1 + 2*(1-t)*t*controlX + t*t*x2;
+    const curveY = (1-t)*(1-t)*y1 + 2*(1-t)*t*controlY + t*t*y2;
+    
+    // Calculate tangent at t=0.5 for proper orientation
+    const tangentX = 2*(1-t)*(controlX - x1) + 2*t*(x2 - controlX);
+    const tangentY = 2*(1-t)*(controlY - y1) + 2*t*(y2 - controlY);
+    const length = Math.sqrt(tangentX * tangentX + tangentY * tangentY);
+    
+    if (length === 0) return;
+    
+    // Normalize direction
+    const ux = tangentX / length;
+    const uy = tangentY / length;
+    
+    // Perpendicular vector
+    const px = -uy;
+    const py = ux;
+    
+    // Text measurements
+    ctx.save();
+    const fontSize = 12 / zoomLevel;
+    ctx.font = `${fontSize}px Rubik, Arial, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const metrics = ctx.measureText(text);
+    const textWidth = metrics.width;
+    
+    // Chevron dimensions
+    const padding = 6 / zoomLevel;
+    const chevronWidth = textWidth + padding * 2;
+    const chevronHeight = fontSize + padding * 2;
+    const chevronPointSize = chevronHeight * 0.4;
+    
+    // Calculate chevron points (pointing in direction of arrow)
+    const halfHeight = chevronHeight / 2;
+    
+    // Left side
+    const leftBaseX = curveX - ux * chevronWidth / 2;
+    const leftBaseY = curveY - uy * chevronWidth / 2;
+    const leftTopX = leftBaseX + px * halfHeight;
+    const leftTopY = leftBaseY + py * halfHeight;
+    const leftBottomX = leftBaseX - px * halfHeight;
+    const leftBottomY = leftBaseY - py * halfHeight;
+    
+    // Right side (with point)
+    const rightBaseX = curveX + ux * chevronWidth / 2;
+    const rightBaseY = curveY + uy * chevronWidth / 2;
+    const rightTopX = rightBaseX + px * halfHeight;
+    const rightTopY = rightBaseY + py * halfHeight;
+    const rightBottomX = rightBaseX - px * halfHeight;
+    const rightBottomY = rightBaseY - py * halfHeight;
+    const rightPointX = rightBaseX + ux * chevronPointSize;
+    const rightPointY = rightBaseY + uy * chevronPointSize;
+    
+    // Draw chevron shape
+    ctx.fillStyle = lineColor;
+    ctx.beginPath();
+    ctx.moveTo(leftTopX, leftTopY);
+    ctx.lineTo(rightTopX, rightTopY);
+    ctx.lineTo(rightPointX, rightPointY);
+    ctx.lineTo(rightBottomX, rightBottomY);
+    ctx.lineTo(leftBottomX, leftBottomY);
+    ctx.closePath();
+    ctx.fill();
+    
+    // Draw text with rotation
+    ctx.save();
+    // Calculate angle from tangent
+    let angle = Math.atan2(tangentY, tangentX);
+    
+    // Keep text readable (flip if upside down)
+    if (angle > Math.PI / 2 || angle < -Math.PI / 2) {
+      angle += Math.PI;
+    }
+    
+    // Translate to curve position, rotate, then draw text at origin
+    ctx.translate(curveX, curveY);
+    ctx.rotate(angle);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(text, 0, 0);
+    ctx.restore();
+    
+    ctx.restore();
+  }
+
   function drawLink(l, opacity) {
     ctx.save();
     ctx.globalAlpha = opacity;
@@ -3231,19 +3417,47 @@
     const format = getLinkFormat(l);
     
     // Check if either end of the link is hovered
-    const isHovered = hoveredNode && (l.source === hoveredNode || l.target === hoveredNode);
+    const isHovered = (hoveredNode && (l.source === hoveredNode || l.target === hoveredNode)) ||
+                      (hoveredConnection && 
+                       ((l.source.id === hoveredConnection.source && l.target.id === hoveredConnection.target) ||
+                        (l.source.id === hoveredConnection.target && l.target.id === hoveredConnection.source)));
+    
+    // Check if either end is selected
+    const isSelected = selectedNode && (l.source === selectedNode || l.target === selectedNode);
     
     // Use hover colors/thickness if link is connected to hovered node
     // Only use conditional format if lineEnabled is true
     const lineColor = isHovered ? formattingSettings.lineHoverColor : (format?.lineEnabled && format?.lineColor ? format.lineColor : formattingSettings.lineColor);
     const lineThickness = isHovered ? formattingSettings.lineHoverThickness : (format?.lineEnabled && format?.lineThickness ? format.lineThickness : formattingSettings.lineThickness);
     
+    // Calculate curve control point for subtle curve
+    const dx = l.target.x - l.source.x;
+    const dy = l.target.y - l.source.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    // Perpendicular offset (15% of distance for subtle curve)
+    const offset = dist * 0.15;
+    const midX = (l.source.x + l.target.x) / 2;
+    const midY = (l.source.y + l.target.y) / 2;
+    
+    // Control point perpendicular to line
+    const controlX = midX - (dy / dist) * offset;
+    const controlY = midY + (dx / dist) * offset;
+    
     ctx.beginPath();
     ctx.moveTo(l.source.x, l.source.y);
-    ctx.lineTo(l.target.x, l.target.y);
+    ctx.quadraticCurveTo(controlX, controlY, l.target.x, l.target.y);
     ctx.lineWidth = lineThickness / zoomLevel;
     ctx.strokeStyle = lineColor;
     ctx.stroke();
+    
+    // Draw chevron label ONLY if link is selected or hovered
+    if ((isSelected || isHovered) && l.note) {
+      // Set chevron to 100% opacity (same as line, not affected by link opacity)
+      ctx.globalAlpha = 1.0;
+      drawChevronLabel(l.source.x, l.source.y, l.target.x, l.target.y, l.note, lineColor);
+    }
+    
     ctx.restore();
   }
 
@@ -3723,6 +3937,22 @@
     return 'https://' + s.replace(/^[\/]+/, '');
   }
 
+  function processHtmlLinks(html) {
+    if (!html) return html;
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    const links = temp.querySelectorAll('a');
+    links.forEach(link => {
+      if (!link.hasAttribute('target')) {
+        link.setAttribute('target', '_blank');
+      }
+      if (!link.hasAttribute('rel')) {
+        link.setAttribute('rel', 'noopener');
+      }
+    });
+    return temp.innerHTML;
+  }
+
   function populateInfoPanel(d) {
     const desc = (d.raw && (d.raw['Description'] || '')) || '';
     const category = (d.raw && (d.raw['Category'] || '')) || '';
@@ -3744,8 +3974,9 @@
         <span>${d.name}</span>
         ${d.image ? `<img src="${d.image}" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">` : ''}
       </div>
-      ${category ? `<div style="font-size: 15px; font-weight: bold; margin-top: 6px;">${category.replace(/\n/g, '<br>')}</div>` : ''}
-      ${desc ? `<div style="font-size: 13px; font-weight: normal;">${desc}</div>` : ''}
+      ${category ? `<div style="font-size: 16px; font-weight: bold; margin-top: 6px;">${processHtmlLinks(category.replace(/\n/g, '<br>'))}</div>` : ''}
+      <br>
+      ${desc ? `<div style="font-size: 14px; font-weight: normal; max-height: 350px; overflow-y: auto; margin-top: 6px;">${processHtmlLinks(desc.replace(/\n/g, '<br>'))}</div>` : ''}
       ${linksHTML ? `<div style="margin-top: 8px;">${linksHTML}</div>` : ''}
       <div style="font-size: 14px; font-weight: bold; margin-top: 6px;">
         <br>
@@ -3765,6 +3996,7 @@
     }
     const frag = document.createDocumentFragment();
     const nodeSourceMap = connectionSources.get(d.id);
+    const nodeTextsMap = connectionTexts.get(d.id);
     conns.forEach(name => {
       const item = document.createElement('div');
       item.className = 'conn-item';
@@ -3774,7 +4006,9 @@
       item.style.gap = '8px';
       
       const nameSpan = document.createElement('span');
-      nameSpan.textContent = name;
+      // Display the text description if available, otherwise fall back to node name
+      const textDesc = nodeTextsMap ? nodeTextsMap.get(name) : null;
+      nameSpan.innerHTML = processHtmlLinks(textDesc || name);
       nameSpan.style.flex = '1';
       nameSpan.style.cursor = 'pointer';
       nameSpan.addEventListener('click', () => {
@@ -3795,17 +4029,27 @@
         sourceIcon.href = normalizeUrl(sourceUrl) || '#';
         sourceIcon.target = '_blank';
         sourceIcon.rel = 'noopener';
-        sourceIcon.innerHTML = '🔗';
+        sourceIcon.innerHTML = '➜]';
         sourceIcon.style.fontSize = '16px';
         sourceIcon.style.textDecoration = 'none';
         sourceIcon.style.cursor = 'pointer';
         sourceIcon.style.flexShrink = '0';
-        sourceIcon.title = 'View source';
+        sourceIcon.title = 'Source';
         sourceIcon.addEventListener('click', (e) => {
           e.stopPropagation();
         });
         item.appendChild(sourceIcon);
       }
+      
+      // Add hover handlers to highlight connection in chart
+      item.addEventListener('mouseenter', () => {
+        hoveredConnection = { source: d.id, target: name };
+        render();
+      });
+      item.addEventListener('mouseleave', () => {
+        hoveredConnection = null;
+        render();
+      });
       
       frag.appendChild(item);
     });
@@ -3830,6 +4074,7 @@
 
   clearBtn.addEventListener('click', () => { 
     selectedNode = null; 
+    hoveredConnection = null;
     clearInfoPanel(); 
     updateEntityTable();
     render(); 
