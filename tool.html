@@ -203,14 +203,32 @@
       background: var(--panel-grey); /* important: ensures solid cover */
     }
     
-    .format-control input[type="color"] {
-      width: 73px;
-      height: 32px;
+    .format-control input[type="text"].color-input {
+      width: 56px;
+      height: 19px;
       margin-left: 10px;
       margin-right: 10px;
       border: 1px solid var(--panel-grey);
       border-radius: 4px;
-      cursor: pointer;
+      padding: 4px 8px;
+      font-family: monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    
+    .format-control input[type="text"].color-input:focus {
+      outline: 2px solid var(--main-yellow);
+      outline-offset: 1px;
+      border-color: var(--main-yellow);
+    }
+    
+    .format-control input[type="text"].color-input::placeholder {
+      color: #999;
+      text-transform: none;
+      font-weight: normal;
     }
     
     .format-control input[type="number"] {
@@ -271,6 +289,55 @@
       cursor: pointer;
       margin: 0;
       margin-left: 8px;
+    }
+    
+    /* Legend styles */
+    #legend-container {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 700px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--panel-grey);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 12px;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    .legend-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+
+    .legend-item.inactive {
+      opacity: 0.4;
+    }
+
+    .legend-color-box {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.2);
     }
     
     .format-section-header h3 {
@@ -773,6 +840,70 @@
             <div id="rule-selected-targets" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
           </div>
           
+          <!-- Legend Options Section -->
+          <div class="format-section" id="legend-section">
+            <div class="format-section-header" style="display: flex; align-items: center; gap: 8px; padding-left: 8px;">
+              <h3 class="format-subheader" style="padding-top: 12px; margin: 0; flex: 1;">Legend Options</h3>
+            </div>
+            <div class="format-control">
+              <label>Use Legend</label>
+              <input type="checkbox" id="fmt-legend-enabled" style="margin-right: 10px;">
+            </div>
+            <div id="legend-colors-section" style="padding: 8px 0; display: none;">
+              <div style="font-size: 11px; color: grey; font-weight: 400; padding-left: 16px; margin-bottom: 6px;">Legend Colors</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; padding: 0 16px;">
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 1</span>
+                  <input type="text" class="color-input" id="legend-color-1" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 2</span>
+                  <input type="text" class="color-input" id="legend-color-2" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 3</span>
+                  <input type="text" class="color-input" id="legend-color-3" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 4</span>
+                  <input type="text" class="color-input" id="legend-color-4" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 5</span>
+                  <input type="text" class="color-input" id="legend-color-5" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 6</span>
+                  <input type="text" class="color-input" id="legend-color-6" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 7</span>
+                  <input type="text" class="color-input" id="legend-color-7" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 8</span>
+                  <input type="text" class="color-input" id="legend-color-8" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 9</span>
+                  <input type="text" class="color-input" id="legend-color-9" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 10</span>
+                  <input type="text" class="color-input" id="legend-color-10" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 11</span>
+                  <input type="text" class="color-input" id="legend-color-11" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 11px; width: 50px;">Color 12</span>
+                  <input type="text" class="color-input" id="legend-color-12" style="width: 44px; height: 24px; border: 1px solid var(--panel-grey); border-radius: 3px; padding: 2px 6px; font-family: monospace; font-size: 11px; text-transform: uppercase;" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <div class="format-section" id="node-section">
           <div class="format-section-header" style="display: flex; align-items: center; gap: 8px; padding-left: 8px;">
             <input type="checkbox" id="fmt-node-enabled" title="Enable/disable node color formatting for this rule" style="display: none; margin: 0; width: 18px; height: 18px;">
@@ -780,11 +911,11 @@
           </div>
           <div class="format-control">
             <label>Color</label>
-            <input type="color" id="fmt-node-color" value="#000000">
+            <input type="text" class="color-input" id="fmt-node-color" value="#000000" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
           </div>
           <div class="format-control" id="node-hover-color-control">
             <label>Hover Color</label>
-            <input type="color" id="fmt-node-hover-color" value="#FFD241">
+            <input type="text" class="color-input" id="fmt-node-hover-color" value="#FFD241" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
           </div>
           </div>
           <div class="format-section" id="outline-section">
@@ -794,11 +925,11 @@
           </div>
           <div class="format-control">
             <label>Color</label>
-            <input type="color" id="fmt-outline-color" value="#dadada">
+            <input type="text" class="color-input" id="fmt-outline-color" value="#dadada" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
           </div>
           <div class="format-control" id="outline-hover-color-control">
             <label>Hover Color</label>
-            <input type="color" id="fmt-outline-hover-color" value="#FFD241">
+            <input type="text" class="color-input" id="fmt-outline-hover-color" value="#FFD241" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
           </div>
           <div class="format-control">
             <label>Thickness</label>
@@ -846,11 +977,11 @@
           </div>
           <div class="format-control">
             <label>Color</label>
-            <input type="color" id="fmt-line-color" value="#000000">
+            <input type="text" class="color-input" id="fmt-line-color" value="#000000" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
           </div>
           <div class="format-control" id="line-hover-color-control">
             <label>Hover Color</label>
-            <input type="color" id="fmt-line-hover-color" value="#FFD241">
+            <input type="text" class="color-input" id="fmt-line-hover-color" value="#FFD241" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
           </div>
           <div class="format-control">
             <label>Thickness</label>
@@ -866,7 +997,7 @@
           <h3 class="format-subheader">Other Options</h3>
           <div class="format-control">
             <label>Background Color</label>
-            <input type="color" id="fmt-bg-color" value="#FFFFFF">
+            <input type="text" class="color-input" id="fmt-bg-color" value="#FFFFFF" placeholder="#RRGGBB" pattern="^#[0-9A-Fa-f]{6}$" maxlength="7">
           </div>          
           <br></br>
           <div class="format-control">
@@ -880,6 +1011,9 @@
     
     <div id="graph-area">
       <canvas id="canvas"></canvas>
+      
+      <!-- Legend Container -->
+      <div id="legend-container" style="display: none;"></div>
       
       <div id="logo">
         <img src="https://i.ibb.co/RXfZbS8/De-Smog-Logo-small.png" alt="Logo">
@@ -967,7 +1101,7 @@
     zoomStep: 0.2
   };
 
-  const PADDING = 50;
+  const PADDING = 80;
 
   // Default Formatting Settings that can be customized by user
   let formattingSettings = {
@@ -987,6 +1121,16 @@
     minNodeSize: 10,
     maxNodeSize: 100
   };
+
+  // Legend Settings
+  let legendEnabled = false;
+  let legendColors = [
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F',
+    '#BB8FCE', '#85C1E2', '#F8B195', '#C06C84', '#6C5B7B', '#355C7D'
+  ];
+  let uniqueCategories = [];
+  let categoryColorMap = new Map();
+  let activeCategories = new Set(); // Tracks which categories are currently visible
 
   // Global state
   let nodes = [];
@@ -1087,6 +1231,20 @@
   const customSizeCheckboxControl = document.getElementById("custom-size-checkbox-control");
   const fmtCustomSizeEnabled = document.getElementById("fmt-custom-size-enabled");
   
+  // Legend controls
+  const fmtLegendEnabled = document.getElementById('fmt-legend-enabled');
+  const legendContainer = document.getElementById('legend-container');
+  const legendColorsSection = document.getElementById('legend-colors-section');
+  const legendColorInputs = [];
+  for (let i = 1; i <= 12; i++) {
+    const input = document.getElementById(`legend-color-${i}`);
+    legendColorInputs.push(input);
+    // Set default values
+    if (input) {
+      input.value = legendColors[i - 1];
+    }
+  }
+  
   // Controls to hide for conditional rules
   const sizeModeControl = document.getElementById('size-mode-control');
   const minSizeControl = document.getElementById('min-size-control');
@@ -1165,6 +1323,9 @@
     } else {
       customSizeControl.style.display = 'none';
     }
+    
+    // Update visual appearance of all color inputs
+    updateAllColorInputs();
   }
   
   // Initialize controls on page load
@@ -1272,6 +1433,7 @@
    * FORMATTING CONTROLS
    ************************************************************************/
   fmtNodeColor.addEventListener('input', (e) => {
+    updateColorInputAppearance(e.target);
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].nodeColor = e.target.value;
       // Auto-enable the NODE FILL section if not already enabled
@@ -1288,11 +1450,13 @@
   });
 
   fmtNodeHoverColor.addEventListener('input', (e) => {
+    updateColorInputAppearance(e.target);
     formattingSettings.nodeHoverColor = e.target.value;
     render();
   });
 
   fmtLineColor.addEventListener('input', (e) => {
+    updateColorInputAppearance(e.target);
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].lineColor = e.target.value;
       // Auto-enable the LINE section if not already enabled
@@ -1309,6 +1473,7 @@
   });
 
   fmtLineHoverColor.addEventListener('input', (e) => {
+    updateColorInputAppearance(e.target);
     formattingSettings.lineHoverColor = e.target.value;
     render();
   });
@@ -1335,6 +1500,7 @@
   });
   
   fmtOutlineColor.addEventListener('input', (e) => {
+    updateColorInputAppearance(e.target);
     if (currentEditingRuleIndex !== null) {
       conditionalFormats[currentEditingRuleIndex].outlineColor = e.target.value;
       // Auto-enable the OUTLINE section if not already enabled
@@ -1351,6 +1517,7 @@
   });
 
   fmtOutlineHoverColor.addEventListener('input', (e) => {
+    updateColorInputAppearance(e.target);
     formattingSettings.outlineHoverColor = e.target.value;
     render();
   });
@@ -1377,6 +1544,7 @@
   });
   
   fmtBgColor.addEventListener('input', (e) => {
+    updateColorInputAppearance(e.target);
     formattingSettings.backgroundColor = e.target.value;
     document.documentElement.style.setProperty('--white', e.target.value);
     render();
@@ -1429,6 +1597,156 @@
     schedulePhysicsRestart();
     render();
   });
+
+  /************************************************************************
+   * LEGEND CONTROLS
+   ************************************************************************/
+  fmtLegendEnabled.addEventListener('change', (e) => {
+    legendEnabled = e.target.checked;
+    // Show/hide the color picker section
+    legendColorsSection.style.display = legendEnabled ? 'block' : 'none';
+    updateLegend();
+    render();
+  });
+
+  // Add event listeners for all legend color pickers
+  legendColorInputs.forEach((input, index) => {
+    if (input) {
+      input.addEventListener('input', (e) => {
+        legendColors[index] = e.target.value;
+        updateColorInputAppearance(e.target);
+        updateCategoryColors();
+        updateLegend();
+        render();
+      });
+    }
+  });
+
+  /************************************************************************
+   * COLOR INPUT VISUAL UPDATE FUNCTIONS
+   ************************************************************************/
+  // Determine if a color is light or dark (for text contrast)
+  function isLightColor(hexColor) {
+    if (!hexColor || !hexColor.match(/^#[0-9A-Fa-f]{6}$/)) {
+      return true; // Default to light if invalid
+    }
+    // Convert hex to RGB
+    const r = parseInt(hexColor.substr(1, 2), 16);
+    const g = parseInt(hexColor.substr(3, 2), 16);
+    const b = parseInt(hexColor.substr(5, 2), 16);
+    // Calculate relative luminance
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.5;
+  }
+
+  // Update a single color input's appearance
+  function updateColorInputAppearance(input) {
+    if (!input || !input.classList.contains('color-input')) return;
+    
+    const value = input.value.trim().toUpperCase();
+    
+    // Check if valid hex color
+    if (value.match(/^#[0-9A-Fa-f]{6}$/)) {
+      input.style.backgroundColor = value;
+      input.style.color = isLightColor(value) ? '#000000' : '#FFFFFF';
+      input.style.borderColor = 'var(--panel-grey)';
+    } else {
+      // Invalid color - reset to default appearance
+      input.style.backgroundColor = '#FFFFFF';
+      input.style.color = '#000000';
+      input.style.borderColor = '#dc2626'; // Error red
+    }
+  }
+
+  // Update all color inputs on the page
+  function updateAllColorInputs() {
+    const allColorInputs = document.querySelectorAll('input.color-input');
+    allColorInputs.forEach(input => updateColorInputAppearance(input));
+  }
+
+  // Function to extract unique categories and assign colors
+  function updateCategoryColors() {
+    const categories = new Set();
+    nodes.forEach(node => {
+      if (node.raw && node.raw['Category']) {
+        categories.add(node.raw['Category']);
+      }
+    });
+    
+    uniqueCategories = Array.from(categories).sort();
+    categoryColorMap.clear();
+    
+    uniqueCategories.forEach((category, index) => {
+      const colorIndex = index % legendColors.length;
+      categoryColorMap.set(category, legendColors[colorIndex]);
+    });
+    
+    // Add all new categories as active by default
+    // Keep existing categories in their current state (active or inactive)
+    uniqueCategories.forEach(cat => {
+      if (!activeCategories.has(cat)) {
+        activeCategories.add(cat);
+      }
+    });
+    
+    // Remove categories that no longer exist in the data
+    const currentCategories = new Set(uniqueCategories);
+    Array.from(activeCategories).forEach(cat => {
+      if (!currentCategories.has(cat)) {
+        activeCategories.delete(cat);
+      }
+    });
+  }
+
+  // Function to update legend display
+  function updateLegend() {
+    if (!legendEnabled || uniqueCategories.length === 0) {
+      legendContainer.style.display = 'none';
+      return;
+    }
+    
+    legendContainer.style.display = 'flex';
+    legendContainer.innerHTML = '';
+    
+    uniqueCategories.forEach(category => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      if (!activeCategories.has(category)) {
+        item.classList.add('inactive');
+      }
+      
+      const colorBox = document.createElement('div');
+      colorBox.className = 'legend-color-box';
+      colorBox.style.backgroundColor = categoryColorMap.get(category);
+      
+      const label = document.createElement('span');
+      label.textContent = category;
+      
+      item.appendChild(colorBox);
+      item.appendChild(label);
+      
+      item.addEventListener('click', () => {
+        // Check if this is the only active category
+        const isOnlyActive = activeCategories.size === 1 && activeCategories.has(category);
+        
+        if (isOnlyActive) {
+          // If only this category is active, show all categories
+          activeCategories.clear();
+          uniqueCategories.forEach(cat => activeCategories.add(cat));
+        } else {
+          // Otherwise, show only this category
+          activeCategories.clear();
+          activeCategories.add(category);
+        }
+        
+        // Update all legend items' visual state
+        updateLegend();
+        render();
+      });
+      
+      legendContainer.appendChild(item);
+    });
+  }
 
   /************************************************************************
    * CONDITIONAL FORMATTING
@@ -2060,6 +2378,10 @@ function loadFormatRule(ruleIdentifier) {
     if (typeof updateFormattingSections === 'function') {
       updateFormattingSections();
     }
+    
+    // Update visual appearance of all color inputs
+    updateAllColorInputs();
+    
     render();
   }
 
@@ -2432,6 +2754,23 @@ function loadFormatRule(ruleIdentifier) {
           formattingSettings.customNodeSize = parseFloat(row.CustomNodeSize);
           fmtCustomSize.value = row.CustomNodeSize;
         }
+        // Load legend settings
+        if (row.LegendEnabled !== undefined) {
+          legendEnabled = String(row.LegendEnabled).toLowerCase() === 'true';
+          fmtLegendEnabled.checked = legendEnabled;
+          // Show/hide color section based on loaded value
+          legendColorsSection.style.display = legendEnabled ? 'block' : 'none';
+        }
+        // Load legend colors (Color1-Color12)
+        for (let i = 1; i <= 12; i++) {
+          const colorKey = `Color${i}`;
+          if (row[colorKey]) {
+            legendColors[i - 1] = row[colorKey];
+            if (legendColorInputs[i - 1]) {
+              legendColorInputs[i - 1].value = row[colorKey];
+            }
+          }
+        }
       } else if (row.RuleType && (row.RuleType.toLowerCase() === 'entity' || row.RuleType.toLowerCase() === 'category')) {
         // Load conditional format rule
         const targets = row.Targets ? row.Targets.split('|').map(t => t.trim()).filter(t => t) : [];
@@ -2486,6 +2825,13 @@ function loadFormatRule(ruleIdentifier) {
     updateFormatRuleSelector();
     invalidateFormatCache();
     applyNodeSizeScale();
+    
+    // Update visual appearance of all color inputs
+    updateAllColorInputs();
+    
+    // Update category colors and legend with the loaded color values
+    updateCategoryColors();
+    updateLegend();
   }
 
   function showStatus(msg, type = 'success') {
@@ -2565,6 +2911,10 @@ function loadFormatRule(ruleIdentifier) {
     // Update entity table
     updateEntityTable();
 
+    // Update legend categories and colors
+    updateCategoryColors();
+    updateLegend();
+
     // Start physics
     updatePhysics();
 
@@ -2627,6 +2977,10 @@ function loadFormatRule(ruleIdentifier) {
 
     // Update entity table
     updateEntityTable();
+
+    // Update legend categories and colors
+    updateCategoryColors();
+    updateLegend();
 
     // Restart physics
     updatePhysics();
@@ -3040,11 +3394,8 @@ function loadFormatRule(ruleIdentifier) {
       row['Entity Name'] = n.name;
       row['Description'] = n.raw['Description'] || '';
       row['Category'] = n.raw['Category'] || '';
-      row['Area'] = n.raw['Area'] || '';
-      row['Sub Area'] = n.raw['Sub Area'] || '';
       row['Image'] = n.raw['Image'] || '';
       row['Link'] = n.raw['Link'] || '';
-      row['More Info'] = n.raw['More Info'] || '';
       row['Show'] = n.show;
       row['Fixed'] = n.isFixed;
       row['X'] = n.isFixed ? n.x.toFixed(2) : '';
@@ -3079,7 +3430,7 @@ function loadFormatRule(ruleIdentifier) {
     const data = [];
     
     // First row: default formatting - MUST include all columns that rules use
-    data.push({
+    const defaultRow = {
       'RuleType': 'Default',
       'RuleName': '',
       'Order': '',
@@ -3102,11 +3453,19 @@ function loadFormatRule(ruleIdentifier) {
       'LineThickness': formattingSettings.lineThickness,
       'LineHoverThickness': formattingSettings.lineHoverThickness,
       'BackgroundColor': formattingSettings.backgroundColor,
-    });
+      'LegendEnabled': legendEnabled ? 'true' : 'false'
+    };
+    
+    // Add legend colors
+    for (let i = 1; i <= 12; i++) {
+      defaultRow[`Color${i}`] = legendColors[i - 1] || '';
+    }
+    
+    data.push(defaultRow);
     
     // Add conditional format rules
     conditionalFormats.forEach((rule, index) => {
-      data.push({
+      const ruleRow = {
         'RuleType': rule.type === 'entity' ? 'Entity' : 'Category',
         'RuleName': rule.name,
         'Order': index,
@@ -3129,7 +3488,15 @@ function loadFormatRule(ruleIdentifier) {
         'LineThickness': rule.lineThickness || '',
         'LineHoverThickness': '',
         'BackgroundColor': '',
-      });
+        'LegendEnabled': ''
+      };
+      
+      // Add empty legend color columns for consistency
+      for (let i = 1; i <= 12; i++) {
+        ruleRow[`Color${i}`] = '';
+      }
+      
+      data.push(ruleRow);
     });
     
     return Papa.unparse(data);
@@ -3322,27 +3689,7 @@ function loadFormatRule(ruleIdentifier) {
     const controlX = midX - (dy / dist) * offset;
     const controlY = midY + (dx / dist) * offset;
     
-    // Calculate position on curve at t=0.5 (midpoint)
-    const t = 0.5;
-    const curveX = (1-t)*(1-t)*x1 + 2*(1-t)*t*controlX + t*t*x2;
-    const curveY = (1-t)*(1-t)*y1 + 2*(1-t)*t*controlY + t*t*y2;
-    
-    // Calculate tangent at t=0.5 for proper orientation
-    const tangentX = 2*(1-t)*(controlX - x1) + 2*t*(x2 - controlX);
-    const tangentY = 2*(1-t)*(controlY - y1) + 2*t*(y2 - controlY);
-    const length = Math.sqrt(tangentX * tangentX + tangentY * tangentY);
-    
-    if (length === 0) return;
-    
-    // Normalize direction
-    const ux = tangentX / length;
-    const uy = tangentY / length;
-    
-    // Perpendicular vector
-    const px = -uy;
-    const py = ux;
-    
-    // Text measurements
+    // Text measurements - calculate first to know chevron size
     ctx.save();
     const fontSize = 12 / zoomLevel;
     ctx.font = `${fontSize}px Rubik, Arial, sans-serif`;
@@ -3357,26 +3704,109 @@ function loadFormatRule(ruleIdentifier) {
     const chevronHeight = fontSize + padding * 2;
     const chevronPointSize = chevronHeight * 0.4;
     
-    // Calculate chevron points (pointing in direction of arrow)
+    // Helper function to get point on quadratic bezier curve
+    function getPointOnCurve(t) {
+      return {
+        x: (1-t)*(1-t)*x1 + 2*(1-t)*t*controlX + t*t*x2,
+        y: (1-t)*(1-t)*y1 + 2*(1-t)*t*controlY + t*t*y2
+      };
+    }
+    
+    // Helper function to get tangent on quadratic bezier curve
+    function getTangentOnCurve(t) {
+      const tx = 2*(1-t)*(controlX - x1) + 2*t*(x2 - controlX);
+      const ty = 2*(1-t)*(controlY - y1) + 2*t*(y2 - controlY);
+      const length = Math.sqrt(tx * tx + ty * ty);
+      return { x: tx / length, y: ty / length, length };
+    }
+    
+    // Approximate arc length using numerical integration
+    function approximateArcLength(t1, t2, steps = 10) {
+      let length = 0;
+      for (let i = 0; i < steps; i++) {
+        const t = t1 + (t2 - t1) * (i / steps);
+        const tangent = getTangentOnCurve(t);
+        length += tangent.length * (t2 - t1) / steps;
+      }
+      return length;
+    }
+    
+    // Find approximate t values for the left and right edges of chevron
+    // by calculating what portion of the curve the chevron should occupy
+    const totalArcLength = approximateArcLength(0, 1);
+    const halfChevronWidth = (chevronWidth + chevronPointSize) / 2;
+    
+    // Find t values that correspond to the desired arc-length positions
+    let tLeft = 0.5, tRight = 0.5;
+    
+    // Use iterative approach to find t values at specific arc lengths
+    if (totalArcLength > 0) {
+      // For left edge: find t where arc length from 0 to t equals half curve - half chevron
+      const targetLeftLength = totalArcLength / 2 - halfChevronWidth;
+      if (targetLeftLength > 0) {
+        for (let i = 0; i < 5; i++) { // 5 iterations for reasonable accuracy
+          const currentLength = approximateArcLength(0, tLeft);
+          const error = currentLength - targetLeftLength;
+          if (Math.abs(error) < 1) break;
+          tLeft -= error / totalArcLength * 0.5; // Adjust t
+          tLeft = Math.max(0.1, Math.min(0.9, tLeft)); // Keep in bounds
+        }
+      }
+      
+      // For right edge: find t where arc length from 0 to t equals half curve + half chevron
+      const targetRightLength = totalArcLength / 2 + halfChevronWidth;
+      if (targetRightLength < totalArcLength) {
+        for (let i = 0; i < 5; i++) {
+          const currentLength = approximateArcLength(0, tRight);
+          const error = currentLength - targetRightLength;
+          if (Math.abs(error) < 1) break;
+          tRight -= error / totalArcLength * 0.5;
+          tRight = Math.max(0.1, Math.min(0.9, tRight));
+        }
+      }
+    }
+    
+    // Get positions for left and right edges along the curve
+    const leftPoint = getPointOnCurve(tLeft);
+    const rightPoint = getPointOnCurve(tRight);
+    
+    // Calculate the geometric center of the chevron (midpoint between left and right)
+    const curveX = (leftPoint.x + rightPoint.x) / 2;
+    const curveY = (leftPoint.y + rightPoint.y) / 2;
+    
+    // Get tangent at the geometric center for text orientation
+    const tCenter = (tLeft + tRight) / 2;
+    const centerTangent = getTangentOnCurve(tCenter);
+    const ux = centerTangent.x;
+    const uy = centerTangent.y;
+    
+    // Get tangents at left and right for perpendicular offsets
+    const leftTangent = getTangentOnCurve(tLeft);
+    const rightTangent = getTangentOnCurve(tRight);
+    
+    // Perpendicular vectors
+    const leftPx = -leftTangent.y;
+    const leftPy = leftTangent.x;
+    const rightPx = -rightTangent.y;
+    const rightPy = rightTangent.x;
+    
     const halfHeight = chevronHeight / 2;
     
-    // Left side
-    const leftBaseX = curveX - ux * chevronWidth / 2;
-    const leftBaseY = curveY - uy * chevronWidth / 2;
-    const leftTopX = leftBaseX + px * halfHeight;
-    const leftTopY = leftBaseY + py * halfHeight;
-    const leftBottomX = leftBaseX - px * halfHeight;
-    const leftBottomY = leftBaseY - py * halfHeight;
+    // Left side vertices using curve position
+    const leftTopX = leftPoint.x + leftPx * halfHeight;
+    const leftTopY = leftPoint.y + leftPy * halfHeight;
+    const leftBottomX = leftPoint.x - leftPx * halfHeight;
+    const leftBottomY = leftPoint.y - leftPy * halfHeight;
     
-    // Right side (with point)
-    const rightBaseX = curveX + ux * chevronWidth / 2;
-    const rightBaseY = curveY + uy * chevronWidth / 2;
-    const rightTopX = rightBaseX + px * halfHeight;
-    const rightTopY = rightBaseY + py * halfHeight;
-    const rightBottomX = rightBaseX - px * halfHeight;
-    const rightBottomY = rightBaseY - py * halfHeight;
-    const rightPointX = rightBaseX + ux * chevronPointSize;
-    const rightPointY = rightBaseY + uy * chevronPointSize;
+    // Right side vertices using curve position
+    const rightTopX = rightPoint.x + rightPx * halfHeight;
+    const rightTopY = rightPoint.y + rightPy * halfHeight;
+    const rightBottomX = rightPoint.x - rightPx * halfHeight;
+    const rightBottomY = rightPoint.y - rightPy * halfHeight;
+    
+    // Point extends from right edge
+    const rightPointX = rightPoint.x + rightTangent.x * chevronPointSize;
+    const rightPointY = rightPoint.y + rightTangent.y * chevronPointSize;
     
     // Draw chevron shape
     ctx.fillStyle = lineColor;
@@ -3391,8 +3821,8 @@ function loadFormatRule(ruleIdentifier) {
     
     // Draw text with rotation
     ctx.save();
-    // Calculate angle from tangent
-    let angle = Math.atan2(tangentY, tangentX);
+    // Calculate angle from tangent at center
+    let angle = Math.atan2(uy, ux);
     
     // Keep text readable (flip if upside down)
     if (angle > Math.PI / 2 || angle < -Math.PI / 2) {
@@ -3591,12 +4021,24 @@ function loadFormatRule(ruleIdentifier) {
     ctx.save();
     applyTransform();
 
+    // Filter nodes only by show property, not by legend
     const visibleNodes = nodes.filter(n => n.show);
+    
     const highlightedNodes = [];
     const unhighlightedNodes = [];
     
     visibleNodes.forEach(node => {
-      if (shouldHighlightNode(node)) {
+      // Check if node should be highlighted based on selection AND legend filtering
+      let shouldHighlight = shouldHighlightNode(node);
+      
+      // If legend is enabled and category is inactive, force unhighlighted (low opacity)
+      if (legendEnabled && node.raw && node.raw['Category']) {
+        if (!activeCategories.has(node.raw['Category'])) {
+          shouldHighlight = false;
+        }
+      }
+      
+      if (shouldHighlight) {
         highlightedNodes.push(node);
       } else {
         unhighlightedNodes.push(node);
@@ -3608,15 +4050,28 @@ function loadFormatRule(ruleIdentifier) {
     const highlightedSet = new Set(highlightedNodes.map(n => n.id));
     const visibleLinks = links.filter(l => l.source.show && l.target.show);
     
+    // Helper function to check if a node's category is active
+    const isNodeCategoryActive = (node) => {
+      if (!legendEnabled) return true;
+      if (!node.raw || !node.raw['Category']) return true;
+      return activeCategories.has(node.raw['Category']);
+    };
+    
     if (selectedNode) {
       visibleLinks.forEach(l => {
         if (highlightedSet.has(l.source.id) && highlightedSet.has(l.target.id)) {
-          drawLink(l, CONFIG.linkOpacitySelected);
+          // Check if both nodes have active categories
+          const bothActive = isNodeCategoryActive(l.source) && isNodeCategoryActive(l.target);
+          const opacity = bothActive ? CONFIG.linkOpacitySelected : CONFIG.unconnectedOpacity;
+          drawLink(l, opacity);
         }
       });
     } else {
       visibleLinks.forEach(l => {
-        drawLink(l, CONFIG.linkOpacityNoSelection);
+        // Check if both nodes have active categories
+        const bothActive = isNodeCategoryActive(l.source) && isNodeCategoryActive(l.target);
+        const opacity = bothActive ? CONFIG.linkOpacityNoSelection : CONFIG.unconnectedOpacity;
+        drawLink(l, opacity);
       });
     }
 
@@ -3958,15 +4413,15 @@ function loadFormatRule(ruleIdentifier) {
     const category = (d.raw && (d.raw['Category'] || '')) || '';
 
     // Build the links FIRST
-    const rawLink = (d.raw && (d.raw['Link'] || d.raw['Link '])) || '';
-    const safe = normalizeUrl(rawLink);
-    const rawMoreInfo = (d.raw && (d.raw['More Info'] || d.raw['More Info'])) || '';
-    const safeMoreInfo = normalizeUrl(rawMoreInfo);
+    // const rawLink = (d.raw && (d.raw['Link'] || d.raw['Link '])) || '';
+    // const safe = normalizeUrl(rawLink);
+    // const rawMoreInfo = (d.raw && (d.raw['More Info'] || d.raw['More Info'])) || '';
+    // const safeMoreInfo = normalizeUrl(rawMoreInfo);
 
-    let links = [];
-    if (safe) links.push(`<a href="${safe}" target="_blank" rel="noopener">More Info</a>`);
-    if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">More Info</a>`);
-    const linksHTML = links.length > 0 ? links.join(' | ') : '';
+    // let links = [];
+    // if (safe) links.push(`<a href="${safe}" target="_blank" rel="noopener">More Info</a>`);
+    // if (safeMoreInfo) links.push(`<a href="${safeMoreInfo}" target="_blank" rel="noopener">More Info</a>`);
+    // const linksHTML = links.length > 0 ? links.join(' | ') : '';
 
     // Now set the title area INCLUDING the links
     nodeTitleEl.html(`
@@ -3974,13 +4429,11 @@ function loadFormatRule(ruleIdentifier) {
         <span>${d.name}</span>
         ${d.image ? `<img src="${d.image}" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">` : ''}
       </div>
-      ${category ? `<div style="font-size: 16px; font-weight: bold; margin-top: 6px;">${processHtmlLinks(category.replace(/\n/g, '<br>'))}</div>` : ''}
-      <br>
+       <br>
       ${desc ? `<div style="font-size: 14px; font-weight: normal; max-height: 350px; overflow-y: auto; margin-top: 6px;">${processHtmlLinks(desc.replace(/\n/g, '<br>'))}</div>` : ''}
-      ${linksHTML ? `<div style="margin-top: 8px;">${linksHTML}</div>` : ''}
+
       <div style="font-size: 14px; font-weight: bold; margin-top: 6px;">
         <br>
-        <br>Connected to: 
       </div>
     `);
 

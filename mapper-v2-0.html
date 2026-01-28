@@ -53,6 +53,51 @@
       width: auto;
     }
 
+    /* LEGEND */
+    #legend-container {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+      max-width: 200px;
+    }
+
+    .legend-item {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 6px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 12px;
+      font-weight: 500;
+      user-select: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .legend-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    }
+
+    .legend-item.inactive {
+      opacity: 0.4;
+    }
+
+    .legend-color-box {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.2);
+      flex-shrink: 0;
+    }
+
     /* TOP CONTROLS - ZOOM */
     #top-controls {
       position: absolute;
@@ -644,6 +689,8 @@
         <img src="https://i.ibb.co/60z33Lp3/scroller-11.png" alt="Logo">
       </div>
       
+      <div id="legend-container"></div>
+      
       
       <div id="top-controls">
         <div id="zoom-controls">
@@ -739,7 +786,7 @@
     dataFolder: 'https://xstan89.github.io/Mapper2/'
   };
 
-  const PADDING = 50;
+  const PADDING = 90;
 
   // Default Formatting Settings
   let formattingSettings = {
@@ -790,6 +837,17 @@
   // Conditional Formatting State
   let conditionalFormats = [];
 
+  // LEGEND STATE
+  let legendColors = [
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8',
+    '#F7B731', '#5F27CD', '#00D2D3', '#1DD1A1', '#FD79A8',
+    '#A29BFE', '#6C5CE7'
+  ];
+  let legendEnabled = false;
+  let categoryColorMap = new Map();
+  let uniqueCategories = [];
+  let activeCategories = new Set();
+
   // STORY MODE STATE
   let viewsData = [];
   let viewsById = new Map();
@@ -823,6 +881,7 @@
   const zoomOutBtn = document.getElementById('zoom-out');
   const zoomResetBtn = document.getElementById('zoom-reset');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const legendContainer = document.getElementById('legend-container');
 
   // Story mode elements
   const storyBtn = document.getElementById('story-btn');
@@ -985,6 +1044,135 @@
   }
 
   /************************************************************************
+   * LEGEND FUNCTIONS
+   ************************************************************************/
+  function updateCategoryColors() {
+    const categories = new Set();
+    nodes.forEach(node => {
+      if (node.raw && node.raw['Category']) {
+        categories.add(node.raw['Category']);
+      }
+    });
+    
+    uniqueCategories = Array.from(categories).sort();
+    categoryColorMap.clear();
+    
+    uniqueCategories.forEach((category, index) => {
+      const colorIndex = index % legendColors.length;
+      categoryColorMap.set(category, legendColors[colorIndex]);
+    });
+    
+    // Add all new categories as active by default
+    uniqueCategories.forEach(cat => {
+      if (!activeCategories.has(cat)) {
+        activeCategories.add(cat);
+      }
+    });
+    
+    // Remove categories that no longer exist
+    const currentCategories = new Set(uniqueCategories);
+    Array.from(activeCategories).forEach(cat => {
+      if (!currentCategories.has(cat)) {
+        activeCategories.delete(cat);
+      }
+    });
+  }
+
+  function updateLegend() {
+    if (!legendEnabled || uniqueCategories.length === 0) {
+      legendContainer.style.display = 'none';
+      return;
+    }
+    
+    legendContainer.style.display = 'flex';
+    legendContainer.innerHTML = '';
+    
+    uniqueCategories.forEach(category => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      if (!activeCategories.has(category)) {
+        item.classList.add('inactive');
+      }
+      
+      const colorBox = document.createElement('div');
+      colorBox.className = 'legend-color-box';
+      colorBox.style.backgroundColor = categoryColorMap.get(category);
+      
+      const label = document.createElement('span');
+      label.textContent = category;
+      
+      item.appendChild(colorBox);
+      item.appendChild(label);
+      
+      item.addEventListener('click', () => {
+        const isOnlyActive = activeCategories.size === 1 && activeCategories.has(category);
+        
+        if (isOnlyActive) {
+          // Show all categories
+          activeCategories.clear();
+          uniqueCategories.forEach(cat => activeCategories.add(cat));
+        } else {
+          // Show only this category
+          activeCategories.clear();
+          activeCategories.add(category);
+        }
+        
+        updateLegend();
+        render();
+      });
+      
+      legendContainer.appendChild(item);
+    });
+  }
+
+  function getNodeFormat(node) {
+    // If legend is enabled and node has category, use category color
+    if (legendEnabled && node.raw && node.raw['Category']) {
+      const category = node.raw['Category'];
+      const color = categoryColorMap.get(category);
+      if (color) {
+        return {
+          nodeEnabled: true,
+          nodeColor: color,
+          outlineEnabled: false,
+          sizeEnabled: false,
+          lineEnabled: false
+        };
+      }
+    }
+    return null;
+  }
+
+  function getLinkFormat(link) {
+    // If legend is enabled, check if both nodes have matching categories
+    if (legendEnabled && link.source.raw && link.target.raw) {
+      const sourceCategory = link.source.raw['Category'];
+      const targetCategory = link.target.raw['Category'];
+      if (sourceCategory === targetCategory && categoryColorMap.has(sourceCategory)) {
+        const color = categoryColorMap.get(sourceCategory);
+        return {
+          lineEnabled: true,
+          lineColor: color,
+          lineThickness: null
+        };
+      }
+    }
+    return null;
+  }
+
+  function shouldShowNode(node) {
+    // If legend filtering is active and node has a category
+    if (legendEnabled && activeCategories.size < uniqueCategories.length) {
+      if (node.raw && node.raw['Category']) {
+        return activeCategories.has(node.raw['Category']);
+      }
+      // Show nodes without category when filtering is active
+      return false;
+    }
+    return true;
+  }
+
+  /************************************************************************
    * AUTO-LOAD DATA FROM FOLDER
    ************************************************************************/
   async function autoLoadData() {
@@ -1104,6 +1292,22 @@
     conditionalFormats = [];
     
     data.forEach(row => {
+      // Check if this is a legend color setting (LegendColor1 through LegendColor12)
+      const legendColorMatch = row.Setting && row.Setting.match(/^LegendColor(\d+)$/);
+      if (legendColorMatch) {
+        const colorIndex = parseInt(legendColorMatch[1]) - 1;
+        if (colorIndex >= 0 && colorIndex < 12 && row.Value) {
+          legendColors[colorIndex] = row.Value;
+        }
+        return;
+      }
+      
+      // Check if this is the legend enabled setting
+      if (row.Setting === 'LegendEnabled') {
+        legendEnabled = row.Value === 'TRUE' || row.Value === 'true' || row.Value === '1';
+        return;
+      }
+      
       if (row.RuleType === 'Default' || !row.RuleType) {
         if (row.NodeColor) formattingSettings.nodeColor = row.NodeColor;
         if (row.NodeHoverColor) formattingSettings.nodeHoverColor = row.NodeHoverColor;
@@ -1228,6 +1432,10 @@
 
     // Load images
     loadAllImages();
+
+    // Update category colors and legend
+    updateCategoryColors();
+    updateLegend();
 
     // Start physics
     updatePhysics();
@@ -1930,8 +2138,8 @@
   function updatePhysics() {
     if (simulation) simulation.stop();
     
-    const visibleNodes = nodes.filter(n => n.show);
-    const visibleLinks = links.filter(l => l.source.show && l.target.show);
+    const visibleNodes = nodes.filter(n => n.show && shouldShowNode(n));
+    const visibleLinks = links.filter(l => l.source.show && l.target.show && shouldShowNode(l.source) && shouldShowNode(l.target));
     
     if (visibleNodes.length === 0) {
       render();
@@ -2011,35 +2219,16 @@
     const dy = y2 - y1;
     const dist = Math.sqrt(dx * dx + dy * dy);
     
-    if (dist === 0) return;
-    
+    // Perpendicular offset (15% of distance for subtle curve)
     const offset = dist * 0.15;
     const midX = (x1 + x2) / 2;
     const midY = (y1 + y2) / 2;
+    
+    // Control point perpendicular to line
     const controlX = midX - (dy / dist) * offset;
     const controlY = midY + (dx / dist) * offset;
     
-    // Calculate position on curve at t=0.5 (midpoint)
-    const t = 0.5;
-    const curveX = (1-t)*(1-t)*x1 + 2*(1-t)*t*controlX + t*t*x2;
-    const curveY = (1-t)*(1-t)*y1 + 2*(1-t)*t*controlY + t*t*y2;
-    
-    // Calculate tangent at t=0.5 for proper orientation
-    const tangentX = 2*(1-t)*(controlX - x1) + 2*t*(x2 - controlX);
-    const tangentY = 2*(1-t)*(controlY - y1) + 2*t*(y2 - controlY);
-    const length = Math.sqrt(tangentX * tangentX + tangentY * tangentY);
-    
-    if (length === 0) return;
-    
-    // Normalize direction
-    const ux = tangentX / length;
-    const uy = tangentY / length;
-    
-    // Perpendicular vector
-    const px = -uy;
-    const py = ux;
-    
-    // Text measurements
+    // Text measurements - calculate first to know chevron size
     ctx.save();
     const fontSize = 12 / zoomLevel;
     ctx.font = `${fontSize}px Rubik, Arial, sans-serif`;
@@ -2054,26 +2243,109 @@
     const chevronHeight = fontSize + padding * 2;
     const chevronPointSize = chevronHeight * 0.4;
     
-    // Calculate chevron points (pointing in direction of arrow)
+    // Helper function to get point on quadratic bezier curve
+    function getPointOnCurve(t) {
+      return {
+        x: (1-t)*(1-t)*x1 + 2*(1-t)*t*controlX + t*t*x2,
+        y: (1-t)*(1-t)*y1 + 2*(1-t)*t*controlY + t*t*y2
+      };
+    }
+    
+    // Helper function to get tangent on quadratic bezier curve
+    function getTangentOnCurve(t) {
+      const tx = 2*(1-t)*(controlX - x1) + 2*t*(x2 - controlX);
+      const ty = 2*(1-t)*(controlY - y1) + 2*t*(y2 - controlY);
+      const length = Math.sqrt(tx * tx + ty * ty);
+      return { x: tx / length, y: ty / length, length };
+    }
+    
+    // Approximate arc length using numerical integration
+    function approximateArcLength(t1, t2, steps = 10) {
+      let length = 0;
+      for (let i = 0; i < steps; i++) {
+        const t = t1 + (t2 - t1) * (i / steps);
+        const tangent = getTangentOnCurve(t);
+        length += tangent.length * (t2 - t1) / steps;
+      }
+      return length;
+    }
+    
+    // Find approximate t values for the left and right edges of chevron
+    // by calculating what portion of the curve the chevron should occupy
+    const totalArcLength = approximateArcLength(0, 1);
+    const halfChevronWidth = (chevronWidth + chevronPointSize) / 2;
+    
+    // Find t values that correspond to the desired arc-length positions
+    let tLeft = 0.5, tRight = 0.5;
+    
+    // Use iterative approach to find t values at specific arc lengths
+    if (totalArcLength > 0) {
+      // For left edge: find t where arc length from 0 to t equals half curve - half chevron
+      const targetLeftLength = totalArcLength / 2 - halfChevronWidth;
+      if (targetLeftLength > 0) {
+        for (let i = 0; i < 5; i++) { // 5 iterations for reasonable accuracy
+          const currentLength = approximateArcLength(0, tLeft);
+          const error = currentLength - targetLeftLength;
+          if (Math.abs(error) < 1) break;
+          tLeft -= error / totalArcLength * 0.5; // Adjust t
+          tLeft = Math.max(0.1, Math.min(0.9, tLeft)); // Keep in bounds
+        }
+      }
+      
+      // For right edge: find t where arc length from 0 to t equals half curve + half chevron
+      const targetRightLength = totalArcLength / 2 + halfChevronWidth;
+      if (targetRightLength < totalArcLength) {
+        for (let i = 0; i < 5; i++) {
+          const currentLength = approximateArcLength(0, tRight);
+          const error = currentLength - targetRightLength;
+          if (Math.abs(error) < 1) break;
+          tRight -= error / totalArcLength * 0.5;
+          tRight = Math.max(0.1, Math.min(0.9, tRight));
+        }
+      }
+    }
+    
+    // Get positions for left and right edges along the curve
+    const leftPoint = getPointOnCurve(tLeft);
+    const rightPoint = getPointOnCurve(tRight);
+    
+    // Calculate the geometric center of the chevron (midpoint between left and right)
+    const curveX = (leftPoint.x + rightPoint.x) / 2;
+    const curveY = (leftPoint.y + rightPoint.y) / 2;
+    
+    // Get tangent at the geometric center for text orientation
+    const tCenter = (tLeft + tRight) / 2;
+    const centerTangent = getTangentOnCurve(tCenter);
+    const ux = centerTangent.x;
+    const uy = centerTangent.y;
+    
+    // Get tangents at left and right for perpendicular offsets
+    const leftTangent = getTangentOnCurve(tLeft);
+    const rightTangent = getTangentOnCurve(tRight);
+    
+    // Perpendicular vectors
+    const leftPx = -leftTangent.y;
+    const leftPy = leftTangent.x;
+    const rightPx = -rightTangent.y;
+    const rightPy = rightTangent.x;
+    
     const halfHeight = chevronHeight / 2;
     
-    // Left side
-    const leftBaseX = curveX - ux * chevronWidth / 2;
-    const leftBaseY = curveY - uy * chevronWidth / 2;
-    const leftTopX = leftBaseX + px * halfHeight;
-    const leftTopY = leftBaseY + py * halfHeight;
-    const leftBottomX = leftBaseX - px * halfHeight;
-    const leftBottomY = leftBaseY - py * halfHeight;
+    // Left side vertices using curve position
+    const leftTopX = leftPoint.x + leftPx * halfHeight;
+    const leftTopY = leftPoint.y + leftPy * halfHeight;
+    const leftBottomX = leftPoint.x - leftPx * halfHeight;
+    const leftBottomY = leftPoint.y - leftPy * halfHeight;
     
-    // Right side (with point)
-    const rightBaseX = curveX + ux * chevronWidth / 2;
-    const rightBaseY = curveY + uy * chevronWidth / 2;
-    const rightTopX = rightBaseX + px * halfHeight;
-    const rightTopY = rightBaseY + py * halfHeight;
-    const rightBottomX = rightBaseX - px * halfHeight;
-    const rightBottomY = rightBaseY - py * halfHeight;
-    const rightPointX = rightBaseX + ux * chevronPointSize;
-    const rightPointY = rightBaseY + uy * chevronPointSize;
+    // Right side vertices using curve position
+    const rightTopX = rightPoint.x + rightPx * halfHeight;
+    const rightTopY = rightPoint.y + rightPy * halfHeight;
+    const rightBottomX = rightPoint.x - rightPx * halfHeight;
+    const rightBottomY = rightPoint.y - rightPy * halfHeight;
+    
+    // Point extends from right edge
+    const rightPointX = rightPoint.x + rightTangent.x * chevronPointSize;
+    const rightPointY = rightPoint.y + rightTangent.y * chevronPointSize;
     
     // Draw chevron shape
     ctx.fillStyle = lineColor;
@@ -2088,8 +2360,8 @@
     
     // Draw text with rotation
     ctx.save();
-    // Calculate angle from tangent
-    let angle = Math.atan2(tangentY, tangentX);
+    // Calculate angle from tangent at center
+    let angle = Math.atan2(uy, ux);
     
     // Keep text readable (flip if upside down)
     if (angle > Math.PI / 2 || angle < -Math.PI / 2) {
@@ -2332,8 +2604,8 @@
     ctx.save();
     applyTransform();
 
-    // Filter nodes based on story mode
-    let visibleNodes = nodes.filter(n => n.show);
+    // Filter nodes based on story mode and legend filtering
+    let visibleNodes = nodes.filter(n => n.show && shouldShowNode(n));
     const highlightedNodes = [];
     const unhighlightedNodes = [];
     
@@ -2349,7 +2621,7 @@
     unhighlightedNodes.forEach(n => drawNode(n, CONFIG.unconnectedOpacity, CONFIG.showImages));
 
     const highlightedSet = new Set(highlightedNodes.map(n => n.id));
-    let visibleLinks = links.filter(l => l.source.show && l.target.show);
+    let visibleLinks = links.filter(l => l.source.show && l.target.show && shouldShowNode(l.source) && shouldShowNode(l.target));
     
     // In story mode, only show links where BOTH nodes are in current view
     if (isStoryMode && sortedViewIds.length > 0) {
