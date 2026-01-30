@@ -1,61 +1,316 @@
-Entity Name,Description,Category,Views,View Highlight,Area,Sub Area,Image,Link,DeSmog Profile,Show,Fixed,X,Y,More Info
-Adam Waterous,,Wealthy Individual,"1,11,13","11,13",,,,,,TRUE,TRUE,914,485.2,
-Alberta Proud,,Campaign Front Group,"1,6,7",7,,,https://i.ibb.co/WN7CXx5m/Alberta-Proud.png,,https://www.desmog.com/canada-proud/,TRUE,TRUE,789,785.2,
-Andrew Coyne,,Wealthy Individual,"1,5,8",5,,,https://i.ibb.co/wFMPRXpc/Coyne.png,,https://www.desmog.com/andrew-coyne/,TRUE,TRUE,439,635.2,
-Atlas Network,,Institute,"1,2,3,4,5,13","2,3,4,5,13",,,https://i.ibb.co/bRrhp8GL/Atlas-Network.png,https://www.desmog.com/atlas-economic-research-foundation/,https://www.desmog.com/atlas-economic-research-foundation/,TRUE,TRUE,489,835.2,
-Aurea Foundation,,Foundation,"1,5",5,,,https://i.ibb.co/gF3mJQ5h/Aurea.jpg,,https://www.desmog.com/aurea-foundation/,TRUE,TRUE,464,660.2,
-Birchcliff Energy,,Oil Industry,"1,11,13,16","13,16",,,,,,TRUE,TRUE,714,210.2,
-Brian Felesky,,Wealthy Individual,"1,16",16,,,https://i.ibb.co/gMC7FGxJ/Felesky.jpg,,,TRUE,TRUE,589,485.2,
-C.D. Howe Institute,,Institute,1,,,,,,,FALSE,FALSE,,,
-Canada Action,,Industry Front Group,"1,17",17,,,https://i.ibb.co/v4HsbPyR/CAN-ACTION.jpg,,https://www.desmog.com/canada-action/,TRUE,TRUE,289,835.2,
-Canada Proud,,Campaign Front Group,"1,6,7,12","6,7",,,https://i.ibb.co/G4QzQfFw/Canada-Proud.png,https://www.desmog.com/canada-proud,,TRUE,TRUE,814,835.2,
-Canada Strong and Free Network,,Institute,"1,6,7,13,16","6,7,13,16",,,https://i.ibb.co/gbsYyknw/Canada-Strong-and-Free.png,https://www.desmog.com/canada-strong-and-free-network/,,TRUE,TRUE,664,835.2,
-Canada Strong and Proud,,Campaign Front Group,"1,6,7,13,16","7,13,16",,,https://i.ibb.co/Xr9RGmZn/Canada-Strong-and-Proud.png,,,TRUE,TRUE,764,760.2,
-CAPP,,Oil Industry,"1,13,16","13,16",,,,,,TRUE,TRUE,639,360.2,
-Canadian Constititution Foundation,,Institute,"1,2,5",,,,https://i.ibb.co/Z6fyPwNx/Can-Constitution-Found.png,,https://www.desmog.com/canadian-constitution-foundation/,TRUE,TRUE,539,860.2,
-Canadian Energy Centre,,Oil Industry,1,,,,https://i.ibb.co/PsVctMm3/CEC.png,,https://www.desmog.com/canadian-energy-centre-cec/,FALSE,FALSE,,,
-Canadian Natural Resources,,Oil Industry,"1,13,14,13,16,17","13,14,16,17",,,https://i.ibb.co/0j6pKj7P/CNR.png,,,TRUE,TRUE,339,210.2,
-Cenovus,,Oil Industry,"1,13,14,13,16,17","13,14,16,17",,,https://i.ibb.co/kgh4pjsL/Cenovus.png,,,TRUE,TRUE,264,210.2,
-Charles Koch,,Wealthy Individual,"1,4",4,,,"
-https://i.ibb.co/3mMnhfwM/Koch.jpg",,,TRUE,TRUE,214,485.2,
-Danielle Smith,,Politics,1,,,,https://i.ibb.co/C3nCRwLy/Danielle.png,,,FALSE,FALSE,,,
-Ezra Levant/Rebel News,,Media,"1,8",,,,,,,FALSE,FALSE,,,
-Fierement Nouveau-Brunswick,,Campaign Front Group,"1,6,7,13","7,13",,,,,,TRUE,TRUE,714,810.2,
-Fraser Institute,,Institute,"1,2,3,4,5,13","3,4,11",,,https://i.ibb.co/cXgfvDQr/Fraser.png,https://www.desmog.com/fraser-institute/,https://www.desmog.com/fraser-institute/,TRUE,TRUE,439,810.2,
-Friends of Free Enterprise In Canada,,Campaign Front Group,"1,11,13","11,13",,,https://i.ibb.co/Pv9CXsRK/FFEC.png,,,TRUE,TRUE,1139,835.2,
-Frontier Centre for Public Policy,,Institute,"1,2,5",,,,https://i.ibb.co/j9KF3yV4/Frontier-Centre.png,,https://www.desmog.com/frontier-centre-public-policy/,TRUE,TRUE,539,810.2,
-Gwyn Morgan,"<b><a href=""https://www.desmog.com/gwyn-morgan/"">Gwyn Morgan</a></b> is a former CEO of Canadian natural resource companies using his money and connections in the energy industry and media to advance a pro-fossil fuels, right-wing agenda.",Wealthy Individual,"1,2,3,5,6,8,9,10,11","1,2,3,5,6,8,9,10,11",,,https://i.ibb.co/LzbppFw9/Gwyn.png,https://www.desmog.com/gwyn-morgan/,https://www.desmog.com/gwyn-morgan/,TRUE,TRUE,714,485.2,
-Gwyn Morgan and Patricia Trottier Foundation,,Foundation,"1,2,6,8,10","2,6,8,10",,,https://i.ibb.co/nMHVNGHM/Gwyn-Found.png,https://www.desmog.com/gwyn-morgan-and-patricia-trottier-foundation/,https://www.desmog.com/gwyn-morgan/,TRUE,TRUE,739,510.2,
-Imperial Oil,,Oil Industry,"1,13,14,16","13,14,16",,,https://i.ibb.co/2zLyYMR/Imp.png,,,TRUE,TRUE,189,210.2,
-Indian Resource Council,,Industry Front Group,"1,17",17,,,https://i.ibb.co/GgW982C/irc.jpg,,https://www.desmog.com/indian-resource-council/,TRUE,TRUE,339,835.2,
-Indigenous Resource Network,,Industry Front Group,"1,17",17,,,https://i.ibb.co/k6xC6h9R/indres.png,,,TRUE,TRUE,314,810.2,
-Montreal Economic Institute,,Institute,"1,2,5",,,,https://i.ibb.co/B5XDsTJ3/Montreal-Economic-Institute.png,,https://www.desmog.com/montreal-economic-institute/,TRUE,TRUE,464,785.2,
-Institute for Liberal Studies,,Institute,"1,2",,,,https://i.ibb.co/0jbHgWzF/Liberal-Studies.jpg,,,TRUE,TRUE,514,885.2,
-Jeff Ballingall,,Politics,"1,6,12","6,12",,,,,,TRUE,TRUE,839,810.2,
-Jeff Tonken,,Wealthy Individual,"1,11,13","11,13",,,,,,TRUE,TRUE,1064,485.2,
-True North/Juno News,,Media,"1,8,10","8,10",,,https://i.ibb.co/tPpjySsH/True-North.png,,,TRUE,TRUE,1064,835.2,
-Justice Centre for Constitutional Freedom,,Institute,"1,2",,,,https://i.ibb.co/3yvxwrXb/Justice-Centre.png,,,TRUE,TRUE,464,885.2,
-Macdonald Laurier Institute,,Institute,"1,5,13",13,,,https://i.ibb.co/HDXdyc6c/MLI.png,,https://www.desmog.com/macdonald-laurier-institute/,TRUE,TRUE,439,860.2,
-Manitoba Strong,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,739,885.2,
-Mattamy Homes,,Other Company,"1,11,12",12,,,,,,TRUE,TRUE,914,210.2,
-Michael Binnion,Binnion also donated to Maxime Bernier and former Alberta premier Jason Kenney.,Wealthy Individual,"1,13,16","13,16",,,,,,TRUE,TRUE,489,485.2,
-Michael Rose,,Wealthy Individual,"1,11,13",11,,,,,,TRUE,TRUE,989,485.2,
-National Post,,Media,"1,5,8,9","5,8",,,https://i.ibb.co/KxZqGNHL/Nat-Post.png,,,TRUE,TRUE,989,835.2,
-New Brunswick Proud,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,764,810.2,
-Newfoundland Proud,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,789,885.2,
-Nova Scotia Proud,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,764,910.2,
-Ontario Proud,,Campaign Front Group,"1,6,7,12","7,12",,,,,,TRUE,TRUE,789,735.2,
-Ontario Strong,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,789,935.2,
-Ovintiv,,Oil Industry,"1,1,16",16,,,,,,TRUE,TRUE,789,210.2,
-Pathways Alliance,,Oil Industry,"1,13,14","13,14",,,https://i.ibb.co/h1CQ5HJr/Pathways.jpg,,,TRUE,TRUE,189,360.2,
-Peter Gilgan,,Wealthy Individual,"1,11,12","11,12",,,,,,TRUE,TRUE,1139,485.2,
-Pierre Poilievre,,Politics,"1,11",11,,,https://i.ibb.co/HfqS5TTy/Pierre.png,,,TRUE,TRUE,714,1110.2,
-Proudly New Brunswick,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,764,860.2,
-Quebec Proud,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,739,785.2,
-Questerre Energy,,Oil Industry,"1,13,16","13,16",,,,,,TRUE,TRUE,489,210.2,
-Saskatchewan Strong,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,714,860.2,
-Second Street,,Institute,"1,2",,,,https://i.ibb.co/BHp8dYvZ/Second-Street.png,,https://www.desmog.com/secondstreet-org/,TRUE,TRUE,514,785.2,
-Suncor,,Oil Industry,"1,13,14,16","13,14,16",,,https://i.ibb.co/MyFDxPWn/Suncor.png,,,TRUE,TRUE,414,210.2,
-Tourmaline Oil,,Oil Industry,"1,13,11,16","13,16",,,,,,TRUE,TRUE,639,210.2,
-Waterous Energy,,Oil Industry,"1,11,13",13,,,,,,TRUE,TRUE,564,210.2,
-West Coast Proud,,Campaign Front Group,"1,6,7",7,,,,,,TRUE,TRUE,739,835.2,
+Entity Name,Category,Description,Image,Show,Fixed,,,Link
+Adriana LaGrange,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Red Deer-North.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Al Biel,‎‎Seperatist,"Central Alberta regional director for United Conservative Party.
+
+● <a href=""https://edmontonjournal.com/news/politics/independence-supporters-take-ucp-board-positions"">Called ""pro-independence"" by Alberta Prosperity Project</a>
+● <a href=""https://daveberta.substack.com/p/quashing-alberta-separatism-debate"">Attended Alberta Prosperity independence rally</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Alberta First Cabinet Policy Committee,Mixed/Ambiguous Sovereignty,Government council formed to advance Alberta’s autonomy within Canada.,https://i.ibb.co/QFvnh62x/FIN-COMM.png,TRUE,FALSE,,,
+Alberta Independence,‎‎Seperatist,Facebook group.,https://i.ibb.co/20YZFJkW/FIN-SEPb.png,TRUE,FALSE,,,
+Alberta Prosperity Project,‎‎Seperatist,"The Alberta Prosperity Project is an advocacy group advancing an independent Alberta. They wish to <a href=""https://albertaprosperityproject.com/about-us/"">hold a referendum on Alberta sovereignty and create a new constitution</a>.
+
+Members traveled to Washington in <a href=""https://www.desmog.com/2025/07/22/trump-officials-discussed-500m-alberta-independence-loan-separatist-claims/"">spring</a> and <a href=""https://nationalpost.com/news/alberta-separatists-boast-cabinet-level-meeting-with-trump-administration"">fall</A> of 2025 to meet with U.S. officials in regard to an independent Alberta's relationship with the U.S.",https://i.ibb.co/Fk8pWqFV/FIN-AB-PROSP.png,TRUE,FALSE,,,
+Alberta USA Foundation,‎‎‎‎Open to joining U.S.,,https://i.ibb.co/k64MM7sr/FIN-ABUSA.png,TRUE,FALSE,,,
+America Fund,‎‎‎‎Open to joining U.S.,,https://i.ibb.co/hJKjdPYH/FIN-AMFUND.png,TRUE,FALSE,,,
+Andrew Boitchenko,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Drayton Valley-Devon.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Andy Ogles,‎‎‎‎Open to joining U.S.,"Republican Congressman from Tennessee. Said that Albertans would ""prefer not to be a part of Canada and be a part of the United States because we [the U.S.] are winning day in and day out.""",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Angela Pitt,‎‎Seperatist,"United Conservative Party MLA from Airdrie-East.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://www.producer.com/news/alberta-the-nation-mlas-seek-sovereignty/"">Supports Free Alberta Strategy</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://albertawatch.ca/en"">Accepted sponsored travel to U.S.</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Art Hanger,‎‎‎‎Open to joining U.S.,"VP, Policy for the Republican Party of Alberta, a separatist provincial party that has expressed a desire for a referendum on joining the U.S.",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Artur Pawlowski,‎‎Seperatist,,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Barry Cooper,Mixed/Ambiguous Sovereignty,"● <a href=""https://www.producer.com/news/alberta-the-nation-mlas-seek-sovereignty/"">""Supports Free Alberta Strategy</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Benita Pedersen,Mixed/Ambiguous Sovereignty,"Organizer for Take Back Alberta. <a href=""https://pressprogress.ca/take-back-alberta-organizer-leading-campaign-against-rainbow-crosswalk-in-small-town-alberta/"">Assembled a protest against rainbow Pride crosswalks</a>.",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Bob Blayone,‎‎Seperatist,"Former director at the Alberta Prosperity Project, and former candidate for the Alberta Independence Party, a separatist provincial party.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Brandon Lunty,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Leduc-Beaumont.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Brian Jean,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Fort McMurray-Lac La Biche.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://www.alberta.ca/travel-and-expense-disclosure-table"">Met with D.C. officials since Trump inaugurated</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Bruce Hutton,‎‎Seperatist,"Former leader of the Wildrose Independence Party, a provincial party pushing for independence.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Cam Davies,‎‎‎‎Open to joining U.S.,"Party leader of the Republican Party of Alberta, a separatist provincial party that has expressed a desire for a referendum on joining the U.S. <a href=""https://www.msn.com/en-ca/politics/government/another-alberta-separatist-leader-is-courting-u-s-conservatives-in-washington-and-mar-a-lago/ar-AA1Qh5Tc"">Traveled to Washington to meet with U.S. officials</a>.",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Chantelle de Jonge,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Chestermere-Strathmore.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://www.alberta.ca/travel-and-expense-disclosure-table"">Met with D.C. officials since Trump inaugurated</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Charlene Schramm,‎‎Seperatist,"CFO of the Independent Party of Alberta, a pro independence party.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Chelsea Petrovic,‎‎Seperatist,"United Conservative Party MLA from Livingstone-Macleod.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Chris Scott,‎‎Seperatist,,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Cory Morgan,‎‎Seperatist,,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Dale Nally,‎‎Seperatist,"United Conservative Party MLA from Morinville-St. Albert.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Dan Williams,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Peace River.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Daniel Warwick,‎‎‎‎Open to joining U.S.,"CFO for the Republican Party of Alberta, a separatist provincial party that has expressed a desire for a referendum on joining the U.S.",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Danielle Smith,Mixed/Ambiguous Sovereignty,"Alberta Premier, United Conservative Party leader and MLA from Brooks-Medicine Hat.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://www.alberta.ca/travel-and-expense-disclosure-table"">Met with D.C. officials since Trump inaugurated</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Darrell Komick,‎‎Seperatist,"<a href=""https://edmontonjournal.com/news/politics/independence-supporters-take-ucp-board-positions"">Pro-independence</a> constituency president for the United Conservative Party. “It's not just rural Alberta that wants independence. This just tells you that there's a lot of folks from all stripes.”",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Dave Bjorkman,‎‎Seperatist,"Former leader of the Independent Party of Alberta, a pro independence party.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Dave Campbell,‎‎Seperatist,"Former leader of the Independent Party of Alberta, a pro independence party.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+David Parker,Mixed/Ambiguous Sovereignty,"Leader of Take Back Alberta. Formerly close to Danielle Smith before <a href=""https://pressprogress.ca/rift-forming-between-danielle-smith-government-and-grassroots-ahead-of-party-agm/"">splitting</a> <a href=""https://calgaryherald.com/opinion/columnists/braid-danielle-smith-slams-david-parker-tba-pierre-poilievre"">publicly</a>.",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+David Steckenreiter,‎‎Seperatist,VP of Education for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Demetrios Nicolaides,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Calgary-Bow.
+
+<a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Dennis Modry,‎‎‎‎Open to joining U.S.,"Former CEO of the Alberta Prosperity Project, a pro-Alberta independence advocacy group.
+
+● <a href=""https://www.westernstandard.news/news/alberta-sovereignty-delegation-to-us-confirmed/63474"">Represented Commonwealth of Alberta Delegation to Washington</a>",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Derek Fildebrandt,‎‎Seperatist,"● <a href=""https://daveberta.ca/2020/07/paul-hinman-is-back-again-maybe-former-wildrose-leader-to-lead-new-wildrose-separatist-party/"">Member of a pro-independence party</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Derek From,Mixed/Ambiguous Sovereignty,"● <a href=""https://www.producer.com/news/alberta-the-nation-mlas-seek-sovereignty/"">Supports Free Alberta Strategy</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Devin Dreeshen,‎‎Seperatist,"United Conservative Party MLA from Innisfail-Sylvan Lake.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Donald Trump,Mixed/Ambiguous Sovereignty,"The U.S. President has repeatedly and publicly referred to Canada as a potential ""51st state.""",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Drew Barnes,Mixed/Ambiguous Sovereignty,"● <a href=""https://www.producer.com/news/alberta-the-nation-mlas-seek-sovereignty/"">Supports Free Alberta Strategy</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Ed Vanderveen,‎‎Seperatist,"● <a href=""https://edmontonjournal.com/news/politics/independence-supporters-take-ucp-board-positions"">Called ""pro-independence"" by Alberta Prosperity Project</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Eric Bouchard,‎‎Seperatist,"United Conservative Party MLA from Calgary-Lougheed.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Free Alberta Strategy,Mixed/Ambiguous Sovereignty,"Created by Rob Anderson, Barry Cooper and Derek From, this strategy group seeks ""a strong, free & sovereign Alberta within Canada"".
+
+<a href=""https://www.freealbertastrategy.com/the_strategy"">Their stated aims</a> include:
+● ""Establishing complete Provincial Legislative Sovereignty within Canada"".
+● ""Absolute discretion to refuse to enforce any piece of federal legislation or judicial decision that intrudes on Alberta’s provincial rights"".",https://i.ibb.co/XkdHzG3K/FIN-STRAT.png,TRUE,FALSE,,,
+Garth Rowswell,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Vermilion-Lloydminster-Wainwright.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://albertawatch.ca/en"">Accepted sponsored travel to U.S.</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Glenn van Dijken,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Athabasca-Barrhead-Westlock.
+
+● <a href=""https://albertawatch.ca/en"">Accepted sponsored travel to U.S.</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Grant Hunter,‎‎Seperatist,"United Conservative Party MLA from Taber-Warner.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://albertawatch.ca/en"">Accepted sponsored travel to U.S.</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Helen Holder,‎‎Seperatist,"VP of Fundraising for the United Conservartive Party.
+
+● <a href=""https://edmontonjournal.com/news/politics/independence-supporters-take-ucp-board-positions"">Called ""pro-independence"" by Alberta Prosperity Project</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Independence Party of Alberta,‎‎Seperatist,"<a href=""https://www.tipalberta.org/platform"">Pro-independence</a> party founded by Cory Morgan in 2000 and reformed in 2017. The new incarnation has gone through many leaders.
+
+<a href=""https://rdnewsnow.com/2025/05/06/albertas-republican-and-independence-parties-join-forces-react-to-smith-and-separatism/"">Cooperates with the Republican Party of Alberta</a>.",https://i.ibb.co/0VWytyC1/FIN-IND.png,TRUE,FALSE,,,
+Irma Roberts,‎‎Seperatist,"● <a href=""https://edmontonjournal.com/news/politics/independence-supporters-take-ucp-board-positions"">Called ""pro-independence"" by Alberta Prosperity Project</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Jackie Armstrong-Homeniuk,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Fort Saskatchewan-Vegreville.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Jackie Lovely,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Camrose.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Jason Nixon,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Rimbey-Rocky Mountain House-Sundre.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Jason Stephan,‎‎Seperatist,"United Conservative Party MLA from Red Deer-South.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Jeevan Singh Mangat,‎‎Seperatist,,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Jeff Rath,‎‎‎‎Open to joining U.S.,"Co-founder of the Alberta Prosperity Project who has claimed to have been offered <a href=""https://www.desmog.com/2025/07/22/trump-officials-discussed-500m-alberta-independence-loan-separatist-claims/"">$500M</a>, then <a href=""https://thetyee.ca/News/2026/01/26/Wild-Claims-Jeff-Rath-Separatist-Firebrand/"">$500B</a> from U.S. officials for an independent Alberta, while <a href=""https://edmontonjournal.com/news/politics/law-society-of-alberta-lawyer-misconduct-allegations-51st-state-fox-news"">calling for Alberta to become the 51st state</a>.
+
+In <a href=""https://ca.news.yahoo.com/attention-seeking-chance-plant-seeds-183349732.html"">constant</a> <a href=""https://thetyee.ca/News/2026/01/26/Wild-Claims-Jeff-Rath-Separatist-Firebrand/"">conflict</a> with other independence groups, and even <a href=""https://albertaprosperityproject.com/alberta-prosperity-project-articles/official-statement-from-the-alberta-prosperity-project-regarding-comments-by-legal-counsel-jeffrey-rath/"">his own group</a>. A lawyer, he has taken several COVID-related cases and is currently in <a href=""https://edmontonjournal.com/news/politics/jeff-rath-law-society-hearing-separatist-lawyer"">disciplinary hearings with the Law Society of Alberta</a>",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Jennifer Johnson,‎‎Seperatist,"United Conservative Party MLA from Lacombe-Ponoka.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+John Reil,‎‎Seperatist,"Former leader of the Wildrose Independence Party, a provincial party pushing for independence.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Jonathan Heidebrecht,Mixed/Ambiguous Sovereignty,"CFO of Take Back Alberta, <a href=""https://www.cbc.ca/news/canada/calgary/david-parker-take-back-alberta-fines-political-advertising-1.7450567"">fined by Elections Alberta for filing a false financial statement</a>.",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Joseph Schow,‎‎Seperatist,"United Conservative Party MLA from Cardston-Siksika.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Josh Smith,‎‎‎‎Open to joining U.S.,"Provincial director for the Republican Party of Alberta, a separatist provincial party that has expressed a desire for a referendum on joining the U.S.",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Justin Wright,‎‎Seperatist,"United Conservative Party MLA from Cypress-Medicine Hat.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://albertawatch.ca/en"">Accepted sponsored travel to U.S.</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Katherine Kowalchuk,‎‎Seperatist,"Former leader of the Independent Party of Alberta, a pro independence party.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Let’s Talk Alberta Independence,‎‎Seperatist,"Facebook group (28,000 members).",https://i.ibb.co/20YZFJkW/FIN-SEPb.png,TRUE,FALSE,,,
+Marco Van Huigenbos,‎‎Seperatist,,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Martin Long,‎‎Seperatist,"United Conservative Party MLA from West Yellowhead.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://albertawatch.ca/en"">Accepted sponsored travel to U.S.</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Matt Jones,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Calgary-South East.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Mickey Amery,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Calgary-Cross.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Mike Ellis,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Calgary-West.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Mitch Sylvestre,‎‎‎‎Open to joining U.S.,"● <a href=""https://www.westernstandard.news/news/alberta-sovereignty-delegation-to-us-confirmed/63474"">Represented Commonwealth of Alberta Delegation to Washington</a>",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Muhammed Yaseen,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Calgary-North.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Myles McDougall,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Calgary-Fish Creek.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Nate Glubish,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Strathcona-Sherwood Park.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Nate Horner,‎‎Seperatist,"United Conservative Party MLA from Drumheller-Stettler.
+
+● a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Nathan Cooper,Mixed/Ambiguous Sovereignty,"● <a href=""https://www.producer.com/news/alberta-the-nation-mlas-seek-sovereignty/"">""Observer"", Free Alberta Strategy</a>
+● <a href=""https://www.alberta.ca/travel-and-expense-disclosure-table"">Met with D.C. officials since Trump inaugurated</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Nathan Neudorf,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Lethbridge-East.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>
+● <a href=""https://www.alberta.ca/travel-and-expense-disclosure-table"">Met with D.C. officials since Trump inaugurated</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Nolan Dyck,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Grande Prairie.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Paul Hinman,Mixed/Ambiguous Sovereignty,"Leader of the Wildrose Loyalty Coalition, an Alberta provincial party with mixed views on soveriegnty. <a href=""https://www.ctvnews.ca/edmonton/article/paul-hinman-fighting-claim-hes-been-removed-as-wildrose-independence-leader/"">Former leader of the Wildrose Independence Party</a>, a separatist provincial party.",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Paul McGregor,‎‎‎‎Open to joining U.S.,,https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Peter Downing,‎‎‎‎Open to joining U.S.,,https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Peter Singh,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Calgary-East.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Peter Weichler,‎‎‎‎Open to joining U.S.,"Provincial director for the Republican Party of Alberta, a separatist provincial party that has expressed a desire for a referendum on joining the U.S.",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+R.J. Sigurdson,‎‎Seperatist,"United Conservative Party MLA from Highwood.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Rajan Sawhney,‎‎Seperatist,"United Conservative Party MLA from Calgary-North West.
+
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Republican Party of Alberta,‎‎‎‎Open to joining U.S.,"Alberta provincial party seeks <a>an independence referendum</a>, and until 2025, their party platform included a pledge to hold <a href=""https://www.readtheorchard.org/p/separatist-party-claims-11-ucp-mlas"">""a referendum to gauge the will of Albertans to seek U.S. statehood or territorial status""</a>.
+
+<a href=""https://rdnewsnow.com/2025/05/06/albertas-republican-and-independence-parties-join-forces-react-to-smith-and-separatism/"">Cooperates with the Independence Party of Alberta</a>.
+",https://i.ibb.co/Mxj5znz6/FIN-AB-Rep.png,TRUE,FALSE,,,
+Ric McIver,‎‎Seperatist,"United Conservative Party MLA from Calgary-Hays.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Rick Wilson,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Maskwacis-Wetaskiwin.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Rob Anders,‎‎‎‎Open to joining U.S.,"Former Conservative Party of Canada MP from Calgary.
+
+● <a href=""https://www.westernstandard.news/news/alberta-sovereignty-delegation-to-us-confirmed/63474"">Represented Commonwealth of Alberta Delegation to Washington</a>",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Rob Anderson,Mixed/Ambiguous Sovereignty,"● <a href=""https://www.producer.com/news/alberta-the-nation-mlas-seek-sovereignty/"">Supports Free Alberta Strategy</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Ron Robertson,‎‎Seperatist,"President of the Independent Party of Alberta, a pro independence party.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Ron Wiebe,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Grande Prairie-Wapiti.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Samantha Steinke,‎‎Seperatist,"● <a href=""https://edmontonjournal.com/news/politics/independence-supporters-take-ucp-board-positions"">Called ""pro-independence"" by Alberta Prosperity Project</a>
+● <a href=""https://daveberta.substack.com/p/quashing-alberta-separatism-debate"">Attended Alberta Prosperity independence rally</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Sarah Negussie,‎‎‎‎Open to joining U.S.,"President the Republican Party of Alberta, a separatist provincial party that has expressed a desire for a referendum on joining the U.S.",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Scott Bessent,‎‎‎‎Open to joining U.S.,"Highest U.S. official to openly discuss the possibility of a sovereignty referendum in the province. Called Alberta a ""natural partner"" for the U.S, and suggested the U.S. should ""let them come down into the U.S."" ",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Scott Cyr,‎‎Seperatist,"United Conservative Party MLA from Bonnyville-Cold Lake-St. Paul.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Searle Turton,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Spruce Grove-Stony Plain.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Shane Getson,‎‎Seperatist,"United Conservative Party MLA from Lac Ste. Anne-Parkland.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://abpolecon.ca/2025/04/30/is-danielle-smith-really-a-separatist-or-annexationist-part-1/"">Pro-referendum</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Solidarity Movement of Alberta,‎‎Seperatist,,https://i.ibb.co/Y755m9Q1/FIN-SOL.png,TRUE,FALSE,,,
+Stacy Vanderveen,‎‎Seperatist,"● <a href=""https://edmontonjournal.com/news/politics/independence-supporters-take-ucp-board-positions"">Called ""pro-independence"" by Alberta Prosperity Project</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Stay Free Alberta,‎‎Seperatist,Campaign to raise signatures for a referendum on Alberta independence. Run by figures from Alberta Prosperity Project.,https://i.ibb.co/JDTfs1z/FIN-STAY-FREE-AB.png,TRUE,FALSE,,,
+Steve Bannon,‎‎‎‎Open to joining U.S.,"The American political operative has mused about the potential steps Alberta could take from referendum to American statehood. “...it seems hard to believe that Washington would ultimately abide an independent, energy rich Alberta indefinitely at its border.”",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Take Back Alberta,Mixed/Ambiguous Sovereignty,,https://i.ibb.co/fYyDbK3P/FIN-TBA.png,TRUE,FALSE,,,
+Tany Yao,‎‎Seperatist,"United Conservative Party MLA from Fort McMurray-Wood Buffalo.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Tanya Fir,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Calgary-Peigan.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Tara Sawyer,Mixed/Ambiguous Sovereignty,"United Conservative Party MLA from Olds-Didsbury-Three Hills.
+
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Todd Loewen,‎‎Seperatist,"United Conservative Party MLA from Central Peace-Notley.
+
+● <a href=""https://albertawatch.ca/en"">Listed as a separatist by separatist organizations</a>
+● <a href=""https://www.producer.com/news/alberta-the-nation-mlas-seek-sovereignty/"">Supports Free Alberta Strategy</a>
+● <a href=""https://albertawatch.ca/en"">Voted for Bill 14</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+U.S. Republican Party,Mixed/Ambiguous Sovereignty,"Some members of the U.S. Republican Party have expressed interest in Alberta joining the United States, while president Donald Trump has made mixed statements advocating for the annexation of Canada.",https://i.ibb.co/k2WW9hP9/REP.png,TRUE,FALSE,,,
+United Conservative Party of Alberta,Mixed/Ambiguous Sovereignty,"The UCP, Alberta's ruling party, contains many members who have expressed interest in sovereignty and/or separatism. 
+
+Their leader, Danielle Smith, calls for a ""free & sovereign Alberta within Canada"", and enabled the independence movement to bypass Alberta's courts and force through a referendum.",https://i.ibb.co/ds4XX0mk/FIN-UCP.png,TRUE,FALSE,,,
+Vicki Kozmak-LeFrense,‎‎Seperatist,"● <a href=""https://edmontonjournal.com/news/politics/independence-supporters-take-ucp-board-positions"">Called ""pro-independence"" by Alberta Prosperity Project</a>
+● <a href=""https://daveberta.substack.com/p/quashing-alberta-separatism-debate"">Attended Alberta Prosperity independence rally</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Vicky Bayford,‎‎Seperatist,"Former leader of the Independent Party of Alberta, a pro independence party.",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Western Standard,Mixed/Ambiguous Sovereignty,"Though not avowedly separatist, the Western Standard is the most influential media voice for the Alberta separatist movement.
+
+The support many of the policies advanced by independence and sovereigntist groups, such as an Alberta tax agency, provincial police force and pension plan. Their coverage is highly critical of the federal government under the Liberals and anything perceived ""woke"". It is supportive of gun rights, free speech, and western autonomy.",https://i.ibb.co/HTsz5YY8/FIN-WS.png,TRUE,FALSE,,,
+Wildrose Independence Party,‎‎Seperatist,"Current Alberta provincial party formed in 2020 as a merger between two previous parties. They 
+
+Former groups: 
+Wexit Alberta (2020-2020)
+Freedom Conservative Party (2018-2020)
+Separation Party of Alberta (2004-2013)
+Alberta First Party (1999-2004 & 2013-2018)",https://i.ibb.co/pvxCQNQ9/FIN-WILD-IND.png,TRUE,FALSE,,,
+Wildrose Loyalty Coalition,Mixed/Ambiguous Sovereignty,"Not an Alberta separatist party, but many of its members have supported <a href=""https://globalnews.ca/news/7188915/paul-hinman-wildrose-independence-party-interim-leader/"">separatism</a> or <a href=""https://www.thealbertan.com/olds-news/candidate-tufts-would-push-for-accountability-10772900"">a referendum<a>.",https://i.ibb.co/xqpJSqrz/FIN-WILD-LOY.png,TRUE,FALSE,,,
+LaVar Payne,‎‎‎‎Open to joining U.S.,"Former Conservative Party of Canada MP from Medicine Hat.
+
+● <a href=""https://www.westernstandard.news/news/alberta-sovereignty-delegation-to-us-confirmed/63474"">Represented Commonwealth of Alberta Delegation to Washington</a>",https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Vince Byfield,Mixed/Ambiguous Sovereignty,Regional captain for Edmonton for Take Back Alberta and United Conservative Party board member.,https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Roy Beyer,Mixed/Ambiguous Sovereignty,Regional captain for Take Back Alberta.,https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Jarrad McCoy,Mixed/Ambiguous Sovereignty,Regional captain for Take Back Alberta.,https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Elbert Van Hierden,Mixed/Ambiguous Sovereignty,Regional captain for Take Back Alberta and United Conservative Party board member.,https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Bob Lefurgy,‎‎Seperatist,"Regional director of the Wildrose Independence Party.
+
+<a href=""https://albertasecession.com/"">Most Albertans are separatists, although many of them don’t realize that yet.""</a>",https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Alberta Secession - Why?,‎‎Seperatist,"Pro-separatism <a href=""https://x.com/cnm5000"">X profile (~14K followers)</a> and <a href=""https://albertasecession.com/who-we-are"">AI generated web page</a>. 
+
+""Describing exactly why Alberta should seek a referendum under the Clarity Act concerning independence. YYC.""",https://i.ibb.co/cSPJRGRY/FIN-SEPX.png,TRUE,FALSE,,,
+Alberta Separation,‎‎Seperatist,"<a href=""https://x.com/albertaseparate"">X profile</a> promoting Alberta seperatism. ~47K followers.
+
+""Alberta the Beautiful, Rich in Resource and Harvest, Greatest Asset Our People Retweets Welcome #AlbertaIndependence #AlbertaSeparation #AlbertaSovereignty""",https://i.ibb.co/cSPJRGRY/FIN-SEPX.png,TRUE,FALSE,,,
+Rise of Alberta,‎‎Seperatist,"<a href=""https://x.com/RiseOfAlberta"">X profile</a> promoting Alberta seperatism with AI content and <a href=""https://riseofalberta.com/"">hawking merch</a>. ~76K followers.
+
+""Accelerating Alberta's journey toward Independence
+Get Your Independence Gear ⬇️""",https://i.ibb.co/8DNLvxDW/FIN-RISE.png,TRUE,FALSE,,,
+Marc Chayer,‎‎Seperatist,President of Constituency Association president for Wildrose Independent Party. Former director for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Doug Melvin Elzinga,‎‎Seperatist,Member of Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Pam Lehr,‎‎Seperatist,Former provincial events coordinator for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Rejean Lavoie,‎‎Seperatist,Former COO for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Walter Harris-DeMelo,‎‎Seperatist,Former VP of communications for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Will Stayer,‎‎Seperatist,Former VP for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Lawrence Courtoreille,‎‎Seperatist,Former VP of Indigenous soverignty for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Alain Gauthier,‎‎Seperatist,Former VP of technology for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Tanner Hnidey,‎‎Seperatist,Former VP of economics for Alberta Prosperity Project.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Rob Patterson,‎‎Seperatist,Former member.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
+Rebecca Schulz,Mixed/Ambiguous Sovereignty,"Former MLA for Calgary-Shaw, representing the United Conservative Party.",https://i.ibb.co/r2Qkrh8d/AMB-Person.png,TRUE,FALSE,,,
+Alberta Next Panel,Mixed/Ambiguous Sovereignty,"Government formed town hall format panels formed to ""explore how Alberta can better assert its constitutional jurisdiction"".
+
+""Will there be a referendum in 2026?: Yes. Ideas and discussion from the Alberta Next process will inform the questions put forward to Albertans for a vote in 2026 to assert our sovereignty and constitutional rights within a united Canada.""",https://i.ibb.co/cSsJWqcL/FIN-ABNEXT.png,TRUE,FALSE,,,
+Fred Munn,‎‎‎‎Open to joining U.S.,Republican Party of Alberta candidate in Edmonton who ran on a party platform including a U.S. regerendum.,https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Ravina Chand,‎‎‎‎Open to joining U.S.,Republican Party of Alberta candidate in Edmonton who ran on a party platform including a U.S. regerendum.,https://i.ibb.co/BKTsCYf0/US-Person.png,TRUE,FALSE,,,
+Gregory Hartzler,‎‎Seperatist,CFO of Stay Free Alberta.,https://i.ibb.co/ZzjFPGM5/SEP-Person.png,TRUE,FALSE,,,
