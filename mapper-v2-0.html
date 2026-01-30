@@ -53,37 +53,51 @@
       width: auto;
     }
 
-    /* LEGEND */
+    /* Legend styles */
     #legend-container {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      z-index: 10;
-      max-width: 200px;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 700px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 0px solid var(--panel-grey);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 100;
+      transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+    }
+
+    #legend-container.collapsed {
+      max-height: 0;
+      padding: 0 12px;
+      opacity: 0;
+      pointer-events: none;
     }
 
     .legend-item {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 6px;
-      padding: 6px 10px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 4px;
       cursor: pointer;
       transition: all 0.2s;
       font-size: 12px;
       font-weight: 500;
       user-select: none;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .legend-item:hover {
       transform: translateY(-1px);
-      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     }
 
     .legend-item.inactive {
@@ -93,9 +107,65 @@
     .legend-color-box {
       width: 10px;
       height: 10px;
-      border-radius: 3px;
+      border-radius: 10px;
       border: 1px solid rgba(0,0,0,0.2);
-      flex-shrink: 0;
+    }
+
+    #legend-toggle {
+      display: none;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      padding: 4px;
+      border: none;
+      top: 12px;
+      right: 12px;
+      height: 20px;
+      width: 20px;
+      background: var(--main-yellow);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 101;
+      user-select: none;
+      transition: all 0.2s;
+      color: var(--text-black);
+      line-height: 28px; 
+    }
+
+    #legend-toggle:hover {
+      background: rgba(255, 255, 255, 1);
+      background-color: var(--light-yellow);
+    }
+
+    #legend-toggle-icon {
+      display: flex;
+      transition: transform 0.3s ease;
+      transform: rotate(90deg);
+    }
+
+    #legend-toggle-icon.collapsed {
+      transform: rotate(90deg);
+    }
+
+    /* Mobile view adjustments */
+    @media (max-width: 768px) {
+      #legend-toggle {
+        display: block;
+      }
+      
+      #legend-container {
+        left: auto;
+        right: 10px;
+        transform: none;
+        padding-top: 10px;
+        justify-content: flex-start;
+      }
+      
+      #legend-container.collapsed {
+        padding-top: 0;
+      }
     }
 
     /* TOP CONTROLS - ZOOM */
@@ -689,8 +759,14 @@
         <img src="https://i.ibb.co/60z33Lp3/scroller-11.png" alt="Logo">
       </div>
       
-      <div id="legend-container"></div>
+      <!-- Legend Container -->
+      <div id="legend-container" style="display: none;"></div>
       
+      <!-- Legend Toggle Button for Mobile -->
+      <div id="legend-toggle">
+        <span id="legend-toggle-icon">Ⅲ</span>
+      </div>
+
       
       <div id="top-controls">
         <div id="zoom-controls">
@@ -783,10 +859,10 @@
     zoomMax: 5.0,
     zoomStep: 0.2,
     // DATA FOLDER
-    dataFolder: 'https://xstan89.github.io/Mapper2/'
+    dataFolder: 'https://xstan89.github.io/MapperTool/data/'
   };
 
-  const PADDING = 90;
+  const PADDING = 50;
 
   // Default Formatting Settings
   let formattingSettings = {
@@ -837,16 +913,15 @@
   // Conditional Formatting State
   let conditionalFormats = [];
 
-  // LEGEND STATE
+  // Legend Settings - FORCED FROM CSV
+  let legendEnabled = true; // HARDCODED - from your Formatting.csv
   let legendColors = [
-    '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8',
-    '#F7B731', '#5F27CD', '#00D2D3', '#1DD1A1', '#FD79A8',
-    '#A29BFE', '#6C5CE7'
-  ];
-  let legendEnabled = false;
-  let categoryColorMap = new Map();
+    '#b32323', '#852d90', '#2337b3', '#121945', '#98D8C8', '#F7DC6F',
+    '#BB8FCE', '#85C1E2', '#F8B195', '#C06C84', '#6C5B7B', '#355C7D'
+  ]; // HARDCODED - from your Formatting.csv Color1-Color12
   let uniqueCategories = [];
-  let activeCategories = new Set();
+  let categoryColorMap = new Map();
+  let activeCategories = new Set(); // Tracks which categories are currently visible
 
   // STORY MODE STATE
   let viewsData = [];
@@ -882,6 +957,8 @@
   const zoomResetBtn = document.getElementById('zoom-reset');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
   const legendContainer = document.getElementById('legend-container');
+  const legendToggle = document.getElementById('legend-toggle');
+  const legendToggleIcon = document.getElementById('legend-toggle-icon');
 
   // Story mode elements
   const storyBtn = document.getElementById('story-btn');
@@ -899,6 +976,92 @@
   const entityModalClose = document.getElementById('entity-modal-close');
   const entityModalTitle = d3.select('#entity-modal-title');
   const entityModalConnections = document.getElementById('entity-modal-connections');
+
+  /************************************************************************
+   * LEGEND TOGGLE FUNCTIONALITY
+   ************************************************************************/
+  let isLegendCollapsed = false;
+
+  // Check if we're in mobile view
+  function isMobileView() {
+    return window.innerWidth <= 768;
+  }
+
+  // Toggle legend collapse state
+  function toggleLegend() {
+    isLegendCollapsed = !isLegendCollapsed;
+    if (isLegendCollapsed) {
+      legendContainer.classList.add('collapsed');
+      legendToggleIcon.classList.add('collapsed');
+    } else {
+      legendContainer.classList.remove('collapsed');
+      legendToggleIcon.classList.remove('collapsed');
+    }
+    
+    // Rescale nodes to fit the new available space
+    setTimeout(() => {
+      if (nodes.length > 0 && originalDataBounds) {
+        scaleNodesToFit();
+        render();
+      }
+    }, 50); // Small delay to let CSS transition start
+  }
+
+  // Auto-collapse on mobile, expand on desktop
+  function updateLegendForViewport() {
+    const wasMobile = isLegendCollapsed;
+    
+    if (isMobileView()) {
+      // Auto-collapse on mobile
+      if (!isLegendCollapsed) {
+        isLegendCollapsed = true;
+        legendContainer.classList.add('collapsed');
+        legendToggleIcon.classList.add('collapsed');
+      }
+    } else {
+      // Auto-expand on desktop
+      if (isLegendCollapsed) {
+        isLegendCollapsed = false;
+        legendContainer.classList.remove('collapsed');
+        legendToggleIcon.classList.remove('collapsed');
+      }
+    }
+    
+    // Rescale nodes if collapse state changed
+    if (wasMobile !== isLegendCollapsed) {
+      setTimeout(() => {
+        if (nodes.length > 0 && originalDataBounds) {
+          scaleNodesToFit();
+          render();
+        }
+      }, 50);
+    }
+  }
+
+  // Add click event to toggle button
+  legendToggle.addEventListener('click', toggleLegend);
+
+  // Initialize legend state based on viewport
+  updateLegendForViewport();
+
+  // Get the height of legend for padding calculations
+  function getLegendPadding() {
+    if (legendContainer.style.display === 'none') return 0;
+    
+    // On mobile with collapsed legend, only account for toggle button
+    if (isMobileView() && isLegendCollapsed) {
+      return 40; // Toggle button height + some margin
+    }
+    
+    // Otherwise account for full legend height
+    if (isMobileView()) {
+      // Mobile expanded: legend height
+      return legendContainer.offsetHeight + 20;
+    } else {
+      // Desktop: always expanded
+      return legendContainer.offsetHeight + 20;
+    }
+  }
 
   /************************************************************************
    * CANVAS SETUP
@@ -925,6 +1088,9 @@
   
   window.addEventListener('resize', () => { 
     resizeCanvas(); 
+    
+    // Update legend collapse state based on viewport
+    updateLegendForViewport();
     
     // Immediate rescale for responsiveness
     if (nodes.length > 0 && originalDataBounds) {
@@ -1044,135 +1210,6 @@
   }
 
   /************************************************************************
-   * LEGEND FUNCTIONS
-   ************************************************************************/
-  function updateCategoryColors() {
-    const categories = new Set();
-    nodes.forEach(node => {
-      if (node.raw && node.raw['Category']) {
-        categories.add(node.raw['Category']);
-      }
-    });
-    
-    uniqueCategories = Array.from(categories).sort();
-    categoryColorMap.clear();
-    
-    uniqueCategories.forEach((category, index) => {
-      const colorIndex = index % legendColors.length;
-      categoryColorMap.set(category, legendColors[colorIndex]);
-    });
-    
-    // Add all new categories as active by default
-    uniqueCategories.forEach(cat => {
-      if (!activeCategories.has(cat)) {
-        activeCategories.add(cat);
-      }
-    });
-    
-    // Remove categories that no longer exist
-    const currentCategories = new Set(uniqueCategories);
-    Array.from(activeCategories).forEach(cat => {
-      if (!currentCategories.has(cat)) {
-        activeCategories.delete(cat);
-      }
-    });
-  }
-
-  function updateLegend() {
-    if (!legendEnabled || uniqueCategories.length === 0) {
-      legendContainer.style.display = 'none';
-      return;
-    }
-    
-    legendContainer.style.display = 'flex';
-    legendContainer.innerHTML = '';
-    
-    uniqueCategories.forEach(category => {
-      const item = document.createElement('div');
-      item.className = 'legend-item';
-      if (!activeCategories.has(category)) {
-        item.classList.add('inactive');
-      }
-      
-      const colorBox = document.createElement('div');
-      colorBox.className = 'legend-color-box';
-      colorBox.style.backgroundColor = categoryColorMap.get(category);
-      
-      const label = document.createElement('span');
-      label.textContent = category;
-      
-      item.appendChild(colorBox);
-      item.appendChild(label);
-      
-      item.addEventListener('click', () => {
-        const isOnlyActive = activeCategories.size === 1 && activeCategories.has(category);
-        
-        if (isOnlyActive) {
-          // Show all categories
-          activeCategories.clear();
-          uniqueCategories.forEach(cat => activeCategories.add(cat));
-        } else {
-          // Show only this category
-          activeCategories.clear();
-          activeCategories.add(category);
-        }
-        
-        updateLegend();
-        render();
-      });
-      
-      legendContainer.appendChild(item);
-    });
-  }
-
-  function getNodeFormat(node) {
-    // If legend is enabled and node has category, use category color
-    if (legendEnabled && node.raw && node.raw['Category']) {
-      const category = node.raw['Category'];
-      const color = categoryColorMap.get(category);
-      if (color) {
-        return {
-          nodeEnabled: true,
-          nodeColor: color,
-          outlineEnabled: false,
-          sizeEnabled: false,
-          lineEnabled: false
-        };
-      }
-    }
-    return null;
-  }
-
-  function getLinkFormat(link) {
-    // If legend is enabled, check if both nodes have matching categories
-    if (legendEnabled && link.source.raw && link.target.raw) {
-      const sourceCategory = link.source.raw['Category'];
-      const targetCategory = link.target.raw['Category'];
-      if (sourceCategory === targetCategory && categoryColorMap.has(sourceCategory)) {
-        const color = categoryColorMap.get(sourceCategory);
-        return {
-          lineEnabled: true,
-          lineColor: color,
-          lineThickness: null
-        };
-      }
-    }
-    return null;
-  }
-
-  function shouldShowNode(node) {
-    // If legend filtering is active and node has a category
-    if (legendEnabled && activeCategories.size < uniqueCategories.length) {
-      if (node.raw && node.raw['Category']) {
-        return activeCategories.has(node.raw['Category']);
-      }
-      // Show nodes without category when filtering is active
-      return false;
-    }
-    return true;
-  }
-
-  /************************************************************************
    * AUTO-LOAD DATA FROM FOLDER
    ************************************************************************/
   async function autoLoadData() {
@@ -1210,7 +1247,7 @@
           loadFormattingData(formattingData);
         }
       } catch (e) {
-        // Formatting file is optional, ignore errors
+        console.error('Error loading Formatting.csv:', e);
       }
 
       // Try to load views (optional)
@@ -1228,7 +1265,6 @@
       loadSession(entitiesData, connectionsData);
       
     } catch (err) {
-      console.error('Failed to load data:', err);
       loadingText.textContent = 'Error: ' + err.message;
       setTimeout(() => {
         // Update story button visibility
@@ -1292,22 +1328,6 @@
     conditionalFormats = [];
     
     data.forEach(row => {
-      // Check if this is a legend color setting (LegendColor1 through LegendColor12)
-      const legendColorMatch = row.Setting && row.Setting.match(/^LegendColor(\d+)$/);
-      if (legendColorMatch) {
-        const colorIndex = parseInt(legendColorMatch[1]) - 1;
-        if (colorIndex >= 0 && colorIndex < 12 && row.Value) {
-          legendColors[colorIndex] = row.Value;
-        }
-        return;
-      }
-      
-      // Check if this is the legend enabled setting
-      if (row.Setting === 'LegendEnabled') {
-        legendEnabled = row.Value === 'TRUE' || row.Value === 'true' || row.Value === '1';
-        return;
-      }
-      
       if (row.RuleType === 'Default' || !row.RuleType) {
         if (row.NodeColor) formattingSettings.nodeColor = row.NodeColor;
         if (row.NodeHoverColor) formattingSettings.nodeHoverColor = row.NodeHoverColor;
@@ -1325,6 +1345,17 @@
         }
         if (row.SizeMode) formattingSettings.nodeSizeMode = row.SizeMode;
         if (row.CustomNodeSize) formattingSettings.customNodeSize = parseFloat(row.CustomNodeSize);
+        // Load legend settings
+        if (row.LegendEnabled !== undefined) {
+          legendEnabled = String(row.LegendEnabled).toLowerCase() === 'true';
+        }
+        // Load legend colors (Color1-Color12)
+        for (let i = 1; i <= 12; i++) {
+          const colorKey = `Color${i}`;
+          if (row[colorKey]) {
+            legendColors[i - 1] = row[colorKey];
+          }
+        }
       } else if (row.RuleType === 'Entity' || row.RuleType === 'Category') {
         const targets = row.Targets ? row.Targets.split('|').map(t => t.trim()).filter(t => t) : [];
         
@@ -1427,21 +1458,27 @@
     // Store original positions for rescaling on resize
     storeOriginalPositions();
 
-    // Scale nodes to fit canvas (replaces centerNodesInCanvas)
-    scaleNodesToFit();
-
     // Load images
     loadAllImages();
-
-    // Update category colors and legend
-    updateCategoryColors();
-    updateLegend();
 
     // Start physics
     updatePhysics();
 
     // Update story button visibility
     updateStoryButtonVisibility();
+    
+    // Update legend after nodes are loaded
+    updateCategoryColors();
+    updateLegend();
+    
+    // FORCE legend update again to be absolutely certain
+    setTimeout(() => {
+      updateCategoryColors();
+      updateLegend();
+      // Rescale nodes after legend is fully rendered to get correct padding
+      scaleNodesToFit();
+      render();
+    }, 100);
 
     loadingOverlay.style.display = 'none';
   }
@@ -1505,11 +1542,14 @@
       return;
     }
     
-    // Calculate available canvas space (with fixed margin for padding)
-    const margin = PADDING + 40; // Fixed margin for largest expected scaled node
+    // Calculate available canvas space with asymmetric margins for legend
+    const legendPadding = getLegendPadding();
+    const marginTop = PADDING + 40 + legendPadding; // Extra top margin for legend
+    const marginBottom = PADDING + 40;
+    const marginSide = PADDING + 40;
     
-    const canvasW = (canvas.width / devicePixelRatio) - margin * 2;
-    const canvasH = (canvas.height / devicePixelRatio) - margin * 2;
+    const canvasW = (canvas.width / devicePixelRatio) - marginSide * 2;
+    const canvasH = (canvas.height / devicePixelRatio) - marginTop - marginBottom;
     
     // Calculate scale factor (preserving aspect ratio)
     const scaleX = canvasW / dataWidth;
@@ -1519,9 +1559,9 @@
     // Clamp scale factor to reasonable bounds
     currentScaleFactor = Math.max(0.1, Math.min(currentScaleFactor, 3.0));
     
-    // Calculate canvas center
+    // Calculate canvas center, offset downward by legend space
     const canvasCenterX = (canvas.width / devicePixelRatio) / 2;
-    const canvasCenterY = (canvas.height / devicePixelRatio) / 2;
+    const canvasCenterY = (canvas.height / devicePixelRatio) / 2 + (legendPadding / 2);
     
     // Apply transformation to all nodes
     nodes.forEach(n => {
@@ -1578,9 +1618,10 @@
     const nodesCenterX = (minX + maxX) / 2;
     const nodesCenterY = (minY + maxY) / 2;
     
-    // Calculate canvas center
+    // Calculate canvas center, offset downward by legend space
+    const legendPadding = getLegendPadding();
     const canvasCenterX = (canvas.width / devicePixelRatio) / 2;
-    const canvasCenterY = (canvas.height / devicePixelRatio) / 2;
+    const canvasCenterY = (canvas.height / devicePixelRatio) / 2 + (legendPadding / 2);
     
     // Calculate offset to center nodes
     const offsetX = canvasCenterX - nodesCenterX;
@@ -1897,11 +1938,16 @@
     const canvasWidth = canvas.width / devicePixelRatio;
     const canvasHeight = canvas.height / devicePixelRatio;
     const canvasCenterX = canvasWidth / 2;
-    const canvasCenterY = canvasHeight / 2;
-    const padding = 50; // padding in pixels
+    
+    // In Story Mode, account for legend space at top
+    const legendSpace = 50; // Legend height + margin
+    const effectiveHeight = canvasHeight - legendSpace;
+    const canvasCenterY = legendSpace + (effectiveHeight / 2); // Shift center down
+    
+    const padding = 70; // padding in pixels
     
     const targetZoomX = width > 0 ? (canvasWidth - padding * 2) / width : 1.5;
-    const targetZoomY = height > 0 ? (canvasHeight - padding * 2) / height : 1.5;
+    const targetZoomY = height > 0 ? (effectiveHeight - padding * 2) / height : 1.5;
     let targetZoom = Math.min(targetZoomX, targetZoomY);
     
     // Clamp zoom to configured limits
@@ -2138,8 +2184,8 @@
   function updatePhysics() {
     if (simulation) simulation.stop();
     
-    const visibleNodes = nodes.filter(n => n.show && shouldShowNode(n));
-    const visibleLinks = links.filter(l => l.source.show && l.target.show && shouldShowNode(l.source) && shouldShowNode(l.target));
+    const visibleNodes = nodes.filter(n => n.show);
+    const visibleLinks = links.filter(l => l.source.show && l.target.show);
     
     if (visibleNodes.length === 0) {
       render();
@@ -2593,6 +2639,110 @@
     return activeSet.has(node.id);
   }
 
+
+  /************************************************************************
+   * LEGEND FUNCTIONS
+   ************************************************************************/
+  // Function to extract unique categories and assign colors
+  function updateCategoryColors() {
+    const categories = new Set();
+    nodes.forEach(node => {
+      if (node.raw && node.raw['Category']) {
+        categories.add(node.raw['Category']);
+      }
+    });
+    let nodesWithCategory = 0;
+    
+    uniqueCategories = Array.from(categories).sort();
+    categoryColorMap.clear();
+    
+    uniqueCategories.forEach((category, index) => {
+      const colorIndex = index % legendColors.length;
+      categoryColorMap.set(category, legendColors[colorIndex]);
+    });
+    
+    // Add all new categories as active by default
+    // Keep existing categories in their current state (active or inactive)
+    uniqueCategories.forEach(cat => {
+      if (!activeCategories.has(cat)) {
+        activeCategories.add(cat);
+      }
+    });
+    
+    // Remove categories that no longer exist in the data
+    const currentCategories = new Set(uniqueCategories);
+    Array.from(activeCategories).forEach(cat => {
+      if (!currentCategories.has(cat)) {
+        activeCategories.delete(cat);
+      }
+    });
+  }
+
+  // Function to update legend display
+  function updateLegend() {
+    if (!legendContainer) {
+      console.error('Legend container not found!');
+      return;
+    }
+    
+    // If no categories, hide legend
+    if (uniqueCategories.length === 0) {
+      console.warn('No categories found - legend will not display');
+      legendContainer.style.display = 'none';
+      return;
+    }
+    
+    // Categories exist - SHOW THE LEGEND
+    console.log('Showing legend with', uniqueCategories.length, 'categories:', uniqueCategories);
+    
+    legendContainer.style.display = 'flex';
+    legendContainer.innerHTML = '';
+    
+    uniqueCategories.forEach(category => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      if (!activeCategories.has(category)) {
+        item.classList.add('inactive');
+      }
+      
+      const colorBox = document.createElement('div');
+      colorBox.className = 'legend-color-box';
+      colorBox.style.backgroundColor = categoryColorMap.get(category);
+      
+      const label = document.createElement('span');
+      label.textContent = category;
+      
+      item.appendChild(colorBox);
+      item.appendChild(label);
+      
+      item.addEventListener('click', () => {
+        // Check if this is the only active category
+        const isOnlyActive = activeCategories.size === 1 && activeCategories.has(category);
+        
+        if (isOnlyActive) {
+          // If only this category is active, show all categories
+          activeCategories.clear();
+          uniqueCategories.forEach(cat => activeCategories.add(cat));
+        } else {
+          // Otherwise, show only this category
+          activeCategories.clear();
+          activeCategories.add(category);
+        }
+        
+        // Update all legend items' visual state
+        updateLegend();
+        render();
+      });
+      
+      legendContainer.appendChild(item);
+    });
+    
+    // FORCE display - absolutely make sure it's visible
+    legendContainer.style.display = 'flex';
+    legendContainer.style.visibility = 'visible';
+    legendContainer.style.opacity = '1';
+  }
+
   /************************************************************************
    * RENDER
    ************************************************************************/
@@ -2604,13 +2754,23 @@
     ctx.save();
     applyTransform();
 
-    // Filter nodes based on story mode and legend filtering
-    let visibleNodes = nodes.filter(n => n.show && shouldShowNode(n));
+    // Filter nodes based on story mode
+    let visibleNodes = nodes.filter(n => n.show);
     const highlightedNodes = [];
     const unhighlightedNodes = [];
     
     visibleNodes.forEach(node => {
-      if (shouldHighlightNode(node)) {
+      // Check if node should be highlighted based on selection AND legend filtering
+      let shouldHighlight = shouldHighlightNode(node);
+      
+      // If legend is enabled and category is inactive, force unhighlighted (low opacity)
+      if (legendEnabled && node.raw && node.raw['Category']) {
+        if (!activeCategories.has(node.raw['Category'])) {
+          shouldHighlight = false;
+        }
+      }
+      
+      if (shouldHighlight) {
         highlightedNodes.push(node);
       } else {
         unhighlightedNodes.push(node);
@@ -2621,7 +2781,7 @@
     unhighlightedNodes.forEach(n => drawNode(n, CONFIG.unconnectedOpacity, CONFIG.showImages));
 
     const highlightedSet = new Set(highlightedNodes.map(n => n.id));
-    let visibleLinks = links.filter(l => l.source.show && l.target.show && shouldShowNode(l.source) && shouldShowNode(l.target));
+    let visibleLinks = links.filter(l => l.source.show && l.target.show);
     
     // In story mode, only show links where BOTH nodes are in current view
     if (isStoryMode && sortedViewIds.length > 0) {
@@ -2632,6 +2792,13 @@
     
     // Draw links - ONLY draw links between highlighted nodes when there's a selection
     // Sort links by priority: selected & hovered > selected & not hovered > unselected & hovered > unselected & not hovered
+    
+    // Helper function to check if a node's category is active
+    const isNodeCategoryActive = (node) => {
+      if (uniqueCategories.length === 0) return true; // No legend filtering if no categories
+      if (!node.raw || !node.raw['Category']) return false; // Nodes without category are dimmed when legend is active
+      return activeCategories.has(node.raw['Category']);
+    };
     const sortedLinks = visibleLinks.slice().sort((a, b) => {
       const aIsSelected = selectedNode && (a.source === selectedNode || a.target === selectedNode);
       const bIsSelected = selectedNode && (b.source === selectedNode || b.target === selectedNode);
@@ -2648,12 +2815,16 @@
     if (selectedNode) {
       sortedLinks.forEach(l => {
         if (highlightedSet.has(l.source.id) && highlightedSet.has(l.target.id)) {
-          drawLink(l, CONFIG.linkOpacitySelected);
+          const bothActive = isNodeCategoryActive(l.source) && isNodeCategoryActive(l.target);
+          const opacity = bothActive ? CONFIG.linkOpacitySelected : CONFIG.unconnectedOpacity;
+          drawLink(l, opacity);
         }
       });
     } else {
       sortedLinks.forEach(l => {
-        drawLink(l, CONFIG.linkOpacityNoSelection);
+        const bothActive = isNodeCategoryActive(l.source) && isNodeCategoryActive(l.target);
+        const opacity = bothActive ? CONFIG.linkOpacityNoSelection : CONFIG.unconnectedOpacity;
+        drawLink(l, opacity);
       });
     }
 
@@ -3020,7 +3191,6 @@
       const element = document.documentElement; // or document.getElementById('wrap') for just the tool
       if (element.requestFullscreen) {
         element.requestFullscreen().catch(err => {
-          console.error('Error attempting to enable fullscreen:', err);
         });
       } else if (element.webkitRequestFullscreen) { // Safari
         element.webkitRequestFullscreen();
