@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Gwyn Morgan Network</title>
+  <title>AB Seperatism Network</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
@@ -862,7 +862,7 @@
     dataFolder: 'https://xstan89.github.io/MapperTool/data/'
   };
 
-  const PADDING = 50;
+  const PADDING = 80;
 
   // Default Formatting Settings
   let formattingSettings = {
@@ -1551,26 +1551,33 @@
     const canvasW = (canvas.width / devicePixelRatio) - marginSide * 2;
     const canvasH = (canvas.height / devicePixelRatio) - marginTop - marginBottom;
     
-    // Calculate scale factor (preserving aspect ratio)
+    // Calculate NEW scale factor (preserving aspect ratio)
     const scaleX = canvasW / dataWidth;
     const scaleY = canvasH / dataHeight;
-    currentScaleFactor = Math.min(scaleX, scaleY);
+    const newScaleFactor = Math.min(scaleX, scaleY);
     
-    // Clamp scale factor to reasonable bounds
-    currentScaleFactor = Math.max(0.1, Math.min(currentScaleFactor, 3.0));
+    // Clamp new scale factor to reasonable bounds
+    const clampedNewScaleFactor = Math.max(0.1, Math.min(newScaleFactor, 3.0));
     
-    // Calculate canvas center, offset downward by legend space
-    const canvasCenterX = (canvas.width / devicePixelRatio) / 2;
-    const canvasCenterY = (canvas.height / devicePixelRatio) / 2 + (legendPadding / 2);
+    // Calculate the ratio to apply to current positions
+    const scaleRatio = clampedNewScaleFactor / currentScaleFactor;
     
-    // Apply transformation to all nodes
+    // Calculate OLD and NEW canvas centers
+    const oldCanvasCenterX = (canvas.width / devicePixelRatio) / 2;
+    const oldCanvasCenterY = (canvas.height / devicePixelRatio) / 2;
+    const newCanvasCenterX = (canvas.width / devicePixelRatio) / 2;
+    const newCanvasCenterY = (canvas.height / devicePixelRatio) / 2 + (legendPadding / 2);
+    
+    // Apply transformation to all nodes based on CURRENT positions
     nodes.forEach(n => {
       const orig = originalNodePositions.get(n.id);
       if (!orig) return;
       
-      // Scale position relative to data center, then translate to canvas center
-      const newX = (orig.x - originalDataBounds.centerX) * currentScaleFactor + canvasCenterX;
-      const newY = (orig.y - originalDataBounds.centerY) * currentScaleFactor + canvasCenterY;
+      // Scale current position from old center by ratio, then translate to new center
+      const offsetX = n.x - oldCanvasCenterX;
+      const offsetY = n.y - oldCanvasCenterY;
+      const newX = offsetX * scaleRatio + newCanvasCenterX;
+      const newY = offsetY * scaleRatio + newCanvasCenterY;
       
       n.x = newX;
       n.y = newY;
@@ -1588,11 +1595,14 @@
       // Scale node radius - check for conditional format first
       const format = getNodeFormat(n);
       if (format?.sizeEnabled && format?.nodeSize) {
-        n.r = (format.nodeSize * currentScaleFactor);
+        n.r = (format.nodeSize * clampedNewScaleFactor);
       } else {
-        n.r = orig.baseR * currentScaleFactor;
+        n.r = orig.baseR * clampedNewScaleFactor;
       }
     });
+    
+    // Update current scale factor
+    currentScaleFactor = clampedNewScaleFactor;
     
     // Update collision force with new radii
     if (simulation && simulation.force('collision')) {
@@ -3160,9 +3170,55 @@
     // Now resize canvas (will read correct CSS dimensions)
     resizeCanvas();
     
-    // Rescale nodes to fit the actual available space
+    // RESET to original positions (not current positions)
     if (nodes.length > 0 && originalDataBounds) {
-      scaleNodesToFit();
+      const legendPadding = getLegendPadding();
+      const marginTop = PADDING + 40 + legendPadding;
+      const marginBottom = PADDING + 40;
+      const marginSide = PADDING + 40;
+      
+      const canvasW = (canvas.width / devicePixelRatio) - marginSide * 2;
+      const canvasH = (canvas.height / devicePixelRatio) - marginTop - marginBottom;
+      
+      const scaleX = canvasW / originalDataBounds.width;
+      const scaleY = canvasH / originalDataBounds.height;
+      currentScaleFactor = Math.min(scaleX, scaleY);
+      currentScaleFactor = Math.max(0.1, Math.min(currentScaleFactor, 3.0));
+      
+      const canvasCenterX = (canvas.width / devicePixelRatio) / 2;
+      const canvasCenterY = (canvas.height / devicePixelRatio) / 2 + (legendPadding / 2);
+      
+      nodes.forEach(n => {
+        const orig = originalNodePositions.get(n.id);
+        if (!orig) return;
+        
+        const newX = (orig.x - originalDataBounds.centerX) * currentScaleFactor + canvasCenterX;
+        const newY = (orig.y - originalDataBounds.centerY) * currentScaleFactor + canvasCenterY;
+        
+        n.x = newX;
+        n.y = newY;
+        
+        if (n.isFixed) {
+          n.fx = newX;
+          n.fy = newY;
+        }
+        
+        if (n.unfixedX !== null) {
+          n.unfixedX = newX;
+          n.unfixedY = newY;
+        }
+        
+        const format = getNodeFormat(n);
+        if (format?.sizeEnabled && format?.nodeSize) {
+          n.r = (format.nodeSize * currentScaleFactor);
+        } else {
+          n.r = orig.baseR * currentScaleFactor;
+        }
+      });
+      
+      if (simulation && simulation.force('collision')) {
+        simulation.force('collision').radius(d => d.r + CONFIG.force.collisionPadding);
+      }
     }
     
     // Update simulation center
